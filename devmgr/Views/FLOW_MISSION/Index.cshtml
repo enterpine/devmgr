@@ -1,0 +1,124 @@
+﻿@model IEnumerable<devmgr.Models.FLOW_MISSION>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.code)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.projectid_fx)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fromwhoid_fx)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.towhoid_fx)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fromdate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.todate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dad_mission)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dad_level)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isbottom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.request_text)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.request_file)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.iscomplete)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.desc_text)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.remark)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.whocreateid_fx)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.createdate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.code)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.projectid_fx)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fromwhoid_fx)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.towhoid_fx)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fromdate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.todate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dad_mission)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dad_level)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isbottom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.request_text)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.request_file)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.iscomplete)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.desc_text)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.remark)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.whocreateid_fx)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.createdate)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

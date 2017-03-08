@@ -1,0 +1,147 @@
+﻿@model devmgr.Models.FLOW_MISSION
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>FLOW_MISSION</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.code)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.code)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.projectid_fx)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.projectid_fx)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fromwhoid_fx)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fromwhoid_fx)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.towhoid_fx)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.towhoid_fx)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fromdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fromdate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.todate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.todate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dad_mission)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dad_mission)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dad_level)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dad_level)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.isbottom)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.isbottom)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.request_text)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.request_text)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.request_file)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.request_file)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.iscomplete)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.iscomplete)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.desc_text)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.desc_text)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.remark)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.remark)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.whocreateid_fx)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.whocreateid_fx)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.createdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.createdate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
