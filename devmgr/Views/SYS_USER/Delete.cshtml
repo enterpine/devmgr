@@ -5,6 +5,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("用户管理", "Index", "SYS_USER")</li>
+        <li>@Html.ActionLink("部门管理", "Index", "SYS_DEPART")</li>
+        <li>@Html.ActionLink("模块管理", "Index", "SYS_MODULE")</li>
+        <li>@Html.ActionLink("用户组管理", "Index", "SYS_USERTYPE")</li>
+        <li>@Html.ActionLink("用户组&模块管理", "Index", "SYS_UTYPE_MODULE")</li>
+    </ul>
+</div>
+<h2>Edit</h2>
+
 <h2>Delete</h2>
 
 <h3>Are you sure you want to delete this?</h3>

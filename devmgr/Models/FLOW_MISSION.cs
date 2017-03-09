@@ -1,4 +1,4 @@
-namespace devmgr.Models
+ï»¿namespace devmgr.Models
 {
     using System;
     using System.Collections.Generic;
@@ -11,59 +11,59 @@ namespace devmgr.Models
         public int id { get; set; }
 
         [StringLength(30)]
-        [Display(Name = "ÈÎÎñ±àÂë")]
+        [Display(Name = "ä»»åŠ¡ç¼–ç ")]
         public string code { get; set; }
 
-        [Display(Name = "ËùÊôÏîÄ¿")]
+        [Display(Name = "æ‰€å±é¡¹ç›®")]
         public int? projectid_fx { get; set; }
 
-        [Display(Name = "Ë­Ö¸ÅÉµÄ")]
+        [Display(Name = "è°æŒ‡æ´¾çš„")]
         public int? fromwhoid_fx { get; set; }
 
-        [Display(Name = "Ö¸ÅÉ¸øË­")]
+        [Display(Name = "æŒ‡æ´¾ç»™è°")]
         public int? towhoid_fx { get; set; }
 
         [Column(TypeName = "date")]
-        [Display(Name = "¿ªÊ¼ÈÕÆÚ")]
+        [Display(Name = "å¼€å§‹æ—¥æœŸ")]
         public DateTime? fromdate { get; set; }
 
         [Column(TypeName = "date")]
-        [Display(Name = "½ØÖ¹ÈÕÆÚ")]
+        [Display(Name = "æˆªæ­¢æ—¥æœŸ")]
         public DateTime? todate { get; set; }
 
-        [Display(Name = "¸¸¼¶ÈÎÎñ")]
+        [Display(Name = "çˆ¶çº§ä»»åŠ¡")]
         public int? dad_mission { get; set; }
 
-        [Display(Name = "µÈ¼¶")]
+        [Display(Name = "ç­‰çº§")]
         public int? dad_level { get; set; }
 
-        [Display(Name = "ÊÇ·ñµ×²ã")]
+        [Display(Name = "æ˜¯å¦åº•å±‚")]
         public int? isbottom { get; set; }
 
         [StringLength(500)]
-        [Display(Name = "°Ù¶È±à¼­Æ÷ÄÚÈİ")]
+        [Display(Name = "ç™¾åº¦ç¼–è¾‘å™¨å†…å®¹")]
         public string request_text { get; set; }
 
         [StringLength(1000)]
-        [Display(Name = "ÉÏ´«ÎÄ¼şÂ·¾¶")]
+        [Display(Name = "ä¸Šä¼ æ–‡ä»¶è·¯å¾„")]
         public string request_file { get; set; }
 
-        [Display(Name = "ÊÇ·ñÍê³É")]
+        [Display(Name = "æ˜¯å¦å®Œæˆ")]
         public int? iscomplete { get; set; }
 
         [StringLength(100)]
-        [Display(Name = "ÃèÊö")]
+        [Display(Name = "æè¿°")]
         public string desc_text { get; set; }
 
         [StringLength(200)]
-        [Display(Name = "±¸×¢")]
+        [Display(Name = "å¤‡æ³¨")]
         public string remark { get; set; }
 
-        [Display(Name = "´´½¨Õß")]
+        [Display(Name = "åˆ›å»ºè€…")]
         public int? whocreateid_fx { get; set; }
 
         [Column(TypeName = "date")]
-        [Display(Name = "´´½¨ÈÕÆÚ")]
+        [Display(Name = "åˆ›å»ºæ—¥æœŸ")]
         public DateTime? createdate { get; set; }
     }
 }

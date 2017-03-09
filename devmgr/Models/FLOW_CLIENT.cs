@@ -1,4 +1,4 @@
-namespace devmgr.Models
+ï»¿namespace devmgr.Models
 {
     using System;
     using System.Collections.Generic;
@@ -11,37 +11,37 @@ namespace devmgr.Models
         public int id { get; set; }
 
         [StringLength(30)]
-        [Display(Name = "¿Í»§±àºÅ")]
+        [Display(Name = "å®¢æˆ·ç¼–å·")]
         public string code { get; set; }
 
         [StringLength(30)]
-        [Display(Name = "¹«Ë¾Ãû³Æ")]
+        [Display(Name = "å…¬å¸åç§°")]
         public string company_name { get; set; }
 
         [StringLength(30)]
-        [Display(Name = "¿Í·ş¸ºÔğÈË")]
+        [Display(Name = "å®¢æœè´Ÿè´£äºº")]
         public string uname { get; set; }
 
         [StringLength(20)]
-        [Display(Name = "¸ºÔğÈËµç»°")]
+        [Display(Name = "è´Ÿè´£äººç”µè¯")]
         public string tel { get; set; }
 
         [StringLength(20)]
-        [Display(Name = "¿Í·ş¸ºÓÊÏä")]
+        [Display(Name = "å®¢æœè´Ÿé‚®ç®±")]
         public string email { get; set; }
 
         [StringLength(100)]
-        [Display(Name = "ÃèÊö")]
+        [Display(Name = "æè¿°")]
         public string desc_text { get; set; }
 
         [StringLength(200)]
-        [Display(Name = "±¸×¢")]
+        [Display(Name = "å¤‡æ³¨")]
         public string remark { get; set; }
 
         public int? whocreateid_fx { get; set; }
 
         [Column(TypeName = "date")]
-        [Display(Name = "´´½¨ÈÕÆÚ")]
+        [Display(Name = "åˆ›å»ºæ—¥æœŸ")]
         public DateTime? createdate { get; set; }
     }
 }
