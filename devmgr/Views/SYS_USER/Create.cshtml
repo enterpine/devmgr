@@ -17,10 +17,10 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>SYS_USER</h4>
         <hr />
@@ -84,8 +84,10 @@
         <div class="form-group">
             @Html.LabelFor(model => model.departid_fx, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.departid_fx, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.departid_fx, "", new { @class = "text-danger" })
+               <!-- @Html.EditorFor(model => model.departid_fx, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.departid_fx, "", new { @class = "text-danger" })-->
+                @{SelectList category = (SelectList)ViewData["categories"];}
+                @Html.DropDownListFor(model => model.departid_fx, category, "--请选择--", new { htmlAttributes = new { @class = "form-control" } })
             </div>
         </div>
 
@@ -134,6 +136,10 @@
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
+
+               
+
+
     </div>
 }
 

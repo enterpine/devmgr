@@ -38,6 +38,8 @@ namespace devmgr.Controllers
         // GET: SYS_USER/Create
         public ActionResult Create()
         {
+            List<SYS_DEPART> categories = SYS_DEPART.GETALL();
+            ViewData["Categories"] = new SelectList(categories, "id", "name");
             return View();
         }
 

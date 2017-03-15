@@ -5,7 +5,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-
+    using System.Linq;
     public partial class SYS_DEPART
     {
         public int id { get; set; }
@@ -34,5 +34,10 @@
 
         [Column(TypeName = "date")]
         public DateTime? createdate { get; set; }
+
+        static public List<SYS_DEPART> GETALL() {
+            Model1 db = new Model1();
+            return db.SYS_DEPART.ToList();
+        }
     }
 }

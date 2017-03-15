@@ -1,0 +1,17 @@
+﻿下拉菜单：
+	Model：
+	using System.Linq;
+	static public List<SYS_DEPART> GETALL() {
+            Model1 db = new Model1();
+            return db.SYS_DEPART.ToList();
+        }
+	Controller:
+	public ActionResult Create()
+        {
+            List<SYS_DEPART> categories = SYS_DEPART.GETALL();
+            ViewData["Categories"] = new SelectList(categories, "id", "name");
+            return View();
+        }
+	View:
+		@{SelectList category = (SelectList)ViewData["categories"];}
+        @Html.DropDownListFor(model => model.departid_fx, category, "--请选择--", new { htmlAttributes = new { @class = "form-control" } })
