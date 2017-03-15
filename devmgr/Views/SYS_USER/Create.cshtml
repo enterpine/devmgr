@@ -14,7 +14,6 @@
         <li>@Html.ActionLink("用户组&模块管理", "Index", "SYS_UTYPE_MODULE")</li>
     </ul>
 </div>
-<h2>Edit</h2>
 
 <h2>Create</h2>
 
@@ -26,13 +25,13 @@
         <h4>SYS_USER</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
+        <!--<div class="form-group">
             @Html.LabelFor(model => model.code, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.code, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.code, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>-->
 
         <div class="form-group">
             @Html.LabelFor(model => model.cname, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -122,13 +121,13 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <!---<div class="form-group">
             @Html.LabelFor(model => model.createdate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.createdate, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.createdate, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>-->
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

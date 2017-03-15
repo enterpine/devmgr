@@ -48,6 +48,8 @@ namespace devmgr.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,code,cname,account_id,pwd,birthdate,tel,email,departid_fx,usertypeid_fx,desc_text,remark,whocreateid_fx,createdate")] SYS_USER sYS_USER)
         {
+            sYS_USER.createdate = DateTime.Now;
+            sYS_USER.code = "abcdefg"; //应该换成根据目前最大code自动生成
             if (ModelState.IsValid)
             {
                 db.SYS_USER.Add(sYS_USER);
