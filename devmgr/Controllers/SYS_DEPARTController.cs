@@ -50,7 +50,6 @@ namespace devmgr.Controllers
         {
             if (ModelState.IsValid)
             {
-                sYS_DEPART.code = "";
                 sYS_DEPART.createdate = DateTime.Now;
 
                 db.SYS_DEPART.Add(sYS_DEPART);
