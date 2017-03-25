@@ -49,9 +49,9 @@ namespace devmgr.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "电子邮件")]
-        [EmailAddress]
+        [Display(Name = "账户名")]
         public string Email { get; set; }
+
 
         [Required]
         [DataType(DataType.Password)]

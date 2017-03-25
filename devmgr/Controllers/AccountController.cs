@@ -60,7 +60,23 @@ namespace devmgr.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
-
+        private String checklogin(String uemail, String uassword, String uememberme)
+        {
+            Model1 ef = new Model1();
+            String rtnstr = "";
+            string uname = uemail;
+            string pwd = uassword;
+            var obj = ef.SYS_USER.Where(item => item.account_id == uname && item.pwd == pwd);
+            if (obj.Count() != 0)
+            {
+                rtnstr = "success";
+            }
+            else
+            {
+                rtnstr = "falure";
+            }
+            return rtnstr;
+        }
         //
         // POST: /Account/Login
         [HttpPost]
@@ -68,27 +84,45 @@ namespace devmgr.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            if (!ModelState.IsValid)
+            //
+            String result = checklogin(model.Email.ToString(), model.Password.ToString(), model.RememberMe.ToString());
+            switch (result)
             {
-                return View(model);
+                case "success":
+                    return RedirectToLocal(returnUrl);
+                // case SignInStatus.LockedOut:
+                //   return View("Lockout");
+                // case SignInStatus.RequiresVerification:
+                // return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                case "falure":
+                    ModelState.AddModelError("", "无效的登录尝试。");
+                    return View(model);
+                default:
+                    ModelState.AddModelError("", "无效的登录尝试2。");
+                    return View(model);
             }
+
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(model);
+            //}
 
             // 这不会计入到为执行帐户锁定而统计的登录失败次数中
             // 若要在多次输入错误密码的情况下触发帐户锁定，请更改为 shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "无效的登录尝试。");
-                    return View(model);
-            }
+            //var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            //switch (result)
+            //{
+            //    case SignInStatus.Success:
+            //        return RedirectToLocal(returnUrl);
+            //    case SignInStatus.LockedOut:
+            //        return View("Lockout");
+            //    case SignInStatus.RequiresVerification:
+            //        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+            //    case SignInStatus.Failure:
+            //    default:
+            //        ModelState.AddModelError("", "无效的登录尝试。");
+            //        return View(model);
+            //}
         }
 
         //
