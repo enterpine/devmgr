@@ -31,3 +31,13 @@
 				yearRange: [2000,2020]
 			});
 		</script>
+
+		COOKIE:
+		C#读取设置Cookie 
+		Response.Cookies["username"].Value="zxf";
+		Response.Cookies["username"].Expires=DateTime.Now.AddDays(1);
+
+		if(Request.Cookies["username"]!=null)
+		{
+		Response.Write(Server.HtmlEncode(Request.Cookies["username"].Value));
+		}

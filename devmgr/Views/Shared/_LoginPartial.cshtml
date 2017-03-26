@@ -1,4 +1,35 @@
-﻿@using Microsoft.AspNet.Identity
+﻿@using devmgr.Models;
+@using System.Linq;
+
+@{Model1 ef = new Model1(); }
+@if (Request.Cookies["username"] != null)
+{
+
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @{ String coacc = Request.Cookies["username"].Value.ToString();}}
+                @Html.ActionLink("你好，" + ef.SYS_USER.Where(item => item.account_id == coacc).First<SYS_USER>().cname.ToString() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">注销</a></li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("注册", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("登录", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}
+
+
+<!--@using Microsoft.AspNet.Identity
+    ef.SYS_USER.Where(item => item.account_id == coacc).First<SYS_USER>().cname.ToString() good
+    ef.SYS_USER.Where(item => item.account_id == Request.Cookies["username"].Value.ToString()).GetType().GetProperty("CNAME").ToString()
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
@@ -19,4 +50,4 @@ else
         <li>@Html.ActionLink("注册", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         <li>@Html.ActionLink("登录", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
-}
+}-->

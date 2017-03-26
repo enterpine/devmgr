@@ -89,16 +89,20 @@ namespace devmgr.Controllers
             switch (result)
             {
                 case "success":
+                    //记录
+                    //设置cookie：
+                    Response.Cookies["islogin"].Value = "true";
+                    Response.Cookies["islogin"].Expires = DateTime.Now.AddDays(1);
+
+                    Response.Cookies["username"].Value = model.Email.ToString();
+                    Response.Cookies["username"].Expires = DateTime.Now.AddDays(1);
+
                     return RedirectToLocal(returnUrl);
-                // case SignInStatus.LockedOut:
-                //   return View("Lockout");
-                // case SignInStatus.RequiresVerification:
-                // return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case "falure":
-                    ModelState.AddModelError("", "无效的登录尝试。");
+                    ModelState.AddModelError("", Request.Cookies["username"].ToString());
                     return View(model);
                 default:
-                    ModelState.AddModelError("", "无效的登录尝试2。");
+                    ModelState.AddModelError("", Request.Cookies["username"].ToString());
                     return View(model);
             }
 
