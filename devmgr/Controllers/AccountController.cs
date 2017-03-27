@@ -92,10 +92,10 @@ namespace devmgr.Controllers
                     //记录
                     //设置cookie：
                     Response.Cookies["islogin"].Value = "true";
-                    Response.Cookies["islogin"].Expires = DateTime.Now.AddDays(1);
+                    Response.Cookies["islogin"].Expires = DateTime.Now.AddDays(7);
 
                     Response.Cookies["username"].Value = model.Email.ToString();
-                    Response.Cookies["username"].Expires = DateTime.Now.AddDays(1);
+                    Response.Cookies["username"].Expires = DateTime.Now.AddDays(7);
 
                     return RedirectToLocal(returnUrl);
                 case "falure":

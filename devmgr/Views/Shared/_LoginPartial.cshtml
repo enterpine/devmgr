@@ -20,6 +20,12 @@
 }
 else
 {
+    if (ViewContext.RouteData.Values["controller"].ToString() == "Account" && ViewContext.RouteData.Values["action"].ToString() == "Login")
+    { }
+    else
+    {
+        Response.Redirect("/Account/Login");
+    }
     <ul class="nav navbar-nav navbar-right">
         <li>@Html.ActionLink("注册", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         <li>@Html.ActionLink("登录", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
