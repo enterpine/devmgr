@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<devmgr.Models.SYS_USER>
-
+@using System.Linq;
+@using devmgr.Models;
+@{Model1 ef = new Model1(); }
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -88,8 +90,18 @@
                     @Html.DisplayFor(modelItem => item.email)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.departid_fx)
-                </td>
+
+                    @{ var obj = ef.SYS_DEPART.Where(item1 => item1.id == item.departid_fx); }
+                    @if (obj.Count<SYS_DEPART>() > 0)
+                    {
+                            @Html.Label(obj.First<SYS_DEPART>().name.ToString())
+                    }
+                    else
+                    {
+
+                    }
+                    
+</td>
                 <td>
                     @Html.DisplayFor(modelItem => item.usertypeid_fx)
                 </td>

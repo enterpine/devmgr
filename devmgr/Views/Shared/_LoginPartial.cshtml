@@ -11,7 +11,7 @@
 
         <ul class="nav navbar-nav navbar-right">
             <li>
-                @{ String coacc = Request.Cookies["username"].Value.ToString();}}
+                @{ String coacc = Request.Cookies["username"].Value.ToString();}
                 @Html.ActionLink("你好，" + ef.SYS_USER.Where(item => item.account_id == coacc).First<SYS_USER>().cname.ToString() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">注销</a></li>
