@@ -127,5 +127,16 @@ namespace devmgr.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult logout()
+        {
+            Response.Cookies["islogin"].Value = "false";
+            Response.Cookies["islogin"].Expires = DateTime.Now.AddDays(7);
+
+            Response.Cookies["username"].Value = "null";
+            Response.Cookies["username"].Expires = DateTime.Now.AddDays(7);
+            Response.Redirect("/home/index");
+            return View();
+        }
     }
 }
