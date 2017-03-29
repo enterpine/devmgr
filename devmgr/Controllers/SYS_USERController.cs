@@ -53,11 +53,11 @@ namespace devmgr.Controllers
             Model1 ef = new Model1();
             String username = Request.Cookies["username"].Value.ToString();
             String cuuserid = ef.SYS_USER.Where(item => item.account_id == username).First<SYS_USER>().id.ToString();
-
-
+            String maxid = ef.SYS_USER.Where(item => item.id >0).Max(item=>item.id).ToString();
+            
             sYS_USER.whocreateid_fx = int.Parse(cuuserid);
             sYS_USER.createdate = DateTime.Now;
-            sYS_USER.code = "abcdefg"; //应该换成根据目前最大code自动生成
+            sYS_USER.code = "user" + maxid;
             if (ModelState.IsValid)
             {
                 db.SYS_USER.Add(sYS_USER);
