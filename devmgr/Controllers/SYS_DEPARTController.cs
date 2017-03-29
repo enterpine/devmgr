@@ -50,7 +50,12 @@ namespace devmgr.Controllers
         {
             if (ModelState.IsValid)
             {
+                Model1 ef = new Model1();
+                String username = Request.Cookies["username"].Value.ToString();
+                String cuuserid = ef.SYS_USER.Where(item => item.account_id == username).First<SYS_USER>().id.ToString();
+
                 sYS_DEPART.createdate = DateTime.Now;
+                sYS_DEPART.whocreateid_fx = int.Parse(cuuserid);
 
                 db.SYS_DEPART.Add(sYS_DEPART);
                 db.SaveChanges();
