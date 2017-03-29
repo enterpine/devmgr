@@ -60,7 +60,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.birthdate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.birthdate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.birthdate, new { htmlAttributes = new { @class = "form-control",id = "datepicker" } })
                 @Html.ValidationMessageFor(model => model.birthdate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -115,6 +115,7 @@
             </div>
         </div>
 
+
         @*<div class="form-group">
             @Html.LabelFor(model => model.whocreateid_fx, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -146,3 +147,17 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+<script src="../../Scripts/pikaday.js"></script>
+<script>
+
+    var picker = new Pikaday(
+    {
+        field: document.getElementById('datepicker'),
+        firstDay: 1,
+        minDate: new Date('2000-01-01'),
+        maxDate: new Date('2020-12-31'),
+        yearRange: [1950,2050]
+    });
+
+</script>
