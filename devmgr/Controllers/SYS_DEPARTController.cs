@@ -53,9 +53,16 @@ namespace devmgr.Controllers
                 Model1 ef = new Model1();
                 String username = Request.Cookies["username"].Value.ToString();
                 String cuuserid = ef.SYS_USER.Where(item => item.account_id == username).First<SYS_USER>().id.ToString();
-                String maxid = ef.SYS_DEPART.Where(item => item.id > 0).Max(item => item.id).ToString();
+                var obj = ef.SYS_DEPART.Where(item => item.id >= 0);
+                int nowcode= 0,maxid=0;
+                if (obj.Count<SYS_DEPART>()>0) {
+                    maxid=obj.Max(item => item.id);
+                    nowcode = maxid + 1; }
+                else {
+                    nowcode = 1;
+                }
 
-                sYS_DEPART.code = "depart" + maxid;
+                sYS_DEPART.code = "DEP" + nowcode.ToString().PadLeft(5,'0');
                 sYS_DEPART.createdate = DateTime.Now;
                 sYS_DEPART.whocreateid_fx = int.Parse(cuuserid);
 
@@ -132,5 +139,7 @@ namespace devmgr.Controllers
             }
             base.Dispose(disposing);
         }
+        
+
     }
 }

@@ -53,3 +53,7 @@
         {
 
         }
+
+
+		Model非空验证：
+		[Required(ErrorMessage = "姓名不能为空")]

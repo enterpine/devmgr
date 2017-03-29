@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using devmgr.Models;
 namespace devmgr.Controllers
 {
     public class HomeController : Controller
@@ -26,5 +26,6 @@ namespace devmgr.Controllers
 
             return View();
         }
+        
     }
 }

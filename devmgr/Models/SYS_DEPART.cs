@@ -6,6 +6,8 @@
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
     using System.Linq;
+    using System.Web.Mvc;
+
     public partial class SYS_DEPART
     {
         public int id { get; set; }
@@ -16,6 +18,8 @@
 
         [StringLength(20)]
         [Display(Name = "部门名称")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "名称不能为空")]
+        [Remote("CheckDepName", "Validate", ErrorMessage = "名称已存在")]
         public string name { get; set; }
 
         [Display(Name = "部门主管")]

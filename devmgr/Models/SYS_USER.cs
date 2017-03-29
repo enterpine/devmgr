@@ -20,6 +20,8 @@ namespace devmgr.Models
         public string account_id { get; set; }
 
         [StringLength(20)]
+        [DataType(DataType.Password)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "ÃÜÂë²»ÄÜÎª¿Õ")]
         public string pwd { get; set; }
 
         [Column(TypeName = "date")]

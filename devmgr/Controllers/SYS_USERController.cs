@@ -53,11 +53,21 @@ namespace devmgr.Controllers
             Model1 ef = new Model1();
             String username = Request.Cookies["username"].Value.ToString();
             String cuuserid = ef.SYS_USER.Where(item => item.account_id == username).First<SYS_USER>().id.ToString();
-            String maxid = ef.SYS_USER.Where(item => item.id >0).Max(item=>item.id).ToString();
-            
+            var obj = ef.SYS_USER.Where(item => item.id >0);
+            int nowcode = 0, maxid = 0;
+            if (obj.Count<SYS_USER>() > 0)
+            {
+                maxid = obj.Max(item => item.id);
+                nowcode = maxid + 1;
+            }
+            else
+            {
+                nowcode = 1;
+            }
+
             sYS_USER.whocreateid_fx = int.Parse(cuuserid);
             sYS_USER.createdate = DateTime.Now;
-            sYS_USER.code = "user" + maxid;
+            sYS_USER.code = "USR" + nowcode.ToString().PadLeft(5,'0');
             if (ModelState.IsValid)
             {
                 db.SYS_USER.Add(sYS_USER);
