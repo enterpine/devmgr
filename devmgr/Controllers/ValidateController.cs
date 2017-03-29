@@ -15,7 +15,7 @@ namespace devmgr.Controllers
         }
         public JsonResult CheckDepName(string name)
         {
-            return Json(false, JsonRequestBehavior.AllowGet);
+            return Json(true);
         }
     }
 }
