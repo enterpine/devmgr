@@ -38,6 +38,7 @@
         [Display(Name = "备注")]
         public string remark { get; set; }
 
+        [Display(Name = "创建者")]
         public int? whocreateid_fx { get; set; }
 
         [Column(TypeName = "date")]
