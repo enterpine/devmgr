@@ -42,7 +42,7 @@ namespace devmgr.Controllers
             ViewData["Categories"] = new SelectList(categories, "id", "cname");
 
             List<FLOW_CLIENT> categoriesclient = FLOW_CLIENT.GETALL();
-            ViewData["Categoriesclient"] = new SelectList(categoriesclient, "id", "cname");
+            ViewData["Categoriesclient"] = new SelectList(categoriesclient, "id", "company_name");
             return View();
         }
 

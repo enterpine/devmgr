@@ -8,7 +8,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("添 加", "Create")
 </p>
 <table class="table">
     <tr>
@@ -102,9 +102,9 @@
             @Html.DisplayFor(modelItem => item.createdate)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Html.ActionLink("编辑", "Edit", new { id=item.id }) |
+            @Html.ActionLink("查看", "Details", new { id=item.id }) |
+            @Html.ActionLink("删除", "Delete", new { id=item.id })
         </td>
     </tr>
 }
