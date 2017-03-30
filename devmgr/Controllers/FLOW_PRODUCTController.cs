@@ -48,6 +48,24 @@ namespace devmgr.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,code,Responserid_fx,name,clientid_fx,stratdate,deadlinedate,request_text,request_file,statuss,desc_text,remark,whocreateid_fx,createdate")] FLOW_PRODUCT fLOW_PRODUCT)
         {
+            Model1 ef = new Model1();
+            String username = Request.Cookies["username"].Value.ToString();
+            String cuuserid = ef.SYS_USER.Where(item => item.account_id == username).First<SYS_USER>().id.ToString();
+            var obj = ef.FLOW_PRODUCT.Where(item => item.id >= 0);
+            int nowcode = 0, maxid = 0;
+            if (obj.Count<FLOW_PRODUCT>() > 0)
+            {
+                maxid = obj.Max(item => item.id);
+                nowcode = maxid + 1;
+            }
+            else
+            {
+                nowcode = 1;
+            }
+
+            fLOW_PRODUCT.code = "PRD" + nowcode.ToString().PadLeft(5, '0');
+            fLOW_PRODUCT.createdate = DateTime.Now;
+            fLOW_PRODUCT.whocreateid_fx = int.Parse(cuuserid);
             if (ModelState.IsValid)
             {
                 db.FLOW_PRODUCT.Add(fLOW_PRODUCT);

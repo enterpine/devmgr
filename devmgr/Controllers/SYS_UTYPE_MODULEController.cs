@@ -48,6 +48,24 @@ namespace devmgr.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,code,usertypeid_fx,moduleid_fx,isdefault,isenable,isread,iswrite,desc_text,remark,whocreateid_fx,createdate")] SYS_UTYPE_MODULE sYS_UTYPE_MODULE)
         {
+            Model1 ef = new Model1();
+            String username = Request.Cookies["username"].Value.ToString();
+            String cuuserid = ef.SYS_USER.Where(item => item.account_id == username).First<SYS_USER>().id.ToString();
+            var obj = ef.SYS_UTYPE_MODULE.Where(item => item.id > 0);
+            int nowcode = 0, maxid = 0;
+            if (obj.Count<SYS_UTYPE_MODULE>() > 0)
+            {
+                maxid = obj.Max(item => item.id);
+                nowcode = maxid + 1;
+            }
+            else
+            {
+                nowcode = 1;
+            }
+
+            sYS_UTYPE_MODULE.whocreateid_fx = int.Parse(cuuserid);
+            sYS_UTYPE_MODULE.createdate = DateTime.Now;
+            sYS_UTYPE_MODULE.code = "UTM" + nowcode.ToString().PadLeft(5, '0');
             if (ModelState.IsValid)
             {
                 db.SYS_UTYPE_MODULE.Add(sYS_UTYPE_MODULE);

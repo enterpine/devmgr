@@ -48,6 +48,24 @@ namespace devmgr.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,code,company_name,uname,tel,email,desc_text,remark,whocreateid_fx,createdate")] FLOW_CLIENT fLOW_CLIENT)
         {
+            Model1 ef = new Model1();
+            String username = Request.Cookies["username"].Value.ToString();
+            String cuuserid = ef.SYS_USER.Where(item => item.account_id == username).First<SYS_USER>().id.ToString();
+            var obj = ef.FLOW_CLIENT.Where(item => item.id >= 0);
+            int nowcode = 0, maxid = 0;
+            if (obj.Count<FLOW_CLIENT>() > 0)
+            {
+                maxid = obj.Max(item => item.id);
+                nowcode = maxid + 1;
+            }
+            else
+            {
+                nowcode = 1;
+            }
+
+            fLOW_CLIENT.code = "CLI" + nowcode.ToString().PadLeft(5, '0');
+            fLOW_CLIENT.createdate = DateTime.Now;
+            fLOW_CLIENT.whocreateid_fx = int.Parse(cuuserid);
             if (ModelState.IsValid)
             {
                 db.FLOW_CLIENT.Add(fLOW_CLIENT);

@@ -50,6 +50,25 @@ namespace devmgr.Controllers
         {
             if (ModelState.IsValid)
             {
+                Model1 ef = new Model1();
+                String username = Request.Cookies["username"].Value.ToString();
+                String cuuserid = ef.SYS_USER.Where(item => item.account_id == username).First<SYS_USER>().id.ToString();
+                var obj = ef.SYS_USERTYPE.Where(item => item.id > 0);
+                int nowcode = 0, maxid = 0;
+                if (obj.Count<SYS_USERTYPE>() > 0)
+                {
+                    maxid = obj.Max(item => item.id);
+                    nowcode = maxid + 1;
+                }
+                else
+                {
+                    nowcode = 1;
+                }
+
+                sYS_USERTYPE.whocreateid_fx = int.Parse(cuuserid);
+                sYS_USERTYPE.createdate = DateTime.Now;
+                sYS_USERTYPE.code = "UGR" + nowcode.ToString().PadLeft(5, '0');
+
                 db.SYS_USERTYPE.Add(sYS_USERTYPE);
                 db.SaveChanges();
                 return RedirectToAction("Index");
