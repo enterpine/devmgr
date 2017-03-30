@@ -19,7 +19,8 @@
         [StringLength(20)]
         [Display(Name = "部门名称")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "名称不能为空")]
-        [Remote("CheckDepName", "Validate", ErrorMessage = "名称已存在")]
+        [Remote("CheckDepName", "Validate")]
+        //[Remote("CheckDepName", "Validate")]
         public string name { get; set; }
 
         [Display(Name = "部门主管")]
@@ -27,6 +28,7 @@
 
         [StringLength(100)]
         [Display(Name = "描述")]
+
         public string desc_text { get; set; }
 
         [StringLength(200)]
