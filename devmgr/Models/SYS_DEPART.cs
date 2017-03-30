@@ -39,6 +39,7 @@
         public int? whocreateid_fx { get; set; }
 
         [Column(TypeName = "date")]
+        [Display(Name = "创建日期")]
         public DateTime? createdate { get; set; }
 
         static public List<SYS_DEPART> GETALL() {
