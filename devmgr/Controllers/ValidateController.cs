@@ -24,5 +24,16 @@ namespace devmgr.Controllers
             }
             return Json("抱歉，该名称已存在！", JsonRequestBehavior.AllowGet);
         }
+        public JsonResult CheckProductName(string name)
+        {
+            Model1 ef = new Model1();
+            var obj = ef.FLOW_PRODUCT.Where(item => item.name == name);
+            int a = obj.Count<FLOW_PRODUCT>();
+            if (a == 0)
+            {
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+            return Json("抱歉，该名称已存在！", JsonRequestBehavior.AllowGet);
+        }
     }
 }

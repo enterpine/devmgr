@@ -38,6 +38,11 @@ namespace devmgr.Controllers
         // GET: FLOW_PRODUCT/Create
         public ActionResult Create()
         {
+            List<SYS_USER> categories = SYS_USER.GETALL();
+            ViewData["Categories"] = new SelectList(categories, "id", "cname");
+
+            List<FLOW_CLIENT> categoriesclient = FLOW_CLIENT.GETALL();
+            ViewData["Categoriesclient"] = new SelectList(categoriesclient, "id", "cname");
             return View();
         }
 

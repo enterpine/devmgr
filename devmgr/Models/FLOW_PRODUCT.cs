@@ -5,6 +5,8 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Linq;
+    using System.Web.Mvc;
 
     public partial class FLOW_PRODUCT
     {
@@ -18,7 +20,11 @@
 
         [StringLength(20)]
         [Display(Name = "产品名称")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "名称不能为空")]
+        [Remote("CheckProductName", "Validate")]
         public string name { get; set; }
+
+
         [Display(Name = "客户名称")]
         public int? clientid_fx { get; set; }
 
@@ -55,5 +61,8 @@
         [Column(TypeName = "date")]
         [Display(Name = "创建日期")]
         public DateTime? createdate { get; set; }
-    }
+
+
+	
+}
 }
