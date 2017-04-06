@@ -26,5 +26,7 @@ namespace devmgr.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
         }
+
+        public System.Data.Entity.DbSet<devmgr.Models.article> articles { get; set; }
     }
 }

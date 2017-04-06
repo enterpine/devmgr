@@ -170,6 +170,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\articlesController.cs" />
     <Compile Include="Controllers\FLOW_CLIENTController.cs" />
     <Compile Include="Controllers\FLOW_MISSIONController.cs" />
     <Compile Include="Controllers\FLOW_PRODUCTController.cs" />
@@ -187,6 +188,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\article.cs" />
     <Compile Include="Models\FLOW_CLIENT.cs" />
     <Compile Include="Models\FLOW_MISSION.cs" />
     <Compile Include="Models\FLOW_PRODUCT.cs" />
@@ -195,6 +197,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Model1.cs" />
+    <Compile Include="Models\Model2.cs" />
     <Compile Include="Models\SYS_DEPART.cs" />
     <Compile Include="Models\SYS_MODULE.cs" />
     <Compile Include="Models\SYS_USER.cs" />
@@ -598,6 +601,11 @@
     <Content Include="Scripts\ueditor-utf8\third-party\video-js\font\vjs.eot" />
     <Content Include="Scripts\ueditor-utf8\third-party\video-js\font\vjs.ttf" />
     <Content Include="Scripts\ueditor-utf8\third-party\video-js\font\vjs.woff" />
+    <Content Include="Views\articles\Create.cshtml" />
+    <Content Include="Views\articles\Delete.cshtml" />
+    <Content Include="Views\articles\Details.cshtml" />
+    <Content Include="Views\articles\Edit.cshtml" />
+    <Content Include="Views\articles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
