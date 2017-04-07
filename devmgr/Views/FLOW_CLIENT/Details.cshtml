@@ -4,11 +4,17 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Details</h2>
+<div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("产品管理", "Index", "FLOW_PRODUCT")</li>
+        <li>@Html.ActionLink("客户管理", "Index", "FLOW_CLIENT")</li>
+        <li>@Html.ActionLink("需求管理", "Index", "FLOW_REQUEST")</li>
+    </ul>
+</div>
+<h2>查看</h2>
 
 <div>
-    <h4>FLOW_CLIENT</h4>
+    <h4>客户管理</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -86,6 +92,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("编辑", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("返回列表", "Index")
 </p>
