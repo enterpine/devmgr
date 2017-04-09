@@ -606,6 +606,7 @@
     <Content Include="Views\articles\Details.cshtml" />
     <Content Include="Views\articles\Edit.cshtml" />
     <Content Include="Views\articles\Index.cshtml" />
+    <Content Include="Views\Shared\displaytemplates\shortdatetime.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -4,11 +4,12 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <div class="navbar-collapse collapse">
     <ul class="nav navbar-nav">
         <li>@Html.ActionLink("产品管理", "Index", "FLOW_PRODUCT")</li>
-        <li>@Html.ActionLink("客户管理", "Index", "FLOW_CLIENT")</li>
         <li>@Html.ActionLink("需求管理", "Index", "FLOW_REQUEST")</li>
+        <li>@Html.ActionLink("客户管理", "Index", "FLOW_CLIENT")</li>
     </ul>
     </div>
     <h3>产品管理</h3>
@@ -36,18 +37,18 @@
             <th>
                 @Html.DisplayNameFor(model => model.deadlinedate)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.request_text)
-            </th>
-            <th>
+            </th>*@
+            @*<th>
                 @Html.DisplayNameFor(model => model.request_file)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.statuss)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.desc_text)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.remark)
             </th>
@@ -81,18 +82,18 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.deadlinedate)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.request_text)
-                </td>
-                <td>
+                </td>*@
+                @*<td>
                     @Html.DisplayFor(modelItem => item.request_file)
-                </td>
+                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.statuss)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.desc_text)
-                </td>
+                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.remark)
                 </td>
@@ -100,7 +101,7 @@
                     @Html.DisplayFor(modelItem => item.whocreateid_fx)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.createdate)
+                    @Html.DisplayFor(modelItem => item.createdate, "ShortDateTime")
                 </td>
                 <td>
                     @Html.ActionLink("编辑", "Edit", new { id = item.id }) |

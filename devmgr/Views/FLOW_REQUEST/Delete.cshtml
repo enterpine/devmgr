@@ -4,7 +4,13 @@
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("产品管理", "Index", "FLOW_PRODUCT")</li>
+        <li>@Html.ActionLink("需求管理", "Index", "FLOW_REQUEST")</li>
+        <li>@Html.ActionLink("客户管理", "Index", "FLOW_CLIENT")</li>
+    </ul>
+</div>
 <h2>Delete</h2>
 
 <h3>Are you sure you want to delete this?</h3>

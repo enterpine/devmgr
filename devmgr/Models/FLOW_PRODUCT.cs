@@ -40,8 +40,8 @@
         [Display(Name = "需求内容")]
         public string request_text { get; set; }
 
-        [StringLength(1000)]
         [Display(Name = "相关文档")]
+        [DataType(DataType.MultilineText)]
         public string request_file { get; set; }
 
         [StringLength(20)]

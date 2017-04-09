@@ -7,8 +7,8 @@
 <div class="navbar-collapse collapse">
     <ul class="nav navbar-nav">
         <li>@Html.ActionLink("产品管理", "Index", "FLOW_PRODUCT")</li>
-        <li>@Html.ActionLink("客户管理", "Index", "FLOW_CLIENT")</li>
         <li>@Html.ActionLink("需求管理", "Index", "FLOW_REQUEST")</li>
+        <li>@Html.ActionLink("客户管理", "Index", "FLOW_CLIENT")</li>
     </ul>
 </div> 
 
@@ -79,7 +79,7 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.request_file)
+                @Html.EditorFor(model => model.request_file)
             </dd>
 
             <dt>
@@ -134,3 +134,19 @@
             </div>
         }
     </div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval", "~/Scripts/ueditor-utf8/ueditor.config.js", "~/Scripts/ueditor-utf8/ueditor.all.js")
+    <script type="text/javascript">
+        var editor = new baidu.editor.ui.Editor({
+        UEDITOR_HOME_URL: '/Scripts/ueditor-utf8/',//配置编辑器路径   也可以在ueditor.config.js文件中配置。
+        iframeCssUrl: '/Scripts/ueditor-utf8/themes/iframe.css',//样式路径
+        // initialContent:'欢迎使用ueditor',//初始化编辑器内容
+        autoHeightEnabled:true,//高度自动增长
+        initialFrameHeight: 400,  //配置编辑器的初始高度为400px。
+        toolbars: [[]],
+        readonly: true
+        });
+        editor.render('request_file');   //将编辑器装入 ID=Content 的文本域中。
+    </script>
+
+}
