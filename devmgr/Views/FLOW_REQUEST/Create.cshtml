@@ -32,15 +32,17 @@
         <div class="form-group">
             @Html.LabelFor(model => model.productid_fx, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.productid_fx, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.productid_fx, "", new { @class = "text-danger" })
+                @*@Html.EditorFor(model => model.productid_fx, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.productid_fx, "", new { @class = "text-danger" })*@
+                @{SelectList category = (SelectList)ViewData["Categories_prod"];}
+                @Html.DropDownListFor(model => model.productid_fx, category, "--请选择--", new { htmlAttributes = new { @class = "form-control" } })
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.startdate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.startdate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.startdate, new { htmlAttributes = new { @class = "form-control" ,id = "datepicker1" } })
                 @Html.ValidationMessageFor(model => model.startdate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -48,7 +50,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.deadline, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.deadline, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.deadline, new { htmlAttributes = new { @class = "form-control" ,id = "datepicker2" } })
                 @Html.ValidationMessageFor(model => model.deadline, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -56,12 +58,12 @@
         <div class="form-group">
             @Html.LabelFor(model => model.request_text, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.request_text, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.request_text, new { htmlAttributes = new { } })
                 @Html.ValidationMessageFor(model => model.request_text, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.request_file, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.request_file, new { htmlAttributes = new { @class = "form-control" } })
@@ -75,7 +77,7 @@
                 @Html.EditorFor(model => model.desc_text, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.desc_text, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.remark, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -112,3 +114,36 @@
 <div>
     @Html.ActionLink("返回列表", "Index")
 </div>
+<script src="../../Scripts/pikaday.js"></script>
+<script>
+    var picker = new Pikaday(
+    {
+        field: document.getElementById('datepicker1'),
+        firstDay: 1,
+        minDate: new Date('2000-01-01'),
+        maxDate: new Date('2020-12-31'),
+        yearRange: [1950,2050]
+    });
+    var picker2 = new Pikaday(
+    {
+        field: document.getElementById('datepicker2'),
+        firstDay: 1,
+        minDate: new Date('2000-01-01'),
+        maxDate: new Date('2020-12-31'),
+        yearRange: [1950, 2050]
+    });
+</script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval", "~/Scripts/ueditor-utf8/ueditor.config.js", "~/Scripts/ueditor-utf8/ueditor.all.js")
+    <script type="text/javascript">
+        var editor = new baidu.editor.ui.Editor({
+        UEDITOR_HOME_URL: '/Scripts/ueditor-utf8/',//配置编辑器路径   也可以在ueditor.config.js文件中配置。
+        iframeCssUrl: '/Scripts/ueditor-utf8/themes/iframe.css',//样式路径
+        // initialContent:'欢迎使用ueditor',//初始化编辑器内容
+        autoHeightEnabled:true,//高度自动增长
+        initialFrameHeight:400  //配置编辑器的初始高度为400px。
+        });
+        editor.render('request_text');   //将编辑器装入 ID=Content 的文本域中。
+    </script>
+
+}

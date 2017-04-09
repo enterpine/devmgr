@@ -38,6 +38,11 @@ namespace devmgr.Controllers
         // GET: FLOW_PROJECT/Create
         public ActionResult Create()
         {
+            List<SYS_USER> categories_user = SYS_USER.GETALL();
+            ViewData["Categories_user"] = new SelectList(categories_user, "id", "cname");
+
+            List<FLOW_PRODUCT> categories = FLOW_PRODUCT.GETALL();
+            ViewData["Categories_prod"] = new SelectList(categories, "id", "name");
             return View();
         }
 
@@ -45,6 +50,7 @@ namespace devmgr.Controllers
         // 为了防止“过多发布”攻击，请启用要绑定到的特定属性，有关 
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
+        [ValidateInput(false)]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,code,productid_fx,responserid_fx,startdate,deadline,request_text,request_file,dad_projectid_fx,dad_level,is_bottom,desc_text,remark,whocreateid_fx,createdate")] FLOW_PROJECT fLOW_PROJECT)
         {

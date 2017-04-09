@@ -29,6 +29,7 @@
         public string request_text { get; set; }
 
         [StringLength(1000)]
+        [DataType(DataType.MultilineText)]
         [Display(Name = "相关文档")]
         public string request_file { get; set; }
         [Display(Name = "所属项目")]

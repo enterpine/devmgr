@@ -26,6 +26,7 @@
 
         [StringLength(500)]
         [Display(Name = "需求内容")]
+        [DataType(DataType.MultilineText)]
         public string request_text { get; set; }
 
         [StringLength(1000)]

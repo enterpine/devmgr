@@ -61,8 +61,12 @@
         [Column(TypeName = "date")]
         [Display(Name = "创建日期")]
         public DateTime? createdate { get; set; }
+        static public List<FLOW_PRODUCT> GETALL()
+        {
+            Model1 db = new Model1();
+            return db.FLOW_PRODUCT.ToList();
+        }
 
 
-	
-}
+    }
 }
