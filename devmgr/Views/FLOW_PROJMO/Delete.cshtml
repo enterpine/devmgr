@@ -1,4 +1,4 @@
-﻿@model devmgr.Models.FLOW_PROJECT
+﻿@model devmgr.Models.FLOW_PROJMO
 
 @{
     ViewBag.Title = "Delete";
@@ -9,7 +9,7 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>FLOW_PROJECT</h4>
+    <h4>FLOW_PROJMO</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -21,19 +21,19 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.desc_text)
+            @Html.DisplayNameFor(model => model.name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.desc_text)
+            @Html.DisplayFor(model => model.name)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.productid_fx)
+            @Html.DisplayNameFor(model => model.projectid_fx)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.productid_fx)
+            @Html.DisplayFor(model => model.projectid_fx)
         </dd>
 
         <dt>
@@ -53,54 +53,20 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.deadline)
+            @Html.DisplayNameFor(model => model.enddate)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.deadline)
+            @Html.DisplayFor(model => model.enddate)
         </dd>
 
-        @*<dt>
+        <dt>
             @Html.DisplayNameFor(model => model.request_text)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.request_text)
-        </dd>*@
-
-        <dt>
-            @Html.DisplayNameFor(model => model.request_file)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.request_file)
         </dd>
-
-        @*<dt>
-            @Html.DisplayNameFor(model => model.dad_projectid_fx)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dad_projectid_fx)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.dad_level)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dad_level)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.is_bottom)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.is_bottom)
-        </dd>*@
-
-        
 
         <dt>
             @Html.DisplayNameFor(model => model.remark)
@@ -111,11 +77,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.whocreateid_fx)
+            @Html.DisplayNameFor(model => model.whocreateid)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.whocreateid_fx)
+            @Html.DisplayFor(model => model.whocreateid)
         </dd>
 
         <dt>
@@ -132,8 +98,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="删除" class="btn btn-default" /> |
-            @Html.ActionLink("返回列表", "Index")
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
         </div>
     }
 </div>

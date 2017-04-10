@@ -175,6 +175,7 @@
     <Compile Include="Controllers\FLOW_MISSIONController.cs" />
     <Compile Include="Controllers\FLOW_PRODUCTController.cs" />
     <Compile Include="Controllers\FLOW_PROJECTController.cs" />
+    <Compile Include="Controllers\FLOW_PROJMOController.cs" />
     <Compile Include="Controllers\FLOW_REQUESTController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -193,11 +194,13 @@
     <Compile Include="Models\FLOW_MISSION.cs" />
     <Compile Include="Models\FLOW_PRODUCT.cs" />
     <Compile Include="Models\FLOW_PROJECT.cs" />
+    <Compile Include="Models\FLOW_PROJMO.cs" />
     <Compile Include="Models\FLOW_REQUEST.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Model1.cs" />
     <Compile Include="Models\Model2.cs" />
+    <Compile Include="Models\Model3.cs" />
     <Compile Include="Models\SYS_DEPART.cs" />
     <Compile Include="Models\SYS_MODULE.cs" />
     <Compile Include="Models\SYS_USER.cs" />
@@ -607,6 +610,11 @@
     <Content Include="Views\articles\Edit.cshtml" />
     <Content Include="Views\articles\Index.cshtml" />
     <Content Include="Views\Shared\displaytemplates\shortdatetime.cshtml" />
+    <Content Include="Views\FLOW_PROJMO\Create.cshtml" />
+    <Content Include="Views\FLOW_PROJMO\Delete.cshtml" />
+    <Content Include="Views\FLOW_PROJMO\Details.cshtml" />
+    <Content Include="Views\FLOW_PROJMO\Edit.cshtml" />
+    <Content Include="Views\FLOW_PROJMO\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

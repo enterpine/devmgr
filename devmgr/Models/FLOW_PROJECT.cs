@@ -5,7 +5,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-
+    using System.Linq;
     public partial class FLOW_PROJECT
     {
         public int id { get; set; }
@@ -40,7 +40,7 @@
         public int? is_bottom { get; set; }
 
         [StringLength(100)]
-        [Display(Name = "描 述")]
+        [Display(Name = "名 称")]
         public string desc_text { get; set; }
 
         [StringLength(200)]
@@ -52,5 +52,10 @@
         [Column(TypeName = "date")]
         [Display(Name = "创建日期")]
         public DateTime? createdate { get; set; }
+        static public List<FLOW_PROJECT> GETALL()
+        {
+            Model1 db = new Model1();
+            return db.FLOW_PROJECT.ToList();
+        }
     }
 }

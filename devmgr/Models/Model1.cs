@@ -28,5 +28,7 @@ namespace devmgr.Models
         }
 
         public System.Data.Entity.DbSet<devmgr.Models.article> articles { get; set; }
+
+        public System.Data.Entity.DbSet<devmgr.Models.FLOW_PROJMO> FLOW_PROJMO { get; set; }
     }
 }
