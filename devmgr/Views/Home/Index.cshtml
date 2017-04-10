@@ -5,31 +5,42 @@
 @using System.Linq;
 @using devmgr.Models;
 @{Model1 ef = new Model1(); }
-@{ String coacc = Request.Cookies["username"].Value.ToString();}
-<div class="jumbotron">
-    <h1>您好，@Html.Label(""+ef.SYS_USER.Where(item => item.account_id == coacc).First<SYS_USER>().cname.ToString())</h1>
-    <p class="lead">项目开发周期管理系统是一款可以使您轻松管理项目开发的协助软件。<br>祝您使用愉快，工作顺利！</p>
-    <p><a href="https://github.com/enterpine/devmgr" class="btn btn-primary btn-lg">获取源码 &raquo;</a></p>
-</div>
-
-<div class="row" >
-    <div class="col-md-6" style="background-color:azure">
-        @{ 
-            Model1 db = new Model1();
-            String username = Request.Cookies["username"].Value.ToString();
-            String cuuserid = db.SYS_USER.Where(item => item.account_id == username).First<SYS_USER>().id.ToString();
-            int cuid = int.Parse(cuuserid);
-        }
-        @Html.Partial("~/Views/Shared/indexinfo/mymission.cshtml",db.FLOW_MISSION.Where(item => item.towhoid_fx == cuid).ToList());
+@if (Request.Cookies["islogin"] != null && Request.Cookies["islogin"].Value.ToString() == "true")
+{
+     String coacc = Request.Cookies["username"].Value.ToString();
+    <div class="jumbotron">
+        <h1>您好，@Html.Label("" + ef.SYS_USER.Where(item => item.account_id == coacc).First<SYS_USER>().cname.ToString())</h1>
+        <p class="lead">项目开发周期管理系统是一款可以使您轻松管理项目开发的协助软件。<br>祝您使用愉快，工作顺利！</p>
+        <p><a href="https://github.com/enterpine/devmgr" class="btn btn-primary btn-lg">获取源码 &raquo;</a></p>
     </div>
 
-    <div class="col-md-6" style="background-color:antiquewhite">
-        @*@{
-            Model1 db = new Model1();
-            String username = Request.Cookies["username"].Value.ToString();
-            String cuuserid = db.SYS_USER.Where(item => item.account_id == username).First<SYS_USER>().id.ToString();
-            int cuid = int.Parse(cuuserid);
-        }*@
-        @Html.Partial("~/Views/Shared/indexinfo/mymission.cshtml", db.FLOW_MISSION.Where(item => item.towhoid_fx == cuid).ToList());
+    <div class="row" >
+        <div class="col-md-6" style="background-color:azure">
+            @{ 
+                Model1 db = new Model1();
+                String username = Request.Cookies["username"].Value.ToString();
+                String cuuserid = db.SYS_USER.Where(item => item.account_id == username).First<SYS_USER>().id.ToString();
+                int cuid = int.Parse(cuuserid);
+            }
+            @Html.Partial("~/Views/Shared/indexinfo/mymission.cshtml", db.FLOW_MISSION.Where(item => item.towhoid_fx == cuid).ToList());
+        </div>
+
+        <div class="col-md-6" style="background-color:antiquewhite">
+            @*@{
+                Model1 db = new Model1();
+                String username = Request.Cookies["username"].Value.ToString();
+                String cuuserid = db.SYS_USER.Where(item => item.account_id == username).First<SYS_USER>().id.ToString();
+                int cuid = int.Parse(cuuserid);
+            }*@
+            @Html.Partial("~/Views/Shared/indexinfo/mymission.cshtml", db.FLOW_MISSION.Where(item => item.towhoid_fx == cuid).ToList());
+        </div>
     </div>
-</div>
+                }
+else {
+    if (ViewContext.RouteData.Values["controller"].ToString() == "Account" && ViewContext.RouteData.Values["action"].ToString() == "Login")
+    { }
+    else
+    {
+        Response.Redirect("/Account/Login");
+    }
+}
