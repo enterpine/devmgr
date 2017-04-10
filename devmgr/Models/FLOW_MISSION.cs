@@ -46,7 +46,7 @@
         public string request_text { get; set; }
 
         [StringLength(1000)]
-        [Display(Name = "上传文件路径")]
+        [Display(Name = "名称")]
         public string request_file { get; set; }
 
         [Display(Name = "是否完成")]

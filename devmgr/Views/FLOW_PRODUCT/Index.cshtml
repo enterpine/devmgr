@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<devmgr.Models.FLOW_PRODUCT>
-
+@using System.Linq;
+@using devmgr.Models;
+@{Model1 ef = new Model1(); }
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -67,15 +69,39 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.code)
                 </td>
+
                 <td>
-                    @Html.DisplayFor(modelItem => item.Responserid_fx)
+                    @{ var obj = ef.SYS_USER.Where(item1 => item1.id == item.Responserid_fx); }
+                    @if (obj.Count<SYS_USER>() > 0)
+                    {
+                        @Html.Label(obj.First<SYS_USER>().cname.ToString())
+                    }
+                    else
+                    {
+
+                    }
                 </td>
+
                 <td>
                     @Html.DisplayFor(modelItem => item.name)
                 </td>
-                <td>
+
+                @*<td>
                     @Html.DisplayFor(modelItem => item.clientid_fx)
+                </td>*@
+
+                <td>
+                    @{ var obj2 = ef.FLOW_CLIENT.Where(item1 => item1.id == item.clientid_fx); }
+                    @if (obj2.Count<FLOW_CLIENT>() > 0)
+                    {
+                        @Html.Label(obj2.First<FLOW_CLIENT>().company_name.ToString())
+                    }
+                    else
+                    {
+
+                    }
                 </td>
+
                 <td>
                     @Html.DisplayFor(modelItem => item.stratdate)
                 </td>
@@ -97,8 +123,19 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.remark)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.whocreateid_fx)
+                </td>*@
+                <td>
+                    @{ var obj3 = ef.SYS_USER.Where(item1 => item1.id == item.whocreateid_fx); }
+                    @if (obj.Count<SYS_USER>() > 0)
+                    {
+                        @Html.Label(obj.First<SYS_USER>().cname.ToString())
+                    }
+                    else
+                    {
+
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.createdate, "ShortDateTime")

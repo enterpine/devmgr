@@ -615,6 +615,7 @@
     <Content Include="Views\FLOW_PROJMO\Details.cshtml" />
     <Content Include="Views\FLOW_PROJMO\Edit.cshtml" />
     <Content Include="Views\FLOW_PROJMO\Index.cshtml" />
+    <Content Include="Views\Shared\indexinfo\mymission.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

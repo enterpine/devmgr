@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<devmgr.Models.FLOW_PROJECT>
-
+@using System.Linq;
+@using devmgr.Models;
+@{Model1 ef = new Model1(); }
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -66,12 +68,36 @@
         <td>
             @Html.DisplayFor(modelItem => item.desc_text)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.productid_fx)
-        </td>
+        </td>*@
         <td>
-            @Html.DisplayFor(modelItem => item.responserid_fx)
+            @{ var obj = ef.FLOW_PRODUCT.Where(item1 => item1.id == item.productid_fx); }
+            @if (obj.Count<FLOW_PRODUCT>() > 0)
+            {
+                @Html.Label(obj.First<FLOW_PRODUCT>().name.ToString())
+            }
+            else
+            {
+
+            }
         </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.responserid_fx)
+        </td>*@
+
+        <td>
+            @{ var obj2 = ef.SYS_USER.Where(item1 => item1.id == item.responserid_fx); }
+            @if (obj2.Count<SYS_USER>() > 0)
+            {
+                @Html.Label(obj2.First<SYS_USER>().cname.ToString())
+            }
+            else
+            {
+
+            }
+        </td>
+
         <td>
             @Html.DisplayFor(modelItem => item.startdate)
         </td>
@@ -97,8 +123,19 @@
         <td>
             @Html.DisplayFor(modelItem => item.remark)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.whocreateid_fx)
+        </td>*@
+        <td>
+            @{ var obj3 = ef.SYS_USER.Where(item1 => item1.id == item.whocreateid_fx); }
+            @if (obj3.Count<SYS_USER>() > 0)
+            {
+                @Html.Label(obj3.First<SYS_USER>().cname.ToString())
+            }
+            else
+            {
+
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.createdate)

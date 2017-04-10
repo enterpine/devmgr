@@ -2,30 +2,34 @@
     ViewBag.Title = "Home Page";
 }
 
+@using System.Linq;
+@using devmgr.Models;
+@{Model1 ef = new Model1(); }
+@{ String coacc = Request.Cookies["username"].Value.ToString();}
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>您好，@Html.Label(""+ef.SYS_USER.Where(item => item.account_id == coacc).First<SYS_USER>().cname.ToString())</h1>
+    <p class="lead">项目开发周期管理系统是一款可以使您轻松管理项目开发的协助软件。<br>祝您使用愉快，工作顺利！</p>
+    <p><a href="https://github.com/enterpine/devmgr" class="btn btn-primary btn-lg">获取源码 &raquo;</a></p>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+<div class="row" >
+    <div class="col-md-6" style="background-color:azure">
+        @{ 
+            Model1 db = new Model1();
+            String username = Request.Cookies["username"].Value.ToString();
+            String cuuserid = db.SYS_USER.Where(item => item.account_id == username).First<SYS_USER>().id.ToString();
+            int cuid = int.Parse(cuuserid);
+        }
+        @Html.Partial("~/Views/Shared/indexinfo/mymission.cshtml",db.FLOW_MISSION.Where(item => item.towhoid_fx == cuid).ToList());
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+
+    <div class="col-md-6" style="background-color:antiquewhite">
+        @*@{
+            Model1 db = new Model1();
+            String username = Request.Cookies["username"].Value.ToString();
+            String cuuserid = db.SYS_USER.Where(item => item.account_id == username).First<SYS_USER>().id.ToString();
+            int cuid = int.Parse(cuuserid);
+        }*@
+        @Html.Partial("~/Views/Shared/indexinfo/mymission.cshtml", db.FLOW_MISSION.Where(item => item.towhoid_fx == cuid).ToList());
     </div>
 </div>
