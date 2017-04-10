@@ -41,7 +41,8 @@
         public int? isbottom { get; set; }
 
         [StringLength(500)]
-        [Display(Name = "百度编辑器内容")]
+        [Display(Name = "任务内容")]
+        [DataType(DataType.MultilineText)]
         public string request_text { get; set; }
 
         [StringLength(1000)]

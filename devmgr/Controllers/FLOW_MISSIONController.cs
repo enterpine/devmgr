@@ -38,6 +38,12 @@ namespace devmgr.Controllers
         // GET: FLOW_MISSION/Create
         public ActionResult Create()
         {
+            List<FLOW_PROJECT> categories_proj = FLOW_PROJECT.GETALL();
+            ViewData["categories_proj"] = new SelectList(categories_proj, "id", "desc_text");
+
+            List<SYS_USER> category_user = SYS_USER.GETALL();
+            ViewData["category_user"] = new SelectList(category_user, "id", "cname");
+
             return View();
         }
 
@@ -45,6 +51,7 @@ namespace devmgr.Controllers
         // 为了防止“过多发布”攻击，请启用要绑定到的特定属性，有关 
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
+        [ValidateInput(false)]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,code,projectid_fx,fromwhoid_fx,towhoid_fx,fromdate,todate,dad_mission,dad_level,isbottom,request_text,request_file,iscomplete,desc_text,remark,whocreateid_fx,createdate")] FLOW_MISSION fLOW_MISSION)
         {
@@ -66,6 +73,7 @@ namespace devmgr.Controllers
             fLOW_MISSION.code = "MIS" + nowcode.ToString().PadLeft(5, '0');
             fLOW_MISSION.createdate = DateTime.Now;
             fLOW_MISSION.whocreateid_fx = int.Parse(cuuserid);
+            fLOW_MISSION.fromwhoid_fx = int.Parse(cuuserid);
             if (ModelState.IsValid)
             {
                 db.FLOW_MISSION.Add(fLOW_MISSION);
@@ -77,6 +85,7 @@ namespace devmgr.Controllers
         }
 
         // GET: FLOW_MISSION/Edit/5
+        [ValidateInput(false)]
         public ActionResult Edit(int? id)
         {
             if (id == null)

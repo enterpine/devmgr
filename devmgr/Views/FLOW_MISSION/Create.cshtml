@@ -26,31 +26,39 @@
         <div class="form-group">
             @Html.LabelFor(model => model.projectid_fx, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.projectid_fx, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.projectid_fx, "", new { @class = "text-danger" })
+                @*@Html.EditorFor(model => model.projectid_fx, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.projectid_fx, "", new { @class = "text-danger" })*@
+                @{SelectList categoryproj = (SelectList)ViewData["categories_proj"];}
+                @Html.DropDownListFor(model => model.projectid_fx, categoryproj, "--请选择--", new { htmlAttributes = new { @class = "form-control" } })
+
+
             </div>
         </div>
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.fromwhoid_fx, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.fromwhoid_fx, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.fromwhoid_fx, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.towhoid_fx, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.towhoid_fx, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.towhoid_fx, "", new { @class = "text-danger" })
+                @*@Html.EditorFor(model => model.towhoid_fx, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.towhoid_fx, "", new { @class = "text-danger" })*@
+                @{SelectList category_user = (SelectList)ViewData["category_user"];}
+                @Html.DropDownListFor(model => model.towhoid_fx, category_user, "--请选择--", new { htmlAttributes = new { @class = "form-control" } })
+
+
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.fromdate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.fromdate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.fromdate, new { htmlAttributes = new { @class = "form-control",id= "datepicker1" } })
                 @Html.ValidationMessageFor(model => model.fromdate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -58,12 +66,12 @@
         <div class="form-group">
             @Html.LabelFor(model => model.todate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.todate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.todate, new { htmlAttributes = new { @class = "form-control", id = "datepicker2" } })
                 @Html.ValidationMessageFor(model => model.todate, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.dad_mission, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.dad_mission, new { htmlAttributes = new { @class = "form-control" } })
@@ -85,17 +93,17 @@
                 @Html.EditorFor(model => model.isbottom, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.isbottom, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.request_text, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.request_text, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.request_text, new { htmlAttributes = new { } })
                 @Html.ValidationMessageFor(model => model.request_text, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.request_file, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.request_file, new { htmlAttributes = new { @class = "form-control" } })
@@ -109,15 +117,15 @@
                 @Html.EditorFor(model => model.iscomplete, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.iscomplete, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.desc_text, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.desc_text, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.desc_text, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.remark, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -154,3 +162,35 @@
 <div>
     @Html.ActionLink("返回列表", "Index")
 </div>
+<script src="../../Scripts/pikaday.js"></script>
+<script>
+    var picker = new Pikaday(
+    {
+        field: document.getElementById('datepicker1'),
+        firstDay: 1,
+        minDate: new Date('2000-01-01'),
+        maxDate: new Date('2020-12-31'),
+        yearRange: [1950,2050]
+    });
+    var picker2 = new Pikaday(
+    {
+        field: document.getElementById('datepicker2'),
+        firstDay: 1,
+        minDate: new Date('2000-01-01'),
+        maxDate: new Date('2020-12-31'),
+        yearRange: [1950, 2050]
+    });
+</script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval", "~/Scripts/ueditor-utf8/ueditor.config.js", "~/Scripts/ueditor-utf8/ueditor.all.js")
+    <script type="text/javascript">
+        var editor = new baidu.editor.ui.Editor({
+        UEDITOR_HOME_URL: '/Scripts/ueditor-utf8/',//配置编辑器路径   也可以在ueditor.config.js文件中配置。
+        iframeCssUrl: '/Scripts/ueditor-utf8/themes/iframe.css',//样式路径
+        // initialContent:'欢迎使用ueditor',//初始化编辑器内容
+        autoHeightEnabled:true,//高度自动增长
+        initialFrameHeight:400  //配置编辑器的初始高度为400px。
+        });
+        editor.render('request_text');   //将编辑器装入 ID=Content 的文本域中。
+    </script>
+}
