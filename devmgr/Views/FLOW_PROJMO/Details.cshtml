@@ -5,10 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<h2>详细</h2>
 
 <div>
-    <h4>FLOW_PROJMO</h4>
+    <h4>项目模块</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -94,8 +94,8 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("编辑", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("返回", "Index")
 </p>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
