@@ -61,7 +61,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.birthdate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.birthdate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.birthdate, new { htmlAttributes = new { @class = "form-control", id = "datepicker" } })
                 @Html.ValidationMessageFor(model => model.birthdate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -85,8 +85,10 @@
         <div class="form-group">
             @Html.LabelFor(model => model.departid_fx, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.departid_fx, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.departid_fx, "", new { @class = "text-danger" })
+                @*@Html.EditorFor(model => model.departid_fx, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.departid_fx, "", new { @class = "text-danger" })*@
+                @{SelectList category = (SelectList)ViewData["categories"];}
+                @Html.DropDownListFor(model => model.departid_fx, category, "--请选择--", new { htmlAttributes = new { @class = "form-control" } })
             </div>
         </div>
 
@@ -141,3 +143,16 @@
 <div>
     @Html.ActionLink("返回列表", "Index")
 </div>
+<script src="../../Scripts/pikaday.js"></script>
+<script>
+
+    var picker = new Pikaday(
+    {
+        field: document.getElementById('datepicker'),
+        firstDay: 1,
+        minDate: new Date('1950-01-01'),
+        maxDate: new Date('2050-12-31'),
+        yearRange: [1950,2050]
+    });
+
+</script>

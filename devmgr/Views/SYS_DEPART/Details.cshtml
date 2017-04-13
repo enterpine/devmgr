@@ -1,5 +1,7 @@
 ﻿@model devmgr.Models.SYS_DEPART
-
+@using System.Linq;
+@using devmgr.Models;
+@{Model1 ef = new Model1(); }
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -16,7 +18,7 @@
 <h2>查看</h2>
 
 <div>
-    <h4>SYS_DEPART</h4>
+    <h4>部门管理</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -39,7 +41,20 @@
             @Html.DisplayNameFor(model => model.managerid_fx)
         </dt>
 
-        <dd>
+        <dd> 
+            @*@{ 
+                Html.(model => model.managerid_fx)
+                    var obj = ef.SYS_USER.Where(item1 => item1.id == model=>model.managerid_fx);
+
+            }
+            @if (obj.Count<SYS_USER>() > 0)
+            {
+                @Html.Label(obj.First<SYS_USER>().cname.ToString())
+            }
+            else
+            {
+
+            }*@
             @Html.DisplayFor(model => model.managerid_fx)
         </dd>
 
