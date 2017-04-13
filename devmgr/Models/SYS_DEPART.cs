@@ -19,7 +19,7 @@
         [StringLength(20)]
         [Display(Name = "部门名称")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "名称不能为空")]
-        [Remote("CheckDepName", "Validate")]
+        [Remote("CheckDepName", "Validate", AdditionalFields = "id")]
         //[Remote("CheckDepName", "Validate")]
         public string name { get; set; }
 

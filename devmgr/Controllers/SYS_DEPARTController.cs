@@ -38,6 +38,9 @@ namespace devmgr.Controllers
         // GET: SYS_DEPART/Create
         public ActionResult Create()
         {
+            List<SYS_USER> categories = SYS_USER.GETALL();
+            ViewData["Categories"] = new SelectList(categories, "id", "cname");
+
             return View();
         }
 
@@ -77,6 +80,7 @@ namespace devmgr.Controllers
         // GET: SYS_DEPART/Edit/5
         public ActionResult Edit(int? id)
         {
+   
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -86,6 +90,10 @@ namespace devmgr.Controllers
             {
                 return HttpNotFound();
             }
+
+            List<SYS_USER> categories = SYS_USER.GETALL();
+            ViewData["Categories"] = new SelectList(categories, "id", "cname");
+
             return View(sYS_DEPART);
         }
 
@@ -102,6 +110,8 @@ namespace devmgr.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            List<SYS_USER> categories = SYS_USER.GETALL();
+            ViewData["Categories"] = new SelectList(categories, "id", "cname");
             return View(sYS_DEPART);
         }
 

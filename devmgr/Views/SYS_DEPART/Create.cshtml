@@ -45,8 +45,10 @@
         <div class="form-group">
             @Html.LabelFor(model => model.managerid_fx, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.managerid_fx, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.managerid_fx, "", new { @class = "text-danger" })
+                @*@Html.EditorFor(model => model.managerid_fx, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.managerid_fx, "", new { @class = "text-danger" })*@
+                @{SelectList category = (SelectList)ViewData["Categories"];}
+                @Html.DropDownListFor(model => model.managerid_fx, category, "--请选择--", new { htmlAttributes = new { @class = "form-control" } })
             </div>
         </div>
 

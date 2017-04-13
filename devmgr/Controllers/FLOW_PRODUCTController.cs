@@ -78,13 +78,17 @@ namespace devmgr.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            List<SYS_USER> categories = SYS_USER.GETALL();
+            ViewData["Categories"] = new SelectList(categories, "id", "cname");
             return View(fLOW_PRODUCT);
         }
 
         // GET: FLOW_PRODUCT/Edit/5
         public ActionResult Edit(int? id)
         {
+            List<SYS_USER> categories = SYS_USER.GETALL();
+            ViewData["Categories"] = new SelectList(categories, "id", "cname");
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -110,6 +114,8 @@ namespace devmgr.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            List<SYS_USER> categories = SYS_USER.GETALL();
+            ViewData["Categories"] = new SelectList(categories, "id", "cname");
             return View(fLOW_PRODUCT);
         }
 

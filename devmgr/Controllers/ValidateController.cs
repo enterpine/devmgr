@@ -13,7 +13,7 @@ namespace devmgr.Controllers
         {
             return View();
         }
-        public JsonResult CheckDepName(string name)
+        public JsonResult CheckDepName(string name,int? id)
         {
             Model1 ef = new Model1();
             var obj = ef.SYS_DEPART.Where(item => item.name == name);
@@ -22,7 +22,13 @@ namespace devmgr.Controllers
             {
                 return Json(true, JsonRequestBehavior.AllowGet);
             }
-            return Json("抱歉，该名称已存在！", JsonRequestBehavior.AllowGet);
+            if (id == null)
+            {
+                return Json("抱歉，该名称已存在！", JsonRequestBehavior.AllowGet);
+            }
+            else {
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
         }
         public JsonResult CheckProductName(string name)
         {
