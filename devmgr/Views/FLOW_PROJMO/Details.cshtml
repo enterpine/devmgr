@@ -1,5 +1,7 @@
 ﻿@model devmgr.Models.FLOW_PROJMO
-
+@using System.Linq;
+@using devmgr.Models;
+@{Model1 ef = new Model1(); }
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -32,7 +34,18 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.projectid_fx)
+            @*@Html.DisplayFor(model => model.projectid_fx)*@
+            @{
+                var obj3 = ef.FLOW_PROJECT.Where(item1 => item1.id == Model.projectid_fx);
+            }
+            @if (obj3.Count<FLOW_PROJECT>() > 0)
+            {
+                @Html.Label(obj3.First<FLOW_PROJECT>().desc_text.ToString())
+            }
+            else
+            {
+
+            }
         </dd>
 
         <dt>
@@ -40,7 +53,18 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.responserid_fx)
+            @*@Html.DisplayFor(model => model.responserid_fx)*@
+            @{
+                var obj = ef.SYS_USER.Where(item1 => item1.id == Model.responserid_fx);
+            }
+            @if (obj.Count<SYS_USER>() > 0)
+            {
+                @Html.Label(obj.First<SYS_USER>().cname.ToString())
+            }
+            else
+            {
+
+            }
         </dd>
 
         <dt>
@@ -80,7 +104,18 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.whocreateid)
+            @*@Html.DisplayFor(model => model.whocreateid)*@
+            @{
+                var obj2 = ef.SYS_USER.Where(item1 => item1.id == Model.whocreateid);
+            }
+            @if (obj2.Count<SYS_USER>() > 0)
+            {
+                @Html.Label(obj2.First<SYS_USER>().cname.ToString())
+            }
+            else
+            {
+
+            }
         </dd>
 
         <dt>

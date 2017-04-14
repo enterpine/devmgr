@@ -1,5 +1,7 @@
 ﻿@model devmgr.Models.SYS_USER
-
+@using System.Linq;
+@using devmgr.Models;
+@{Model1 ef = new Model1(); }
 @{
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -83,7 +85,18 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.departid_fx)
+            @*@Html.DisplayFor(model => model.departid_fx)*@
+            @{
+                var obj3 = ef.SYS_DEPART.Where(item1 => item1.id == Model.departid_fx);
+            }
+            @if (obj3.Count<SYS_DEPART>() > 0)
+            {
+                @Html.Label(obj3.First<SYS_DEPART>().name.ToString())
+            }
+            else
+            {
+
+            }
         </dd>
 
         <dt>
@@ -91,7 +104,18 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.usertypeid_fx)
+            @*@Html.DisplayFor(model => model.usertypeid_fx)*@
+            @{
+                var obj = ef.SYS_USERTYPE.Where(item1 => item1.id == Model.usertypeid_fx);
+            }
+            @if (obj.Count<SYS_USERTYPE>() > 0)
+            {
+                @Html.Label(obj.First<SYS_USERTYPE>().typename.ToString())
+            }
+            else
+            {
+
+            }
         </dd>
 
         <dt>
@@ -115,7 +139,18 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.whocreateid_fx)
+            @*@Html.DisplayFor(model => model.whocreateid_fx)*@
+            @{
+                var obj2 = ef.SYS_USER.Where(item1 => item1.id == Model.whocreateid_fx);
+            }
+            @if (obj2.Count<SYS_USER>() > 0)
+            {
+                @Html.Label(obj2.First<SYS_USER>().cname.ToString())
+            }
+            else
+            {
+
+            }
         </dd>
 
         <dt>

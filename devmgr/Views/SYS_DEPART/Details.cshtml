@@ -42,10 +42,11 @@
         </dt>
 
         <dd> 
-            @*@{ 
-                Html.(model => model.managerid_fx)
-                    var obj = ef.SYS_USER.Where(item1 => item1.id == model=>model.managerid_fx);
+            @*@{ int a = (int)Model.managerid_fx }
+            @Html.DisplayFor(model => model.managerid_fx)*@
 
+            @{ 
+                    var obj = ef.SYS_USER.Where(item1 => item1.id == Model.managerid_fx);
             }
             @if (obj.Count<SYS_USER>() > 0)
             {
@@ -54,8 +55,8 @@
             else
             {
 
-            }*@
-            @Html.DisplayFor(model => model.managerid_fx)
+            }
+           
         </dd>
 
         <dt>
@@ -79,7 +80,18 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.whocreateid_fx)
+            @*@Html.DisplayFor(model => model.whocreateid_fx)*@
+            @{
+                var obj2 = ef.SYS_USER.Where(item1 => item1.id == Model.whocreateid_fx);
+            }
+            @if (obj2.Count<SYS_USER>() > 0)
+            {
+                @Html.Label(obj2.First<SYS_USER>().cname.ToString())
+            }
+            else
+            {
+
+            }
         </dd>
 
         <dt>

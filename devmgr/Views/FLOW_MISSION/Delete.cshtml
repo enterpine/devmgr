@@ -1,5 +1,7 @@
 ﻿@model devmgr.Models.FLOW_MISSION
-
+@using System.Linq;
+@using devmgr.Models;
+@{Model1 ef = new Model1(); }
 @{
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -130,6 +132,17 @@
 
         <dd>
             @Html.DisplayFor(model => model.whocreateid_fx)
+            @{
+                var obj2 = ef.SYS_USER.Where(item1 => item1.id == Model.whocreateid_fx);
+            }
+            @if (obj2.Count<SYS_USER>() > 0)
+            {
+                @Html.Label(obj2.First<SYS_USER>().cname.ToString())
+            }
+            else
+            {
+
+            }
         </dd>
 
         <dt>
