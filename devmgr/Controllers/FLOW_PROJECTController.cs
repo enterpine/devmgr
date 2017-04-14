@@ -78,13 +78,22 @@ namespace devmgr.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            List<SYS_USER> categories_user = SYS_USER.GETALL();
+            ViewData["Categories_user"] = new SelectList(categories_user, "id", "cname");
 
+            List<FLOW_PRODUCT> categories = FLOW_PRODUCT.GETALL();
+            ViewData["Categories_prod"] = new SelectList(categories, "id", "name");
             return View(fLOW_PROJECT);
         }
 
         // GET: FLOW_PROJECT/Edit/5
         public ActionResult Edit(int? id)
         {
+            List<SYS_USER> categories_user = SYS_USER.GETALL();
+            ViewData["Categories_user"] = new SelectList(categories_user, "id", "cname");
+
+            List<FLOW_PRODUCT> categories = FLOW_PRODUCT.GETALL();
+            ViewData["Categories_prod"] = new SelectList(categories, "id", "name");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -111,6 +120,11 @@ namespace devmgr.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            List<SYS_USER> categories_user = SYS_USER.GETALL();
+            ViewData["Categories_user"] = new SelectList(categories_user, "id", "cname");
+
+            List<FLOW_PRODUCT> categories = FLOW_PRODUCT.GETALL();
+            ViewData["Categories_prod"] = new SelectList(categories, "id", "name");
             return View(fLOW_PROJECT);
         }
 

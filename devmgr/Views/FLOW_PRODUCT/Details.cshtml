@@ -34,7 +34,18 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Responserid_fx)
+                @*@Html.DisplayFor(model => model.Responserid_fx)*@
+                @{
+                    var obj = ef.SYS_USER.Where(item1 => item1.id == Model.Responserid_fx);
+                }
+                @if (obj.Count<SYS_USER>() > 0)
+                {
+                    @Html.Label(obj.First<SYS_USER>().cname.ToString())
+                }
+                else
+                {
+
+                }
             </dd>
 
             <dt>
@@ -50,7 +61,18 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.clientid_fx)
+                @*@Html.DisplayFor(model => model.clientid_fx)*@
+                @{
+                    var obj3 = ef.FLOW_CLIENT.Where(item1 => item1.id == Model.clientid_fx);
+                }
+                @if (obj3.Count<FLOW_CLIENT>() > 0)
+                {
+                    @Html.Label(obj3.First<FLOW_CLIENT>().company_name.ToString())
+                }
+                else
+                {
+
+                }
             </dd>
 
             <dt>

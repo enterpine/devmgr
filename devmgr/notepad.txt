@@ -74,3 +74,8 @@ else
 {
 
 }
+
+
+style= "display:none"
+
+new { @class = "form-control", @readonly = "true"
