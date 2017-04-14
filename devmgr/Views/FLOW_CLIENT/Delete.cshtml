@@ -76,7 +76,12 @@
         </dd>
 
         <dt>
-            @*@Html.DisplayNameFor(model => model.whocreateid_fx)*@
+            @Html.DisplayNameFor(model => model.whocreateid_fx)
+            
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.whocreateid_fx)*@
             @{
                 var obj2 = ef.SYS_USER.Where(item1 => item1.id == Model.whocreateid_fx);
             }
@@ -88,10 +93,6 @@
             {
 
             }
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.whocreateid_fx)
         </dd>
 
         <dt>

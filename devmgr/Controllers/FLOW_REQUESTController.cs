@@ -76,7 +76,8 @@ namespace devmgr.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            List<FLOW_PRODUCT> categories = FLOW_PRODUCT.GETALL();
+            ViewData["Categories_prod"] = new SelectList(categories, "id", "name");
             return View(fLOW_REQUEST);
         }
 
@@ -92,6 +93,8 @@ namespace devmgr.Controllers
             {
                 return HttpNotFound();
             }
+            List<FLOW_PRODUCT> categories = FLOW_PRODUCT.GETALL();
+            ViewData["Categories_prod"] = new SelectList(categories, "id", "name");
             return View(fLOW_REQUEST);
         }
 
@@ -108,6 +111,8 @@ namespace devmgr.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            List<FLOW_PRODUCT> categories = FLOW_PRODUCT.GETALL();
+            ViewData["Categories_prod"] = new SelectList(categories, "id", "name");
             return View(fLOW_REQUEST);
         }
 

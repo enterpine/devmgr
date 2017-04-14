@@ -80,6 +80,9 @@ namespace devmgr.Controllers
             }
             List<SYS_USER> categories = SYS_USER.GETALL();
             ViewData["Categories"] = new SelectList(categories, "id", "cname");
+
+            List<FLOW_CLIENT> categoriesclient = FLOW_CLIENT.GETALL();
+            ViewData["Categoriesclient"] = new SelectList(categoriesclient, "id", "company_name");
             return View(fLOW_PRODUCT);
         }
 
@@ -88,6 +91,9 @@ namespace devmgr.Controllers
         {
             List<SYS_USER> categories = SYS_USER.GETALL();
             ViewData["Categories"] = new SelectList(categories, "id", "cname");
+
+            List<FLOW_CLIENT> categoriesclient = FLOW_CLIENT.GETALL();
+            ViewData["Categoriesclient"] = new SelectList(categoriesclient, "id", "company_name");
 
             if (id == null)
             {
@@ -116,6 +122,9 @@ namespace devmgr.Controllers
             }
             List<SYS_USER> categories = SYS_USER.GETALL();
             ViewData["Categories"] = new SelectList(categories, "id", "cname");
+
+            List<FLOW_CLIENT> categoriesclient = FLOW_CLIENT.GETALL();
+            ViewData["Categoriesclient"] = new SelectList(categoriesclient, "id", "company_name");
             return View(fLOW_PRODUCT);
         }
 
