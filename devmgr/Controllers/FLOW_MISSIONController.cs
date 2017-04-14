@@ -44,6 +44,9 @@ namespace devmgr.Controllers
             List<SYS_USER> category_user = SYS_USER.GETALL();
             ViewData["category_user"] = new SelectList(category_user, "id", "cname");
 
+            List<FLOW_PROJMO> categories_projmo = FLOW_PROJMO.GETALL();
+            ViewData["categories_projmo"] = new SelectList(categories_projmo, "id", "name");
+
             return View();
         }
 
@@ -150,5 +153,36 @@ namespace devmgr.Controllers
             }
             base.Dispose(disposing);
         }
+
+        /// <summary>
+        /// 获取省份
+        /// </summary>
+        public JsonResult getproj()
+        {
+            List < FLOW_PROJECT > categories_proj = FLOW_PROJECT.GETALL();
+            var list = new SelectList(categories_proj, "id", "desc_text");
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 获取城市
+        /// </summary>
+        /// <param name="pid"></param>
+        /// <returns></returns>
+        public JsonResult getprojmo(int projectid_fx)
+        {
+            List<FLOW_PROJMO> categories_projmo = FLOW_PROJMO.GETALL();
+
+            var projmo = categories_projmo.Where(m => m.projectid_fx == projectid_fx).ToList();
+
+            List<SelectListItem> item = new List<SelectListItem>();
+
+            foreach (var i in projmo)
+            {
+                item.Add(new SelectListItem { Text = i.name, Value = i.id.ToString() });
+            }
+            return Json(item, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

@@ -14,8 +14,11 @@
         [Display(Name = "任务编码")]
         public string code { get; set; }
 
-        [Display(Name = "所属项目-模块")]
+        [Display(Name = "所属项目")]
         public int? projectid_fx { get; set; }
+
+        [Display(Name = "所属模块")]
+        public int? projmotid_fx { get; set; }
 
         [Display(Name = "谁指派的")]
         public int? fromwhoid_fx { get; set; }

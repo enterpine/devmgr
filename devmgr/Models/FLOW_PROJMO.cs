@@ -5,6 +5,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Linq;
 
     [Table("enterpine.FLOW_PROJMO")]
     public partial class FLOW_PROJMO
@@ -48,5 +49,11 @@
         [Column(TypeName = "date")]
         [Display(Name = "创建日期")]
         public DateTime? createdate { get; set; }
+
+        static public List<FLOW_PROJMO> GETALL()
+        {
+            Model1 db = new Model1();
+            return db.FLOW_PROJMO.ToList();
+        }
     }
 }
