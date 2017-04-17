@@ -14,7 +14,11 @@
     <hr/>
     @if (Model.iscomplete != 1)
     {
-        @Html.ActionLink("点击完成", "finish", "FLOW_MISSION", new { id = Model.id }, new { })
+        @Html.ActionLink("点击完成", "submission", "FLOW_MISSION", new { id = Model.id }, new { })
+    }
+    else
+    {
+        @Html.ActionLink("查看完成情况", "subdetails", "FLOW_MISSION", new { id = Model.id }, new { })
     }
     <dl class="dl-horizontal">
         <dt>
@@ -24,29 +28,82 @@
         <dd>
             @Html.DisplayFor(model => model.code)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.request_file)
+        </dt>
 
+        <dd>
+            @Html.DisplayFor(model => model.request_file)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.projectid_fx)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.projectid_fx)
+            @{
+                var obj2 = ef.FLOW_PROJECT.Where(item1 => item1.id == Model.projectid_fx);
+            }
+            @if (obj2.Count<FLOW_PROJECT>() > 0)
+            {
+                @Html.Label(obj2.First<FLOW_PROJECT>().desc_text.ToString())
+            }
+            else
+            {
+
+            }
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.projmotid_fx)
+        </dt>
+
+        <dd>
+            @{
+                var obj3 = ef.FLOW_PROJMO.Where(item1 => item1.id == Model.projmotid_fx);
+            }
+            @if (obj3.Count<FLOW_PROJMO>() > 0)
+            {
+                @Html.Label(obj3.First<FLOW_PROJMO>().name.ToString())
+            }
+            else
+            {
+
+            }
         </dd>
 
-        @*<dt>
+        <dt>
             @Html.DisplayNameFor(model => model.fromwhoid_fx)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.fromwhoid_fx)
-        </dd>*@
+            @{
+                var obj4 = ef.SYS_USER.Where(item1 => item1.id == Model.fromwhoid_fx);
+            }
+            @if (obj4.Count<SYS_USER>() > 0)
+            {
+                @Html.Label(obj4.First<SYS_USER>().cname.ToString())
+            }
+            else
+            {
+
+            }
+        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.towhoid_fx)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.towhoid_fx)
+            @{
+                var obj5 = ef.SYS_USER.Where(item1 => item1.id == Model.towhoid_fx);
+            }
+            @if (obj5.Count<SYS_USER>() > 0)
+            {
+                @Html.Label(obj5.First<SYS_USER>().cname.ToString())
+            }
+            else
+            {
+
+            }
         </dd>
 
         <dt>
@@ -65,38 +122,6 @@
             @Html.DisplayFor(model => model.todate)
         </dd>
 
-        @*<dt>
-        @Html.DisplayNameFor(model => model.dad_mission)
-        </dt>
-
-        <dd>
-        @Html.DisplayFor(model => model.dad_mission)
-        </dd>
-
-        <dt>
-        @Html.DisplayNameFor(model => model.dad_level)
-        </dt>
-
-        <dd>
-        @Html.DisplayFor(model => model.dad_level)
-        </dd>
-
-        <dt>
-        @Html.DisplayNameFor(model => model.isbottom)
-        </dt>
-
-        <dd>
-        @Html.DisplayFor(model => model.isbottom)
-        </dd>*@
-
-        <dt>
-            @Html.DisplayNameFor(model => model.request_file)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.request_file)
-        </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.request_text)
         </dt>
@@ -105,23 +130,20 @@
             @Html.EditorFor(model => model.request_text)
         </dd>
 
-        
-
-        @*<dt>
+        <dt>
             @Html.DisplayNameFor(model => model.iscomplete)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.iscomplete)
+            @if (Model.iscomplete == 1)
+            {
+                @Html.Display("已完成");
+            }
+            else
+            {
+                @Html.Display("已发布");
+            }
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.desc_text)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.desc_text)
-        </dd>*@
 
         <dt>
             @Html.DisplayNameFor(model => model.remark)
@@ -136,13 +158,12 @@
         </dt>
 
         <dd>
-            @*@Html.DisplayFor(model => model.whocreateid_fx)*@
             @{
-                var obj2 = ef.SYS_USER.Where(item1 => item1.id == Model.whocreateid_fx);
+                var obj = ef.SYS_USER.Where(item1 => item1.id == Model.whocreateid_fx);
             }
-            @if (obj2.Count<SYS_USER>() > 0)
+            @if (obj.Count<SYS_USER>() > 0)
             {
-                @Html.Label(obj2.First<SYS_USER>().cname.ToString())
+                @Html.Label(obj.First<SYS_USER>().cname.ToString())
             }
             else
             {

@@ -56,7 +56,7 @@ namespace devmgr.Controllers
         [HttpPost]
         [ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,code,projectid_fx,fromwhoid_fx,towhoid_fx,fromdate,todate,dad_mission,dad_level,isbottom,request_text,request_file,iscomplete,desc_text,remark,whocreateid_fx,createdate")] FLOW_MISSION fLOW_MISSION)
+        public ActionResult Create([Bind(Include = "projmotid_fx,id,code,projectid_fx,fromwhoid_fx,towhoid_fx,fromdate,todate,dad_mission,dad_level,isbottom,request_text,request_file,iscomplete,desc_text,remark,whocreateid_fx,createdate")] FLOW_MISSION fLOW_MISSION)
         {
             Model1 ef = new Model1();
             String username = Request.Cookies["username"].Value.ToString();
@@ -96,7 +96,6 @@ namespace devmgr.Controllers
         }
 
         // GET: FLOW_MISSION/Edit/5
-        [ValidateInput(false)]
         public ActionResult Edit(int? id)
         {
             List<FLOW_PROJECT> categories_proj = FLOW_PROJECT.GETALL();
@@ -125,7 +124,7 @@ namespace devmgr.Controllers
         [HttpPost]
         [ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,code,projectid_fx,fromwhoid_fx,towhoid_fx,fromdate,todate,dad_mission,dad_level,isbottom,request_text,request_file,iscomplete,desc_text,remark,whocreateid_fx,createdate")] FLOW_MISSION fLOW_MISSION)
+        public ActionResult Edit([Bind(Include = "projmotid_fx,id,code,projectid_fx,fromwhoid_fx,towhoid_fx,fromdate,todate,dad_mission,dad_level,isbottom,request_text,request_file,iscomplete,desc_text,remark,whocreateid_fx,createdate")] FLOW_MISSION fLOW_MISSION)
         {
 
             if (ModelState.IsValid)
@@ -206,7 +205,9 @@ namespace devmgr.Controllers
             }
             return Json(item, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult finish(int? id) {
+        //submission:GET
+        public ActionResult submission(int? id)
+        {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -216,11 +217,35 @@ namespace devmgr.Controllers
             {
                 return HttpNotFound();
             }
-            fLOW_MISSION.iscomplete = 1;
-            fLOW_MISSION.finishdate = DateTime.Now;
-            db.Entry(fLOW_MISSION).State = EntityState.Modified;
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            return View(fLOW_MISSION);
+        }
+        [HttpPost]
+        [ValidateInput(false)]
+        [ValidateAntiForgeryToken]
+        public ActionResult submission([Bind(Include = "finish_text,id,code,projectid_fx,fromwhoid_fx,towhoid_fx,fromdate,todate,dad_mission,dad_level,isbottom,request_text,request_file,iscomplete,desc_text,remark,whocreateid_fx,createdate")] FLOW_MISSION fLOW_MISSION)
+        {
+            if (ModelState.IsValid)
+            {
+                fLOW_MISSION.iscomplete = 1;
+                fLOW_MISSION.finishdate = DateTime.Now;
+                db.Entry(fLOW_MISSION).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(fLOW_MISSION);
+        }
+        public ActionResult subdetails(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            FLOW_MISSION fLOW_MISSION = db.FLOW_MISSION.Find(id);
+            if (fLOW_MISSION == null)
+            {
+                return HttpNotFound();
+            }
+            return View(fLOW_MISSION);
         }
     }
 }

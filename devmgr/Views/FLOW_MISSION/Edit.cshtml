@@ -76,13 +76,13 @@
             </div>
         </div>
 
-        @*<div class="form-group">
+        <div class="form-group" style="display:none">
             @Html.LabelFor(model => model.fromwhoid_fx, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.fromwhoid_fx, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.fromwhoid_fx, "", new { @class = "text-danger" })
             </div>
-        </div>*@
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.towhoid_fx, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -112,30 +112,6 @@
             </div>
         </div>
 
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.dad_mission, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.dad_mission, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.dad_mission, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.dad_level, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.dad_level, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.dad_level, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.isbottom, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.isbottom, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.isbottom, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
         <div class="form-group">
             @Html.LabelFor(model => model.request_text, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -146,21 +122,13 @@
 
         
 
-        @*<div class="form-group">
+       <div class="form-group" style= "display:none">
             @Html.LabelFor(model => model.iscomplete, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.iscomplete, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.iscomplete, "", new { @class = "text-danger" })
             </div>
-        </div>*@
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.desc_text, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.desc_text, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.desc_text, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.remark, htmlAttributes: new { @class = "control-label col-md-2" })

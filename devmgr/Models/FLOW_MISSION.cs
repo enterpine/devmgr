@@ -48,6 +48,11 @@
         [DataType(DataType.MultilineText)]
         public string request_text { get; set; }
 
+        [StringLength(500)]
+        [Display(Name = "完成情况说明")]
+        [DataType(DataType.MultilineText)]
+        public string finish_text { get; set; }
+
         [StringLength(1000)]
         [Required(AllowEmptyStrings = false, ErrorMessage = "名称不能为空")]
         [Display(Name = "名称")]
@@ -55,6 +60,8 @@
 
         [Display(Name = "任务状态")]
         public int? iscomplete { get; set; }
+
+
 
         [StringLength(100)]
         [Display(Name = "描述")]

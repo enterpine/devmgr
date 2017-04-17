@@ -35,31 +35,11 @@
         <th>
             @Html.DisplayNameFor(model => model.todate)
         </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.dad_mission)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dad_level)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.isbottom)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.request_text)
-        </th>*@
         
         <th>
             @Html.DisplayNameFor(model => model.iscomplete)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.desc_text)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.remark)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.whocreateid_fx)
-        </th>
+
         <th>
             @Html.DisplayNameFor(model => model.createdate)
         </th>
@@ -89,9 +69,6 @@
             }
         </td>
 
-        @*<td>
-            @Html.DisplayFor(modelItem => item.fromwhoid_fx)
-        </td>*@
 
         <td>
             @{ var obj2 = ef.SYS_USER.Where(item1 => item1.id == item.fromwhoid_fx); }
@@ -105,9 +82,7 @@
             }
         </td>
 
-        @*<td>
-            @Html.DisplayFor(modelItem => item.towhoid_fx)
-        </td>*@
+
 
         <td>
             @{ var obj3 = ef.SYS_USER.Where(item1 => item1.id == item.towhoid_fx); }
@@ -127,40 +102,15 @@
         <td>
             @Html.DisplayFor(modelItem => item.todate)
         </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.dad_mission)
-        </td>
+       
         <td>
-            @Html.DisplayFor(modelItem => item.dad_level)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.isbottom)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.request_text)
-        </td>*@
-        <td>
-            @Html.DisplayFor(modelItem => item.iscomplete)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.desc_text)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.remark)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.whocreateid_fx)
-        </td>*@
-
-        <td>
-            @{ var obj4 = ef.SYS_USER.Where(item1 => item1.id == item.whocreateid_fx); }
-            @if (obj4.Count<SYS_USER>() > 0)
+            @if (item.iscomplete == 1)
             {
-                @Html.Label(obj4.First<SYS_USER>().cname.ToString())
+                @Html.Label("已完成");
             }
             else
             {
-
+                @Html.Label("待处理");
             }
         </td>
 

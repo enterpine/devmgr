@@ -1,0 +1,117 @@
+﻿@model devmgr.Models.FLOW_MISSION
+
+@{
+    ViewBag.Title = "subdetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>subdetails</h2>
+
+<div>
+    <h4>FLOW_MISSION</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.code)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.code)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.request_file)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.request_file)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fromwhoid_fx)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fromwhoid_fx)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.towhoid_fx)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.towhoid_fx)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fromdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fromdate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.todate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.todate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.finishdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.finishdate)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.finish_text)
+        </dt>
+
+        <dd>
+            @Html.EditorFor(model => model.finish_text)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.whocreateid_fx)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.whocreateid_fx)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.createdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.createdate)
+        </dd>
+
+        
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("返回", "Details",new { Model.id})
+</p>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval", "~/Scripts/ueditor-utf8/ueditor.config.js", "~/Scripts/ueditor-utf8/ueditor.all.js")
+    <script type="text/javascript">
+        var editor = new baidu.editor.ui.Editor({
+        UEDITOR_HOME_URL: '/Scripts/ueditor-utf8/',//配置编辑器路径   也可以在ueditor.config.js文件中配置。
+        iframeCssUrl: '/Scripts/ueditor-utf8/themes/iframe.css',//样式路径
+        // initialContent:'欢迎使用ueditor',//初始化编辑器内容
+        autoHeightEnabled:true,//高度自动增长
+        initialFrameHeight: 400,  //配置编辑器的初始高度为400px。
+        toolbars: [[]],
+        readonly:true
+        });
+        editor.render('finish_text');   //将编辑器装入 ID=Content 的文本域中。
+    </script>
+}

@@ -21,13 +21,46 @@
         <dd>
             @Html.DisplayFor(model => model.code)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.request_file)
+        </dt>
 
+        <dd>
+            @Html.DisplayFor(model => model.request_file)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.projectid_fx)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.projectid_fx)
+            @{
+                var obj2 = ef.FLOW_PROJECT.Where(item1 => item1.id == Model.projectid_fx);
+            }
+            @if (obj2.Count<FLOW_PROJECT>() > 0)
+            {
+                @Html.Label(obj2.First<FLOW_PROJECT>().desc_text.ToString())
+            }
+            else
+            {
+
+            }
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.projmotid_fx)
+        </dt>
+
+        <dd>
+            @{
+                var obj3 = ef.FLOW_PROJMO.Where(item1 => item1.id == Model.projmotid_fx);
+            }
+            @if (obj3.Count<FLOW_PROJMO>() > 0)
+            {
+                @Html.Label(obj3.First<FLOW_PROJMO>().name.ToString())
+            }
+            else
+            {
+
+            }
         </dd>
 
         <dt>
@@ -35,7 +68,17 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.fromwhoid_fx)
+            @{
+                var obj4 = ef.SYS_USER.Where(item1 => item1.id == Model.fromwhoid_fx);
+            }
+            @if (obj4.Count<SYS_USER>() > 0)
+            {
+                @Html.Label(obj4.First<SYS_USER>().cname.ToString())
+            }
+            else
+            {
+
+            }
         </dd>
 
         <dt>
@@ -43,7 +86,17 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.towhoid_fx)
+            @{
+                var obj5 = ef.SYS_USER.Where(item1 => item1.id == Model.towhoid_fx);
+            }
+            @if (obj5.Count<SYS_USER>() > 0)
+            {
+                @Html.Label(obj5.First<SYS_USER>().cname.ToString())
+            }
+            else
+            {
+
+            }
         </dd>
 
         <dt>
@@ -63,43 +116,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.dad_mission)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dad_mission)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.dad_level)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.dad_level)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.isbottom)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.isbottom)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.request_text)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.request_text)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.request_file)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.request_file)
+            @Html.EditorFor(model => model.request_text)
         </dd>
 
         <dt>
@@ -107,15 +128,14 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.iscomplete)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.desc_text)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.desc_text)
+            @if (Model.iscomplete == 1)
+            {
+                @Html.Display("已完成");
+            }
+            else
+            {
+                @Html.Display("已发布");
+            }
         </dd>
 
         <dt>
@@ -131,13 +151,12 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.whocreateid_fx)
             @{
-                var obj2 = ef.SYS_USER.Where(item1 => item1.id == Model.whocreateid_fx);
+                var obj = ef.SYS_USER.Where(item1 => item1.id == Model.whocreateid_fx);
             }
-            @if (obj2.Count<SYS_USER>() > 0)
+            @if (obj.Count<SYS_USER>() > 0)
             {
-                @Html.Label(obj2.First<SYS_USER>().cname.ToString())
+                @Html.Label(obj.First<SYS_USER>().cname.ToString())
             }
             else
             {
@@ -164,3 +183,18 @@
         </div>
     }
 </div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval", "~/Scripts/ueditor-utf8/ueditor.config.js", "~/Scripts/ueditor-utf8/ueditor.all.js")
+    <script type="text/javascript">
+        var editor = new baidu.editor.ui.Editor({
+        UEDITOR_HOME_URL: '/Scripts/ueditor-utf8/',//配置编辑器路径   也可以在ueditor.config.js文件中配置。
+        iframeCssUrl: '/Scripts/ueditor-utf8/themes/iframe.css',//样式路径
+        // initialContent:'欢迎使用ueditor',//初始化编辑器内容
+        autoHeightEnabled:true,//高度自动增长
+        initialFrameHeight: 400,  //配置编辑器的初始高度为400px。
+        toolbars: [[]],
+        readonly: true
+        });
+        editor.render('request_text');   //将编辑器装入 ID=Content 的文本域中。
+    </script>
+}
