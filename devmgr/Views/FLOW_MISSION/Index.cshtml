@@ -63,83 +63,167 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.code)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.request_file)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.projectid_fx)
-        </td>*@
-        <td>
-            @{ var obj = ef.FLOW_PROJECT.Where(item1 => item1.id == item.projectid_fx); }
-            @if (obj.Count<FLOW_PROJECT>() > 0)
-            {
-                @Html.Label(obj.First<FLOW_PROJECT>().desc_text.ToString())
-            }
-            else
-            {
+    @foreach (var item in Model)
+    {
+        if (item.iscomplete == 0)
+        {
+            <tr style="background-color:antiquewhite">
+                <td>
+                    @Html.DisplayFor(modelItem => item.code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.request_file)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.projectid_fx)
+                    </td>*@
+                <td>
+                    @{ var obj = ef.FLOW_PROJECT.Where(item1 => item1.id == item.projectid_fx); }
+                    @if (obj.Count<FLOW_PROJECT>() > 0)
+                    {
+                        @Html.Label(obj.First<FLOW_PROJECT>().desc_text.ToString())
+                    }
+                    else
+                    {
 
-            }
-        </td>
-
-
-        <td>
-            @{ var obj2 = ef.SYS_USER.Where(item1 => item1.id == item.fromwhoid_fx); }
-            @if (obj2.Count<SYS_USER>() > 0)
-            {
-                @Html.Label(obj2.First<SYS_USER>().cname.ToString())
-            }
-            else
-            {
-
-            }
-        </td>
+                    }
+                </td>
 
 
+                <td>
+                    @{ var obj2 = ef.SYS_USER.Where(item1 => item1.id == item.fromwhoid_fx); }
+                    @if (obj2.Count<SYS_USER>() > 0)
+                    {
+                        @Html.Label(obj2.First<SYS_USER>().cname.ToString())
+                    }
+                    else
+                    {
 
-        <td>
-            @{ var obj3 = ef.SYS_USER.Where(item1 => item1.id == item.towhoid_fx); }
-            @if (obj3.Count<SYS_USER>() > 0)
-            {
-                @Html.Label(obj3.First<SYS_USER>().cname.ToString())
-            }
-            else
-            {
+                    }
+                </td>
 
-            }
-        </td>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.fromdate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.todate)
-        </td>
-       
-        <td>
-            @if (item.iscomplete == 1)
-            {
-                @Html.Label("已完成");
-            }
-            else
-            {
-                @Html.Label("待处理");
-            }
-        </td>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.createdate)
-        </td>
-        <td>
-            @Html.ActionLink("编辑", "Edit", new { id=item.id }) |
-            @Html.ActionLink("查看", "Details", new { id=item.id }) |
-            @Html.ActionLink("删除", "Delete", new { id=item.id })
-        </td>
-    </tr>
+                <td>
+                    @{ var obj3 = ef.SYS_USER.Where(item1 => item1.id == item.towhoid_fx); }
+                    @if (obj3.Count<SYS_USER>() > 0)
+                    {
+                        @Html.Label(obj3.First<SYS_USER>().cname.ToString())
+                    }
+                    else
+                    {
+
+                    }
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.fromdate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.todate)
+                </td>
+
+                <td>
+                    @if (item.iscomplete == 1)
+                    {
+                        @Html.Label("已完成");
+                    }
+                    else
+                    {
+                        @Html.Label("待处理");
+                    }
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.createdate)
+                </td>
+                <td>
+                    @Html.ActionLink("编辑", "Edit", new { id = item.id }) |
+                    @Html.ActionLink("查看", "Details", new { id = item.id }) |
+                    @Html.ActionLink("删除", "Delete", new { id = item.id })
+                </td>
+            </tr>
+                        }
+                        else
+                        {
+                            <tr style="background-color:lightcyan">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.code)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.request_file)
+                                </td>
+                                @*<td>
+                                        @Html.DisplayFor(modelItem => item.projectid_fx)
+                                    </td>*@
+                                <td>
+                                    @{ var obj = ef.FLOW_PROJECT.Where(item1 => item1.id == item.projectid_fx); }
+                                    @if (obj.Count<FLOW_PROJECT>() > 0)
+                    {
+                                        @Html.Label(obj.First<FLOW_PROJECT>().desc_text.ToString())
+                                    }
+                                    else
+                                    {
+
+                                    }
+                                </td>
+
+
+                                <td>
+                                    @{ var obj2 = ef.SYS_USER.Where(item1 => item1.id == item.fromwhoid_fx); }
+                                    @if (obj2.Count<SYS_USER>() > 0)
+                    {
+                                        @Html.Label(obj2.First<SYS_USER>().cname.ToString())
+                                    }
+                                    else
+                                    {
+
+                                    }
+                                </td>
+
+
+
+                                <td>
+                                    @{ var obj3 = ef.SYS_USER.Where(item1 => item1.id == item.towhoid_fx); }
+                                    @if (obj3.Count<SYS_USER>() > 0)
+                    {
+                                        @Html.Label(obj3.First<SYS_USER>().cname.ToString())
+                                    }
+                                    else
+                                    {
+
+                                    }
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.fromdate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.todate)
+                                </td>
+
+                                <td>
+                                    @if (item.iscomplete == 1)
+                    {
+                                        @Html.Label("已完成");
+                    }
+                    else
+                    {
+                                        @Html.Label("待处理");
+                    }
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.createdate)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("编辑", "Edit", new { id = item.id }) |
+                                    @Html.ActionLink("查看", "Details", new { id = item.id }) |
+                                    @Html.ActionLink("删除", "Delete", new { id = item.id })
+                                </td>
+                            </tr>
+                                        }
+               
 }
 
 </table>
