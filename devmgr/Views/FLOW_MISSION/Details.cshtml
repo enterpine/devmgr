@@ -11,7 +11,11 @@
 
 <div>
     <h4>任务管理</h4>
-    <hr />
+    <hr/>
+    @if (Model.iscomplete != 1)
+    {
+        @Html.ActionLink("点击完成", "finish", "FLOW_MISSION", new { id = Model.id }, new { })
+    }
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.code)

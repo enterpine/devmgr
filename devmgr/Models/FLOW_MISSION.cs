@@ -49,10 +49,11 @@
         public string request_text { get; set; }
 
         [StringLength(1000)]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "名称不能为空")]
         [Display(Name = "名称")]
         public string request_file { get; set; }
 
-        [Display(Name = "是否完成")]
+        [Display(Name = "任务状态")]
         public int? iscomplete { get; set; }
 
         [StringLength(100)]
@@ -69,5 +70,9 @@
         [Column(TypeName = "date")]
         [Display(Name = "创建日期")]
         public DateTime? createdate { get; set; }
+
+        [Column(TypeName = "date")]
+        [Display(Name = "完成日期")]
+        public DateTime? finishdate { get; set; }
     }
 }
