@@ -12,13 +12,29 @@
 <p>
     @Html.ActionLink("添 加", "Create")
 </p>
+<span style="background-color: rgb(255, 255, 102);">
+    @using (Html.BeginForm("Index", "FLOW_MISSION", FormMethod.Get, new { @class = "form-inline" }))
+    {
+        <p>
+            任务名称: @Html.TextBox("searchName", null, new { @class = "form-control", @placeholder = "请输入关键字", @style = "width:180px;height:29px;font-size:12px;" })
+            &nbsp;所在项目: @Html.DropDownList("searchProj", ViewData["categories_proj"] as SelectList, "请选择项目", new { @style="width:180px;height:29px;font-size:12px;" })
+            所属模块: @Html.DropDownList("searchProjmo", ViewData["categories_projmo"] as SelectList, "请选择模块", new { @style = "width:180px;height:29px;font-size:12px;" })
+            &nbsp; 任务状态: @Html.RadioButton("mistatus", 1)已完成 @Html.RadioButton("mistatus", 0) 待处理 @Html.RadioButton("mistatus", 2,true) 全部
+            &nbsp;<input type="submit" value="查询" class="btn btn-default" />
+        </p>
+    }
+       
+</span>
+ 
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.code)
+            @*@Html.DisplayNameFor(model => model.code)*@
+            @Html.ActionLink("任务编号", "Index", new { sortOrder = ViewBag.CodeSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.request_file)
+            @*@Html.DisplayNameFor(model => model.request_file)*@
+            @Html.ActionLink("名称", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
         <th>
             @Html.DisplayNameFor(model => model.projectid_fx)
@@ -41,7 +57,8 @@
         </th>
 
         <th>
-            @Html.DisplayNameFor(model => model.createdate)
+            @*@Html.DisplayNameFor(model => model.createdate)*@
+            @Html.ActionLink("创建日期", "Index", new { sortOrder = ViewBag.CreatedateSortParm })
         </th>
         <th></th>
     </tr>

@@ -14,10 +14,65 @@ namespace devmgr.Controllers
     {
         private Model1 db = new Model1();
 
-        // GET: FLOW_MISSION
-        public ActionResult Index()
+        public ActionResult Index(string searchName, int? searchProj,int? searchProjmo,string sortOrder,int? mistatus)
         {
-            return View(db.FLOW_MISSION.ToList());
+            List<FLOW_PROJECT> categories_proj = FLOW_PROJECT.GETALL();
+            ViewData["categories_proj"] = new SelectList(categories_proj, "id", "desc_text");
+            List<FLOW_PROJMO> categories_projmo = FLOW_PROJMO.GETALL();
+            ViewData["categories_projmo"] = new SelectList(categories_projmo, "id", "name");
+
+            ViewBag.CreatedateSortParm = sortOrder == "date" ? "date_desc" : "date_asc";
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "name_asc";
+            ViewBag.CodeSortParm = String.IsNullOrEmpty(sortOrder) ? "Code_desc" : "Code_asc";
+
+            var missions = from s in db.FLOW_MISSION
+                           select s;
+            if (searchProj != null)
+            {//项目筛选
+                missions = missions.Where(s => s.projectid_fx == searchProj);
+            }
+            if (searchProjmo != null)
+            {//模块筛选
+                missions = missions.Where(s => s.projmotid_fx == searchProjmo);
+            }
+            if (!String.IsNullOrEmpty(searchName))
+            {//搜索名称
+                missions = missions.Where(s => s.request_file.Contains(searchName));
+            }
+            if (mistatus == 1) {
+                missions = missions.Where(s => s.iscomplete==1);
+            }
+            if (mistatus == 0)
+            {
+                missions = missions.Where(s => s.iscomplete == 0);
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    missions = missions.OrderByDescending(s => s.request_file);
+                    break;
+                case "name_asc":
+                    missions = missions.OrderBy(s => s.request_file);
+                    break;
+                case "Code_desc":
+                    missions = missions.OrderByDescending(s => s.code);
+                    break;
+                case "Code_asc":
+                    missions = missions.OrderBy(s => s.code);
+                    break;
+                case "date_asc":
+                    missions = missions.OrderBy(s => s.createdate);
+                    break;
+                case "date_desc":
+                    missions = missions.OrderByDescending(s => s.createdate);
+                    break; 
+
+                default:
+                    missions = missions.OrderByDescending(s => s.createdate);
+                    break;
+            }
+
+            return View(missions.ToList());
         }
 
         // GET: FLOW_MISSION/Details/5
@@ -247,5 +302,25 @@ namespace devmgr.Controllers
             }
             return View(fLOW_MISSION);
         }
+
+        //public ActionResult Index(string sortOrder)
+        //{
+        //    ViewBag.ReleaseDateSortParm = sortOrder == "date" ? "date_desc" : "date";
+
+        //    var missions = from s in db.FLOW_MISSION
+        //                   select s;
+        //    switch (sortOrder)
+        //    {
+
+        //        case "date":
+        //            missions = missions.OrderBy(s => s.createdate);
+        //            break;
+        //        default:
+        //            missions = missions.OrderBy(s => s.createdate);
+        //            break;
+        //    }
+        //    return View(missions.ToList());
+        //}
+        
     }
 }
