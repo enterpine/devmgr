@@ -38,6 +38,10 @@ namespace devmgr.Controllers
         // GET: SYS_UTYPE_MODULE/Create
         public ActionResult Create()
         {
+            List<SYS_USERTYPE> categories_ug = SYS_USERTYPE.GETALL();
+            ViewData["categories_ug"] = new SelectList(categories_ug, "id", "typename");
+            List<SYS_MODULE> categories_mo = SYS_MODULE.GETALL();
+            ViewData["categories_mo"] = new SelectList(categories_mo, "id", "name");
             return View();
         }
 
@@ -72,13 +76,20 @@ namespace devmgr.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            List<SYS_USERTYPE> categories_ug = SYS_USERTYPE.GETALL();
+            ViewData["categories_ug"] = new SelectList(categories_ug, "id", "typename");
+            List<SYS_MODULE> categories_mo = SYS_MODULE.GETALL();
+            ViewData["categories_mo"] = new SelectList(categories_mo, "id", "name");
             return View(sYS_UTYPE_MODULE);
         }
 
         // GET: SYS_UTYPE_MODULE/Edit/5
         public ActionResult Edit(int? id)
         {
+            List<SYS_USERTYPE> categories_ug = SYS_USERTYPE.GETALL();
+            ViewData["categories_ug"] = new SelectList(categories_ug, "id", "typename");
+            List<SYS_MODULE> categories_mo = SYS_MODULE.GETALL();
+            ViewData["categories_mo"] = new SelectList(categories_mo, "id", "name");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -104,6 +115,10 @@ namespace devmgr.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            List<SYS_USERTYPE> categories_ug = SYS_USERTYPE.GETALL();
+            ViewData["categories_ug"] = new SelectList(categories_ug, "id", "typename");
+            List<SYS_MODULE> categories_mo = SYS_MODULE.GETALL();
+            ViewData["categories_mo"] = new SelectList(categories_mo, "id", "name");
             return View(sYS_UTYPE_MODULE);
         }
 

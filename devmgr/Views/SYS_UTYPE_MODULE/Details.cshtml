@@ -15,11 +15,11 @@
         <li>@Html.ActionLink("用户组&模块管理", "Index", "SYS_UTYPE_MODULE")</li>
     </ul>
 </div>
-<h2>Edit</h2>
+
 <h2>查看</h2>
 
 <div>
-    <h4>SYS_UTYPE_MODULE</h4>
+    <h4>权限管理</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -41,7 +41,7 @@
             }
             @if (obj3.Count<SYS_USERTYPE>() > 0)
             {
-                @Html.Label(obj3.First<SYS_USERTYPE>().name.ToString())
+                @Html.Label(obj3.First<SYS_USERTYPE>().typename.ToString())
             }
             else
             {
@@ -68,20 +68,24 @@
             }
         </dd>
 
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.isdefault)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.isdefault)
-        </dd>
+        </dd>*@
 
         <dt>
             @Html.DisplayNameFor(model => model.isenable)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.isenable)
+            @if (Model.isenable == 1)
+            {
+                @Html.Label("是")
+            }
+            else { @Html.Label("否") }
         </dd>
 
         <dt>
@@ -89,7 +93,12 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.isread)
+            @if (Model.isread == 1)
+            {
+                @Html.Label("是")
+            }
+            else
+            { @Html.Label("否") }
         </dd>
 
         <dt>
@@ -97,7 +106,12 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.iswrite)
+            @if (Model.iswrite == 1)
+            {
+                @Html.Label("是")
+            }
+            else
+            { @Html.Label("否") }
         </dd>
 
         <dt>

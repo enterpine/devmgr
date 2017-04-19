@@ -13,15 +13,15 @@
         <li>@Html.ActionLink("用户组&模块管理", "Index", "SYS_UTYPE_MODULE")</li>
     </ul>
 </div>
-<h2>Edit</h2>
-<h2>Create</h2>
+
+<h2>添加</h2>
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>SYS_USERTYPE</h4>
+        <h4>用户组管理</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @*<div class="form-group">

@@ -5,6 +5,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using System.Linq;
 
     public partial class SYS_USERTYPE
     {
@@ -32,5 +33,11 @@
         [Column(TypeName = "date")]
         [Display(Name = "创建日期")]
         public DateTime? createdate { get; set; }
+
+        static public List<SYS_USERTYPE> GETALL()
+        {
+            Model1 db = new Model1();
+            return db.SYS_USERTYPE.ToList();
+        }
     }
 }

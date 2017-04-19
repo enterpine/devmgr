@@ -13,15 +13,15 @@
         <li>@Html.ActionLink("用户组&模块管理", "Index", "SYS_UTYPE_MODULE")</li>
     </ul>
 </div>
-<h2>Edit</h2>
-<h2>Create</h2>
+
+<h2>添加</h2>
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>SYS_UTYPE_MODULE</h4>
+        <h4>权限管理</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @*<div class="form-group">
@@ -35,58 +35,70 @@
         <div class="form-group">
             @Html.LabelFor(model => model.usertypeid_fx, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.usertypeid_fx, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.usertypeid_fx, "", new { @class = "text-danger" })
+                @*@Html.EditorFor(model => model.usertypeid_fx, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.usertypeid_fx, "", new { @class = "text-danger" })*@
+                @{SelectList category_ug = (SelectList)ViewData["categories_ug"];}
+                @Html.DropDownListFor(model => model.usertypeid_fx, category_ug, "--请选择--", new { htmlAttributes = new { @class = "form-control" } })
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.moduleid_fx, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.moduleid_fx, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.moduleid_fx, "", new { @class = "text-danger" })
+                @*@Html.EditorFor(model => model.moduleid_fx, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.moduleid_fx, "", new { @class = "text-danger" })*@
+                @{SelectList categories_mo = (SelectList)ViewData["categories_mo"];}
+                @Html.DropDownListFor(model => model.moduleid_fx, categories_mo, "--请选择--", new { htmlAttributes = new { @class = "form-control" } })
+
+
             </div>
         </div>
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.isdefault, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.isdefault, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.isdefault, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.isenable, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.isenable, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.isenable, "", new { @class = "text-danger" })
+                @*@Html.EditorFor(model => model.isenable, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.isenable, "", new { @class = "text-danger" })*@
+                @Html.RadioButtonFor(model => model.isenable,1,new { @checked=true}) 是
+                @Html.RadioButtonFor(model => model.isenable, 0) 否
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.isread, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.isread, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.isread, "", new { @class = "text-danger" })
+                @*@Html.EditorFor(model => model.isread, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.isread, "", new { @class = "text-danger" })*@
+                @Html.RadioButtonFor(model => model.isread, 1) 是
+                @Html.RadioButtonFor(model => model.isread, 0, new { @checked = true }) 否
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.iswrite, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.iswrite, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.iswrite, "", new { @class = "text-danger" })
+                @*@Html.EditorFor(model => model.iswrite, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.iswrite, "", new { @class = "text-danger" })*@
+                @Html.RadioButtonFor(model => model.iswrite, 1) 是
+                @Html.RadioButtonFor(model => model.iswrite, 0, new { @checked = true }) 否
             </div>
         </div>
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.desc_text, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.desc_text, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.desc_text, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.remark, htmlAttributes: new { @class = "control-label col-md-2" })

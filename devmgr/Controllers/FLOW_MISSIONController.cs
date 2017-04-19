@@ -7,23 +7,25 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using devmgr.Models;
-
+using PagedList;
 namespace devmgr.Controllers
 {
     public class FLOW_MISSIONController : Controller
     {
         private Model1 db = new Model1();
 
-        public ActionResult Index(string searchName, int? searchProj,int? searchProjmo,string sortOrder,int? mistatus)
+        public ActionResult Index(string searchName, int? searchProj,int? searchProjmo,string sortOrder,int? mistatus,int? pageNum)
         {
             List<FLOW_PROJECT> categories_proj = FLOW_PROJECT.GETALL();
             ViewData["categories_proj"] = new SelectList(categories_proj, "id", "desc_text");
             List<FLOW_PROJMO> categories_projmo = FLOW_PROJMO.GETALL();
             ViewData["categories_projmo"] = new SelectList(categories_projmo, "id", "name");
 
-            ViewBag.CreatedateSortParm = sortOrder == "date" ? "date_desc" : "date_asc";
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "name_asc";
-            ViewBag.CodeSortParm = String.IsNullOrEmpty(sortOrder) ? "Code_desc" : "Code_asc";
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = sortOrder == "name_asc" ? "name_desc" : "name_asc";
+            ViewBag.CodeSortParm = sortOrder == "Code_asc" ? "Code_desc" : "Code_asc";
+            ViewBag.CreatedateSortParm = sortOrder=="date_asc" ? "date_desc" : "date_asc";
+
 
             var missions = from s in db.FLOW_MISSION
                            select s;
@@ -68,11 +70,12 @@ namespace devmgr.Controllers
                     break; 
 
                 default:
-                    missions = missions.OrderByDescending(s => s.createdate);
+                    missions = missions.OrderBy(s => s.createdate);
                     break;
             }
-
-            return View(missions.ToList());
+            ViewBag.model2 = missions.ToList();
+            return View(missions.ToPagedList(pageNum ?? 1, 10));
+            //return View(missions.ToList());
         }
 
         // GET: FLOW_MISSION/Details/5

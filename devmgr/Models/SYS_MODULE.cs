@@ -5,7 +5,7 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-
+    using System.Linq;
     public partial class SYS_MODULE
     {
         public int id { get; set; }
@@ -31,5 +31,11 @@
         [Column(TypeName = "date")]
         [Display(Name = "创建日期")]
         public DateTime? createdate { get; set; }
+
+        static public List<SYS_MODULE> GETALL()
+        {
+            Model1 db = new Model1();
+            return db.SYS_MODULE.ToList();
+        }
     }
 }

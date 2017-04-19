@@ -72,7 +72,6 @@
             @Html.DisplayFor(modelItem => item.remark)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.whocreateid_fx)
             @{ var obj2 = ef.SYS_USER.Where(item1 => item1.id == item.whocreateid_fx); }
             @if (obj2.Count<SYS_USER>() > 0)
             {

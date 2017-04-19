@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<devmgr.Models.SYS_UTYPE_MODULE>
-
+@using System.Linq;
+@using devmgr.Models;
+@{Model1 ef = new Model1(); }
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -13,7 +15,7 @@
         <li>@Html.ActionLink("用户组&模块管理", "Index", "SYS_UTYPE_MODULE")</li>
     </ul>
 </div>
-<h2>Index</h2>
+<h2>权限管理</h2>
 
 <p>
     @Html.ActionLink("添 加", "Create")
@@ -29,9 +31,9 @@
         <th>
             @Html.DisplayNameFor(model => model.moduleid_fx)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.isdefault)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.isenable)
         </th>
@@ -62,22 +64,56 @@
             @Html.DisplayFor(modelItem => item.code)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.usertypeid_fx)
+            @{ var obj = ef.SYS_USERTYPE.Where(item1 => item1.id == item.usertypeid_fx); }
+            @if (obj.Count<SYS_USERTYPE>() > 0)
+            {
+                @Html.Label(obj.First<SYS_USERTYPE>().typename.ToString())
+            }
+            else
+            {
+
+            }
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.moduleid_fx)
+            @{ var obj2 = ef.SYS_MODULE.Where(item1 => item1.id == item.moduleid_fx); }
+            @if (obj2.Count<SYS_MODULE>() > 0)
+            {
+                @Html.Label(obj2.First<SYS_MODULE>().name.ToString())
+            }
+            else
+            {
+            }
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.isdefault)
+        </td>*@
+        <td>
+            @if (item.isenable == 1) {
+                @Html.Label("是")
+                    }
+            else {
+               @Html.Label("否")
+            }
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.isenable)
+            @if (item.isread == 1)
+            {
+                @Html.Label("是")
+            }
+            else
+            {
+                @Html.Label("否")
+            }
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.isread)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.iswrite)
+            @if (item.iswrite == 1)
+            {
+                @Html.Label("是")
+            }
+            else
+            {
+                @Html.Label("否")
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.desc_text)
@@ -86,7 +122,14 @@
             @Html.DisplayFor(modelItem => item.remark)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.whocreateid_fx)
+            @{ var obj3 = ef.SYS_USER.Where(item1 => item1.id == item.whocreateid_fx); }
+            @if (obj3.Count<SYS_USER>() > 0)
+            {
+                @Html.Label(obj3.First<SYS_USER>().cname.ToString())
+            }
+            else
+            {
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.createdate)
