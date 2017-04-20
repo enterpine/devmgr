@@ -70,7 +70,7 @@
 
         @*任务类型*@
         <div class="form-group">
-            @Html.LabelFor(model => model.projmotid_fx, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.missiontype, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @{SelectList missiontype = (SelectList)ViewData["missiontype"];}
                 @Html.DropDownListFor(model => model.missiontype, missiontype, "--请选择--", new { htmlAttributes = new { } })
