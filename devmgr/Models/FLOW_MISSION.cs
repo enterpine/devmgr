@@ -23,6 +23,7 @@
         public int? projmotid_fx { get; set; }
 
         [Display(Name = "谁指派的")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "不能为空")]
         public int? fromwhoid_fx { get; set; }
 
         [Display(Name = "指派给谁")]
@@ -31,10 +32,12 @@
 
         [Column(TypeName = "date")]
         [Display(Name = "开始日期")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "开始日期不能为空")]
         public DateTime? fromdate { get; set; }
 
         [Column(TypeName = "date")]
         [Display(Name = "截止日期")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "截止日期不能为空")]
         public DateTime? todate { get; set; }
 
         [Display(Name = "父级任务")]

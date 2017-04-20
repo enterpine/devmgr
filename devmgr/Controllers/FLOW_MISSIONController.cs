@@ -14,14 +14,14 @@ namespace devmgr.Controllers
     {
         private Model1 db = new Model1();
 
-        public ActionResult Index(string searchName, int? searchProj,int? searchProjmo,string sortOrder,int? mistatus,int? pageNum)
+        public ActionResult Index(string searchName, int? searchProj,int? searchProjmo,string searchType, string sortOrder,int? mistatus,int? pageNum)
         {
             List<FLOW_PROJECT> categories_proj = FLOW_PROJECT.GETALL();
             ViewData["categories_proj"] = new SelectList(categories_proj, "id", "desc_text");
             List<FLOW_PROJMO> categories_projmo = FLOW_PROJMO.GETALL();
             ViewData["categories_projmo"] = new SelectList(categories_projmo, "id", "name");
             List<DD_MISSIONTYPE> missiontype = DD_MISSIONTYPE.GETALL();
-            ViewData["missiontype"] = new SelectList(missiontype, "code", "name");
+            ViewData["missiontype"] = new SelectList(missiontype, "code", "cvalue");
 
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = sortOrder == "name_asc" ? "name_desc" : "name_asc";
@@ -43,7 +43,11 @@ namespace devmgr.Controllers
             {//搜索名称
                 missions = missions.Where(s => s.request_file.Contains(searchName));
             }
-            if (mistatus == 1) {
+            if (!String.IsNullOrEmpty(searchType))
+            {//搜索类型
+               missions = missions.Where(s => s.missiontype.Contains(searchType));
+            }
+                if (mistatus == 1) {
                 missions = missions.Where(s => s.iscomplete==1);
             }
             if (mistatus == 0)
@@ -108,7 +112,7 @@ namespace devmgr.Controllers
             ViewData["categories_projmo"] = new SelectList(categories_projmo, "id", "name");
 
             List<DD_MISSIONTYPE> missiontype = DD_MISSIONTYPE.GETALL();
-            ViewData["missiontype"] = new SelectList(missiontype, "code", "name");
+            ViewData["missiontype"] = new SelectList(missiontype, "code", "cvalue");
 
             return View();
         }
@@ -119,7 +123,7 @@ namespace devmgr.Controllers
         [HttpPost]
         [ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "projmotid_fx,id,code,projectid_fx,fromwhoid_fx,towhoid_fx,fromdate,todate,dad_mission,dad_level,isbottom,request_text,request_file,iscomplete,desc_text,remark,whocreateid_fx,createdate")] FLOW_MISSION fLOW_MISSION)
+        public ActionResult Create([Bind(Include = "missiontype,projmotid_fx,id,code,projectid_fx,fromwhoid_fx,towhoid_fx,fromdate,todate,dad_mission,dad_level,isbottom,request_text,request_file,iscomplete,desc_text,remark,whocreateid_fx,createdate")] FLOW_MISSION fLOW_MISSION)
         {
             Model1 ef = new Model1();
             String username = Request.Cookies["username"].Value.ToString();
@@ -157,7 +161,7 @@ namespace devmgr.Controllers
             ViewData["categories_projmo"] = new SelectList(categories_projmo, "id", "name");
 
             List<DD_MISSIONTYPE> missiontype = DD_MISSIONTYPE.GETALL();
-            ViewData["missiontype"] = new SelectList(missiontype, "code", "name");
+            ViewData["missiontype"] = new SelectList(missiontype, "code", "cvalue");
 
             return View(fLOW_MISSION);
         }
@@ -175,7 +179,7 @@ namespace devmgr.Controllers
             ViewData["categories_projmo"] = new SelectList(categories_projmo, "id", "name");
 
             List<DD_MISSIONTYPE> missiontype = DD_MISSIONTYPE.GETALL();
-            ViewData["missiontype"] = new SelectList(missiontype, "code", "name");
+            ViewData["missiontype"] = new SelectList(missiontype, "code", "cvalue");
 
             if (id == null)
             {
@@ -195,7 +199,7 @@ namespace devmgr.Controllers
         [HttpPost]
         [ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "projmotid_fx,id,code,projectid_fx,fromwhoid_fx,towhoid_fx,fromdate,todate,dad_mission,dad_level,isbottom,request_text,request_file,iscomplete,desc_text,remark,whocreateid_fx,createdate")] FLOW_MISSION fLOW_MISSION)
+        public ActionResult Edit([Bind(Include = "missiontype,projmotid_fx,id,code,projectid_fx,fromwhoid_fx,towhoid_fx,fromdate,todate,dad_mission,dad_level,isbottom,request_text,request_file,iscomplete,desc_text,remark,whocreateid_fx,createdate")] FLOW_MISSION fLOW_MISSION)
         {
 
             if (ModelState.IsValid)
@@ -214,7 +218,7 @@ namespace devmgr.Controllers
             ViewData["categories_projmo"] = new SelectList(categories_projmo, "id", "name");
 
             List<DD_MISSIONTYPE> missiontype = DD_MISSIONTYPE.GETALL();
-            ViewData["missiontype"] = new SelectList(missiontype, "code", "name");
+            ViewData["missiontype"] = new SelectList(missiontype, "code", "cvalue");
 
             return View(fLOW_MISSION);
         }

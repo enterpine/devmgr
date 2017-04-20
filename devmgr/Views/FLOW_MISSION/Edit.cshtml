@@ -55,6 +55,7 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.request_file, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.request_file, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.request_file, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
@@ -62,6 +63,7 @@
             <div class="col-md-10">
                 @{SelectList categoryproj = (SelectList)ViewData["categories_proj"];}
                 @Html.DropDownListFor(model => model.projectid_fx, categoryproj, "--请选择--", new { htmlAttributes = new { } })
+                @Html.ValidationMessageFor(model => model.projectid_fx, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -70,15 +72,17 @@
             <div class="col-md-10">
                 @{SelectList categoryprojmo = (SelectList)ViewData["categories_projmo"];}
                 @Html.DropDownListFor(model => model.projmotid_fx, categoryprojmo, "--请选择--", new { htmlAttributes = new { } })
+                @Html.ValidationMessageFor(model => model.projmotid_fx, "", new { @class = "text-danger" })
             </div>
         </div>
 
         @*任务类型*@
         <div class="form-group">
-            @Html.LabelFor(model => model.projmotid_fx, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.missiontype, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @{SelectList missiontype = (SelectList)ViewData["missiontype"];}
                 @Html.DropDownListFor(model => model.missiontype, missiontype, "--请选择--", new { htmlAttributes = new { } })
+                @Html.ValidationMessageFor(model => model.missiontype, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -87,6 +91,7 @@
             @Html.LabelFor(model => model.fromwhoid_fx, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.fromwhoid_fx, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.fromwhoid_fx, "", new { @class = "text-danger" })
                 @Html.ValidationMessageFor(model => model.fromwhoid_fx, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -98,7 +103,7 @@
                 @Html.ValidationMessageFor(model => model.towhoid_fx, "", new { @class = "text-danger" })*@
                 @{SelectList category_user = (SelectList)ViewData["category_user"];}
                 @Html.DropDownListFor(model => model.towhoid_fx, category_user, "--请选择--", new { htmlAttributes = new { @class = "form-control" } })
-
+                @Html.ValidationMessageFor(model => model.towhoid_fx, "", new { @class = "text-danger" })
 
             </div>
         </div>
@@ -108,6 +113,7 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.fromdate, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.fromdate, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.fromdate, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -115,6 +121,7 @@
             @Html.LabelFor(model => model.todate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.todate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.todate, "", new { @class = "text-danger" })
                 @Html.ValidationMessageFor(model => model.todate, "", new { @class = "text-danger" })
             </div>
         </div>

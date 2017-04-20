@@ -57,6 +57,7 @@
                 @Html.ValidationMessageFor(model => model.projectid_fx, "", new { @class = "text-danger" })*@
                 @{SelectList categoryproj = (SelectList)ViewData["categories_proj"];}
                 @Html.DropDownListFor(model => model.projectid_fx, categoryproj, "--请选择--", new { htmlAttributes = new {  } })
+                @Html.ValidationMessageFor(model => model.projectid_fx, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -65,6 +66,8 @@
             <div class="col-md-10">
                 @{SelectList categoryprojmo = (SelectList)ViewData["categories_projmo"];}
                 @Html.DropDownListFor(model => model.projmotid_fx, categoryprojmo, "--请选择--", new { htmlAttributes = new { } })
+                @Html.ValidationMessageFor(model => model.projmotid_fx, "", new { @class = "text-danger" })
+
             </div>
         </div>
 
@@ -74,6 +77,7 @@
             <div class="col-md-10">
                 @{SelectList missiontype = (SelectList)ViewData["missiontype"];}
                 @Html.DropDownListFor(model => model.missiontype, missiontype, "--请选择--", new { htmlAttributes = new { } })
+                @Html.ValidationMessageFor(model => model.missiontype, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -84,6 +88,7 @@
                 @Html.ValidationMessageFor(model => model.towhoid_fx, "", new { @class = "text-danger" })*@
                 @{SelectList category_user = (SelectList)ViewData["category_user"];}
                 @Html.DropDownListFor(model => model.towhoid_fx, category_user, "--请选择--", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.towhoid_fx, "", new { @class = "text-danger" })
 
 
             </div>
