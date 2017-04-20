@@ -41,6 +41,15 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
+        @*任务名称*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.request_file, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.request_file, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.request_file, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
         <div class="form-group">
             @Html.LabelFor(model => model.projectid_fx, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -56,6 +65,15 @@
             <div class="col-md-10">
                 @{SelectList categoryprojmo = (SelectList)ViewData["categories_projmo"];}
                 @Html.DropDownListFor(model => model.projmotid_fx, categoryprojmo, "--请选择--", new { htmlAttributes = new { } })
+            </div>
+        </div>
+
+        @*任务类型*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.projmotid_fx, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @{SelectList missiontype = (SelectList)ViewData["missiontype"];}
+                @Html.DropDownListFor(model => model.missiontype, missiontype, "--请选择--", new { htmlAttributes = new { } })
             </div>
         </div>
 
@@ -87,14 +105,7 @@
             </div>
         </div>
 
-        @*任务名称*@
-        <div class="form-group">
-            @Html.LabelFor(model => model.request_file, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.request_file, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.request_file, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        
 
         <div class="form-group">
             @Html.LabelFor(model => model.request_text, htmlAttributes: new { @class = "control-label col-md-2" })

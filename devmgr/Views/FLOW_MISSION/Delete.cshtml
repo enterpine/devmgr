@@ -2,6 +2,7 @@
 @using System.Linq;
 @using devmgr.Models;
 @{Model1 ef = new Model1(); }
+@{Model4 ef2 = new Model4(); }
 @{
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -56,6 +57,24 @@
             @if (obj3.Count<FLOW_PROJMO>() > 0)
             {
                 @Html.Label(obj3.First<FLOW_PROJMO>().name.ToString())
+            }
+            else
+            {
+
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.missiontype)
+        </dt>
+
+        <dd>
+            @{
+                var obj5 = ef2.DD_MISSIONTYPE.Where(item1 => item1.code == Model.missiontype);
+            }
+            @if (obj5.Count<DD_MISSIONTYPE>() > 0)
+            {
+                @Html.Label(obj5.First<DD_MISSIONTYPE>().cvalue.ToString())
             }
             else
             {

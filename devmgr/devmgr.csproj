@@ -198,6 +198,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\article.cs" />
+    <Compile Include="Models\DD_MISSIONTYPE.cs" />
     <Compile Include="Models\FLOW_CLIENT.cs" />
     <Compile Include="Models\FLOW_MISSION.cs" />
     <Compile Include="Models\FLOW_PRODUCT.cs" />
@@ -209,6 +210,7 @@
     <Compile Include="Models\Model1.cs" />
     <Compile Include="Models\Model2.cs" />
     <Compile Include="Models\Model3.cs" />
+    <Compile Include="Models\Model4.cs" />
     <Compile Include="Models\SYS_DEPART.cs" />
     <Compile Include="Models\SYS_MODULE.cs" />
     <Compile Include="Models\SYS_USER.cs" />

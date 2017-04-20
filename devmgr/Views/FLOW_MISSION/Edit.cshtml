@@ -49,6 +49,7 @@
                 @Html.ValidationMessageFor(model => model.code, "", new { @class = "text-danger" })
             </div>
         </div>
+        @*任务名称*@
         <div class="form-group">
             @Html.LabelFor(model => model.request_file, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -59,12 +60,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.projectid_fx, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @*@Html.EditorFor(model => model.projectid_fx, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.projectid_fx, "", new { @class = "text-danger" })*@
                 @{SelectList categoryproj = (SelectList)ViewData["categories_proj"];}
                 @Html.DropDownListFor(model => model.projectid_fx, categoryproj, "--请选择--", new { htmlAttributes = new { } })
-
-
             </div>
         </div>
 
@@ -75,6 +72,16 @@
                 @Html.DropDownListFor(model => model.projmotid_fx, categoryprojmo, "--请选择--", new { htmlAttributes = new { } })
             </div>
         </div>
+
+        @*任务类型*@
+        <div class="form-group">
+            @Html.LabelFor(model => model.projmotid_fx, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @{SelectList missiontype = (SelectList)ViewData["missiontype"];}
+                @Html.DropDownListFor(model => model.missiontype, missiontype, "--请选择--", new { htmlAttributes = new { } })
+            </div>
+        </div>
+
 
         <div class="form-group" style="display:none">
             @Html.LabelFor(model => model.fromwhoid_fx, htmlAttributes: new { @class = "control-label col-md-2" })

@@ -15,15 +15,18 @@
         public string code { get; set; }
 
         [Display(Name = "所属项目")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "所属项目不能为空")]
         public int? projectid_fx { get; set; }
 
         [Display(Name = "所属模块")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "所属模块不能为空")]
         public int? projmotid_fx { get; set; }
 
         [Display(Name = "谁指派的")]
         public int? fromwhoid_fx { get; set; }
 
         [Display(Name = "指派给谁")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "不能为空")]
         public int? towhoid_fx { get; set; }
 
         [Column(TypeName = "date")]
@@ -61,7 +64,10 @@
         [Display(Name = "任务状态")]
         public int? iscomplete { get; set; }
 
-
+        [StringLength(10)]
+        [Display(Name = "任务类型")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "任务类型不能为空")]
+        public string missiontype { get; set; }
 
         [StringLength(100)]
         [Display(Name = "描述")]

@@ -5,6 +5,7 @@
 @using System.Linq;
 @using devmgr.Models;
 @{Model1 ef = new Model1(); }
+@{Model4 ef2 = new Model4(); }
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -57,7 +58,9 @@
         <th>
             截止日期
         </th>
-        
+        <th>
+            任务类型
+        </th>
         <th>
             是否完成
         </th>
@@ -139,6 +142,21 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.todate)
                 </td>
+
+                <dd>
+                    @{
+                        var obj5 = ef2.DD_MISSIONTYPE.Where(item1 => item1.code == item.missiontype);
+                    }
+                    @if (obj5.Count<DD_MISSIONTYPE>() > 0)
+                    {
+                        @Html.Label(obj5.First<DD_MISSIONTYPE>().cvalue.ToString())
+                    }
+                    else
+                    {
+
+                    }
+                </dd>
+
 
                 <td>
                     @if (item.iscomplete == 1)

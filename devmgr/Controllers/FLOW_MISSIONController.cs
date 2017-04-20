@@ -20,6 +20,8 @@ namespace devmgr.Controllers
             ViewData["categories_proj"] = new SelectList(categories_proj, "id", "desc_text");
             List<FLOW_PROJMO> categories_projmo = FLOW_PROJMO.GETALL();
             ViewData["categories_projmo"] = new SelectList(categories_projmo, "id", "name");
+            List<FLOW_PROJMO> missiontype = FLOW_PROJMO.GETALL();
+            ViewData["missiontype"] = new SelectList(missiontype, "code", "name");
 
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = sortOrder == "name_asc" ? "name_desc" : "name_asc";
@@ -105,6 +107,9 @@ namespace devmgr.Controllers
             List<FLOW_PROJMO> categories_projmo = FLOW_PROJMO.GETALL();
             ViewData["categories_projmo"] = new SelectList(categories_projmo, "id", "name");
 
+            List<FLOW_PROJMO> missiontype = FLOW_PROJMO.GETALL();
+            ViewData["missiontype"] = new SelectList(missiontype, "code", "name");
+
             return View();
         }
 
@@ -150,6 +155,10 @@ namespace devmgr.Controllers
 
             List<FLOW_PROJMO> categories_projmo = FLOW_PROJMO.GETALL();
             ViewData["categories_projmo"] = new SelectList(categories_projmo, "id", "name");
+
+            List<FLOW_PROJMO> missiontype = FLOW_PROJMO.GETALL();
+            ViewData["missiontype"] = new SelectList(missiontype, "code", "name");
+
             return View(fLOW_MISSION);
         }
 
@@ -164,6 +173,10 @@ namespace devmgr.Controllers
 
             List<FLOW_PROJMO> categories_projmo = FLOW_PROJMO.GETALL();
             ViewData["categories_projmo"] = new SelectList(categories_projmo, "id", "name");
+
+            List<FLOW_PROJMO> missiontype = FLOW_PROJMO.GETALL();
+            ViewData["missiontype"] = new SelectList(missiontype, "code", "name");
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -199,6 +212,10 @@ namespace devmgr.Controllers
 
             List<FLOW_PROJMO> categories_projmo = FLOW_PROJMO.GETALL();
             ViewData["categories_projmo"] = new SelectList(categories_projmo, "id", "name");
+
+            List<FLOW_PROJMO> missiontype = FLOW_PROJMO.GETALL();
+            ViewData["missiontype"] = new SelectList(missiontype, "code", "name");
+
             return View(fLOW_MISSION);
         }
 
