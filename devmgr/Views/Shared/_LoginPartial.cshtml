@@ -12,7 +12,8 @@
         <ul class="nav navbar-nav navbar-right">
             <li>
                 @{ String coacc = Request.Cookies["username"].Value.ToString();}
-                @Html.ActionLink("你好，" + ef.SYS_USER.Where(item => item.account_id == coacc).First<SYS_USER>().cname.ToString() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                @Html.ActionLink("你好，" + ef.SYS_USER.Where(item => item.account_id == coacc).First<SYS_USER>().cname.ToString() + "!", "Index", "MyManager", new { id = ef.SYS_USER.Where(item => item.account_id == coacc).First<SYS_USER>().id.ToString() }, htmlAttributes: new { title = "Manage" })
+                @*@Html.ActionLink("你好，" + ef.SYS_USER.Where(item => item.account_id == coacc).First<SYS_USER>().cname.ToString() + "!", "Index", "MyManager", routeValues: null, htmlAttributes: new { title = "Manage" })*@
             </li>
             @*<li><a href="javascript:document.getElementById('logoutForm').submit()">注销</a></li>*@
             <li>@Html.ActionLink("注销", "logout", "SYS_USER")</li>

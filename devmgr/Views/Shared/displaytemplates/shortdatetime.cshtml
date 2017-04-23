@@ -1,6 +1,8 @@
-﻿@model System.DateTime
+﻿
+@model System.DateTime
 @{ 
     string str = " ";
     int a = @Model.ToString().IndexOf(str);
 }
 @Model.ToShortDateString().ToString().Substring(0,a)
+
