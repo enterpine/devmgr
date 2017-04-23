@@ -99,10 +99,10 @@
         </td>
 
         <td>
-            @Html.DisplayFor(modelItem => item.startdate).ToString().Substring(0, 10)
+            @Html.DisplayFor(modelItem => item.startdate, "shortdatetime")
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.deadline).ToString().Substring(0, 10)
+            @Html.DisplayFor(modelItem => item.deadline, "shortdatetime")
         </td>
         @*<td>
             @Html.DisplayFor(modelItem => item.request_text)
@@ -138,7 +138,7 @@
             }
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.createdate).ToString().Substring(0, 10)
+            @Html.DisplayFor(modelItem => item.createdate, "shortdatetime")
         </td>
         <td>
             @Html.ActionLink("编辑", "Edit", new { id=item.id }) |

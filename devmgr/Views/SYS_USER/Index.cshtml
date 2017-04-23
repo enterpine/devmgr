@@ -115,12 +115,12 @@
                     @Html.DisplayFor(modelItem => item.whocreateid_fx)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.createdate).ToString().Substring(0, 10)
+                    @Html.DisplayFor(modelItem => item.createdate, "shortdatetime")
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                    @Html.ActionLink("编辑", "Edit", new { id = item.id }) |
+                    @Html.ActionLink("查看", "Details", new { id = item.id }) |
+                    @Html.ActionLink("删除", "Delete", new { id = item.id })
                 </td>
             </tr>
         }

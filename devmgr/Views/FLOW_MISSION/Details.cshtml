@@ -112,11 +112,11 @@
 
         <dd>
             @{
-                var obj5 = ef.SYS_USER.Where(item1 => item1.id == Model.towhoid_fx);
+                var obj6 = ef.SYS_USER.Where(item1 => item1.id == Model.towhoid_fx);
             }
-            @if (obj5.Count<SYS_USER>() > 0)
+            @if (obj6.Count<SYS_USER>() > 0)
             {
-                @Html.Label(obj5.First<SYS_USER>().cname.ToString())
+                @Html.Label(obj6.First<SYS_USER>().cname.ToString())
             }
             else
             {

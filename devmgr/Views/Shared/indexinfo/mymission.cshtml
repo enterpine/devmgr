@@ -119,7 +119,7 @@
             </td>*@
 
             <td>
-                @Html.DisplayFor(modelItem => item.createdate)
+                @Html.DisplayFor(modelItem => item.createdate, "shortdatetime")
             </td>
             <td>
                 @Html.ActionLink("编辑","Edit","FLOW_MISSION",new { id=item.id},new { }) |

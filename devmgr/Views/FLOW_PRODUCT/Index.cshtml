@@ -34,10 +34,10 @@
                 @Html.DisplayNameFor(model => model.clientid_fx)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.stratdate).ToString().Substring(0, 10)
+                @Html.DisplayNameFor(model => model.stratdate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.deadlinedate).ToString().Substring(0, 10)
+                @Html.DisplayNameFor(model => model.deadlinedate)
             </th>
             @*<th>
                 @Html.DisplayNameFor(model => model.request_text)
@@ -58,7 +58,7 @@
                 @Html.DisplayNameFor(model => model.whocreateid_fx)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.createdate).ToString().Substring(0, 10)
+                @Html.DisplayNameFor(model => model.createdate)
             </th>
             <th></th>
         </tr>
@@ -103,10 +103,10 @@
                 </td>
 
                 <td>
-                    @Html.DisplayFor(modelItem => item.stratdate)
+                    @Html.DisplayFor(modelItem => item.stratdate, "shortdatetime")
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.deadlinedate)
+                    @Html.DisplayFor(modelItem => item.deadlinedate, "shortdatetime")
                 </td>
                 @*<td>
                     @Html.DisplayFor(modelItem => item.request_text)
@@ -138,7 +138,7 @@
                     }
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.createdate).ToString().Substring(0, 10)
+                    @Html.DisplayFor(modelItem => item.createdate,"shortdatetime")
                 </td>
                 <td>
                     @Html.ActionLink("编辑", "Edit", new { id = item.id }) |

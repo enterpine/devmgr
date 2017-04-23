@@ -132,7 +132,7 @@
             }
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.createdate).ToString().Substring(0, 10)
+            @Html.DisplayFor(modelItem => item.createdate, "shortdatetime")
         </td>
         <td>
             @Html.ActionLink("编辑", "Edit", new { id=item.id }) |

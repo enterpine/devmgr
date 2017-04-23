@@ -163,40 +163,40 @@
                 </td>
 
                 <td>
-                    @Html.DisplayFor(modelItem => item.fromdate).ToString().Substring(0,10)
+                    @Html.DisplayFor(modelItem => item.fromdate, "shortdatetime")
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.todate).ToString().Substring(0, 10)
+                    @Html.DisplayFor(modelItem => item.todate, "shortdatetime")
                 </td>
 
                 <td>
                     @{
-                        var obj5 = ef2.DD_MISSIONTYPE.Where(item1 => item1.code == item.missiontype);
-                    }
-                    @if (obj5.Count<DD_MISSIONTYPE>() > 0)
+                            var obj5 = ef2.DD_MISSIONTYPE.Where(item1 => item1.code == item.missiontype);
+                        }
+                        @if (obj5.Count<DD_MISSIONTYPE>() > 0)
                     {
-                        @Html.Label(obj5.First<DD_MISSIONTYPE>().cvalue.ToString())
+                            @Html.Label(obj5.First<DD_MISSIONTYPE>().cvalue.ToString())
                     }
                     else
                     {
 
-                    }
+                        }
                 </td>
 
 
                 <td>
                     @if (item.iscomplete == 1)
                     {
-                        @Html.Label("已完成");
-                    }
+                            @Html.Label("已完成");
+                        }
                     else
                     {
-                        @Html.Label("待处理");
-                    }
+                            @Html.Label("待处理");
+                        }
                 </td>
 
                 <td>
-                    @Html.DisplayFor(modelItem => item.createdate)
+                    @Html.DisplayFor(modelItem => item.createdate, "shortdatetime")
                 </td>
                 <td>
                     @Html.ActionLink("编辑", "Edit", new { id = item.id }) |
@@ -205,8 +205,8 @@
                 </td>
             </tr>
         }
-        else
-        {//完成部分
+                    else
+                    {//完成部分
             <tr style="background-color:lightcyan">
                 <td>
                     @Html.DisplayFor(modelItem => item.code)
@@ -260,7 +260,7 @@
                     @Html.DisplayFor(modelItem => item.fromdate)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.todate)
+                    @Html.DisplayFor(modelItem => item.todate, "shortdatetime")
                 </td>
 
                 <td>
@@ -275,7 +275,7 @@
                 </td>
 
                 <td>
-                    @Html.DisplayFor(modelItem => item.createdate).ToString().Substring(0, 10)
+                    @Html.DisplayFor(modelItem => item.createdate, "shortdatetime")
                 </td>
                 <td>
                     @Html.ActionLink("编辑", "Edit", new { id = item.id }) |
