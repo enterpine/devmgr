@@ -187,6 +187,7 @@
     <Compile Include="Controllers\FLOW_REQUESTController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MyManagerController.cs" />
     <Compile Include="Controllers\SYS_DEPARTController.cs" />
     <Compile Include="Controllers\SYS_MODULEController.cs" />
     <Compile Include="Controllers\SYS_USERController.cs" />
@@ -629,6 +630,9 @@
     <Content Include="Views\Shared\indexinfo\mymission.cshtml" />
     <Content Include="Views\FLOW_MISSION\submission.cshtml" />
     <Content Include="Views\FLOW_MISSION\subdetails.cshtml" />
+    <Content Include="Views\MyManager\Index.cshtml" />
+    <Content Include="Views\MyManager\Edit.cshtml" />
+    <Content Include="Views\MyManager\changepasswd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
