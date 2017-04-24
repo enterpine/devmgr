@@ -41,5 +41,27 @@ namespace devmgr.Controllers
             }
             return Json("抱歉，该名称已存在！", JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult CheckOldPwd(string oldpwd,int ? id)
+        {//检查旧密码
+            Model1 ef = new Model1();
+            var obj = ef.SYS_USER.Where(item => item.id == id);
+            string opwd = obj.First<SYS_USER>().pwd.ToString();
+            if (oldpwd == opwd)
+            {
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+            return Json("密码错误！", JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult CheckNewPwd(string newpwd2,string newpwd)
+        {//检查两此密码是否一致
+            if (newpwd2 == newpwd)
+            {
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+            return Json("两次密码不一致！", JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

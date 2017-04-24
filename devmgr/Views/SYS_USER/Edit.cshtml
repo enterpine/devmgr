@@ -95,12 +95,14 @@
         <div class="form-group">
             @Html.LabelFor(model => model.usertypeid_fx, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.usertypeid_fx, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.usertypeid_fx, "", new { @class = "text-danger" })
+                @*@Html.EditorFor(model => model.usertypeid_fx, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.usertypeid_fx, "", new { @class = "text-danger" })*@
+                @{SelectList category_ug = (SelectList)ViewData["categories_ug"];}
+                @Html.DropDownListFor(model => model.usertypeid_fx, category_ug, "--请选择--", new { htmlAttributes = new { @class = "form-control" } })
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" style= "display:none">
             @Html.LabelFor(model => model.desc_text, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.desc_text, new { htmlAttributes = new { @class = "form-control" } })
@@ -116,7 +118,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" style= "display:none">
             @Html.LabelFor(model => model.whocreateid_fx, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.whocreateid_fx, new { htmlAttributes = new { @class = "form-control" } })
@@ -124,7 +126,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" style= "display:none">
             @Html.LabelFor(model => model.createdate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.createdate, new { htmlAttributes = new { @class = "form-control" } })

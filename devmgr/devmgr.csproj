@@ -187,6 +187,7 @@
     <Compile Include="Controllers\FLOW_REQUESTController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MyIdentifyController.cs" />
     <Compile Include="Controllers\MyManagerController.cs" />
     <Compile Include="Controllers\SYS_DEPARTController.cs" />
     <Compile Include="Controllers\SYS_MODULEController.cs" />
@@ -212,6 +213,7 @@
     <Compile Include="Models\Model2.cs" />
     <Compile Include="Models\Model3.cs" />
     <Compile Include="Models\Model4.cs" />
+    <Compile Include="Models\MyIdentify.cs" />
     <Compile Include="Models\SYS_DEPART.cs" />
     <Compile Include="Models\SYS_MODULE.cs" />
     <Compile Include="Models\SYS_USER.cs" />
@@ -636,6 +638,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\MyIdentify\" />
     <Folder Include="Views\Validate\" />
   </ItemGroup>
   <ItemGroup>

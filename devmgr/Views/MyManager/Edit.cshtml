@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+<h2>编辑</h2>
 
 
 @using (Html.BeginForm())
@@ -13,7 +13,6 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>SYS_USER</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.id)
@@ -21,7 +20,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.code, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.code, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.code, new { htmlAttributes = new { @class = "form-control", @readonly = "true" } })
                 @Html.ValidationMessageFor(model => model.code, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -29,7 +28,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.cname, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.cname, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.cname, new { htmlAttributes = new { @class = "form-control", @readonly = "true" } })
                 @Html.ValidationMessageFor(model => model.cname, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -37,12 +36,12 @@
         <div class="form-group">
             @Html.LabelFor(model => model.account_id, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.account_id, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.account_id, new { htmlAttributes = new { @class = "form-control", @readonly = "true" } })
                 @Html.ValidationMessageFor(model => model.account_id, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" style= "display:none">
             @Html.LabelFor(model => model.pwd, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.pwd, new { htmlAttributes = new { @class = "form-control" } })
@@ -53,7 +52,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.birthdate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.birthdate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.birthdate, new { htmlAttributes = new { @class = "form-control",id= "datepicker" } })
                 @Html.ValidationMessageFor(model => model.birthdate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -74,7 +73,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" style= "display:none">
             @Html.LabelFor(model => model.departid_fx, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.departid_fx, new { htmlAttributes = new { @class = "form-control" } })
@@ -82,7 +81,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" style= "display:none">
             @Html.LabelFor(model => model.usertypeid_fx, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.usertypeid_fx, new { htmlAttributes = new { @class = "form-control" } })
@@ -90,7 +89,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" style= "display:none">
             @Html.LabelFor(model => model.desc_text, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.desc_text, new { htmlAttributes = new { @class = "form-control" } })
@@ -98,7 +97,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" style= "display:none">
             @Html.LabelFor(model => model.remark, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.remark, new { htmlAttributes = new { @class = "form-control" } })
@@ -106,7 +105,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" style= "display:none">
             @Html.LabelFor(model => model.whocreateid_fx, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.whocreateid_fx, new { htmlAttributes = new { @class = "form-control" } })
@@ -114,7 +113,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" style= "display:none">
             @Html.LabelFor(model => model.createdate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.createdate, new { htmlAttributes = new { @class = "form-control" } })
@@ -124,12 +123,13 @@
         <div class="row" >
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-5">
-                    <input type="submit" value="Save" class="btn btn-default" />
+                    <input type="submit" value="保存" class="btn btn-default" /> &nbsp;|
+                    @Html.ActionLink("修改密码", "changepasswd", new { id = Model.id })
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-5">
-                    @Html.ActionLink("修改密码", "changepasswd", "MyManager")
+                   
                 </div>
             </div>
         </div>
@@ -137,9 +137,22 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("返回", "Index",new { id = Model.id})
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+<script src="../../Scripts/pikaday.js"></script>
+<script>
+
+    var picker = new Pikaday(
+    {
+        field: document.getElementById('datepicker'),
+        firstDay: 1,
+        minDate: new Date('1950-01-01'),
+        maxDate: new Date('2050-12-31'),
+        yearRange: [1950,2050]
+    });
+
+</script>

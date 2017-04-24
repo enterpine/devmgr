@@ -38,6 +38,8 @@ namespace devmgr.Controllers
         // GET: SYS_USER/Create
         public ActionResult Create()
         {
+            List<SYS_USERTYPE> categories_ug = SYS_USERTYPE.GETALL();
+            ViewData["categories_ug"] = new SelectList(categories_ug, "id", "typename");
             List<SYS_DEPART> categories = SYS_DEPART.GETALL();
             ViewData["Categories"] = new SelectList(categories, "id", "name");
             return View();
@@ -53,6 +55,7 @@ namespace devmgr.Controllers
             Model1 ef = new Model1();
             String username = Request.Cookies["username"].Value.ToString();
             String cuuserid = ef.SYS_USER.Where(item => item.account_id == username).First<SYS_USER>().id.ToString();
+
             var obj = ef.SYS_USER.Where(item => item.id >0);
             int nowcode = 0, maxid = 0;
             if (obj.Count<SYS_USER>() > 0)
@@ -76,6 +79,8 @@ namespace devmgr.Controllers
             }
             List<SYS_DEPART> categories = SYS_DEPART.GETALL();
             ViewData["Categories"] = new SelectList(categories, "id", "name");
+            List<SYS_USERTYPE> categories_ug = SYS_USERTYPE.GETALL();
+            ViewData["categories_ug"] = new SelectList(categories_ug, "id", "typename");
             return View(sYS_USER);
         }
 
@@ -84,6 +89,8 @@ namespace devmgr.Controllers
         {
             List<SYS_DEPART> categories = SYS_DEPART.GETALL();
             ViewData["Categories"] = new SelectList(categories, "id", "name");
+            List<SYS_USERTYPE> categories_ug = SYS_USERTYPE.GETALL();
+            ViewData["categories_ug"] = new SelectList(categories_ug, "id", "typename");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -112,6 +119,8 @@ namespace devmgr.Controllers
             }
             List<SYS_DEPART> categories = SYS_DEPART.GETALL();
             ViewData["Categories"] = new SelectList(categories, "id", "name");
+            List<SYS_USERTYPE> categories_ug = SYS_USERTYPE.GETALL();
+            ViewData["categories_ug"] = new SelectList(categories_ug, "id", "typename");
             return View(sYS_USER);
         }
 
