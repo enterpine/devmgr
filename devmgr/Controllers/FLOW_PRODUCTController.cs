@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using devmgr.Models;
+using PagedList;
 
 namespace devmgr.Controllers
 {
@@ -15,9 +16,41 @@ namespace devmgr.Controllers
         private Model1 db = new Model1();
 
         // GET: FLOW_PRODUCT
-        public ActionResult Index()
+        public ActionResult Index(string searchName, string sortOrder,int? pageNum)
         {
-            return View(db.FLOW_PRODUCT.ToList());
+            var products = from s in db.FLOW_PRODUCT
+                           select s;
+
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.CodeSortParm = sortOrder == "Code_asc" ? "Code_desc" : "Code_asc";
+            ViewBag.CreatedateSortParm = sortOrder == "date_asc" ? "date_desc" : "date_asc";
+
+            if (!String.IsNullOrEmpty(searchName))
+            {//搜索名称
+                products = products.Where(s => s.name.Contains(searchName));
+            }
+
+            switch (sortOrder)
+            {
+                case "Code_desc":
+                    products = products.OrderByDescending(s => s.code);
+                    break;
+                case "Code_asc":
+                    products = products.OrderBy(s => s.code);
+                    break;
+                case "date_asc":
+                    products = products.OrderBy(s => s.createdate);
+                    break;
+                case "date_desc":
+                    products = products.OrderByDescending(s => s.createdate);
+                    break;
+
+                default:
+                    products = products.OrderBy(s => s.createdate);
+                    break;
+            }
+
+            return View(products.ToPagedList(pageNum ?? 1, 10));
         }
 
         // GET: FLOW_PRODUCT/Details/5

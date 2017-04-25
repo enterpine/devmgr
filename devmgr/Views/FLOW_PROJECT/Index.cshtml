@@ -1,7 +1,12 @@
-﻿@model IEnumerable<devmgr.Models.FLOW_PROJECT>
+﻿@*@model IEnumerable<devmgr.Models.FLOW_PROJECT>*@
+@model PagedList.IPagedList<devmgr.Models.FLOW_PROJECT>
+@using PagedList.Mvc;
+
 @using System.Linq;
 @using devmgr.Models;
 @{Model1 ef = new Model1(); }
+
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -12,25 +17,38 @@
 <p>
     @Html.ActionLink("添 加", "Create")
 </p>
+
+<span style="background-color: rgb(255, 255, 102);">
+    @using (Html.BeginForm("Index", "FLOW_PROJECT", FormMethod.Get, new { @class = "form-inline" }))
+    {
+        <p>
+            项目名称: @Html.TextBox("searchName", null, new { @class = "form-control", @placeholder = "请输入关键字", @style = "width:150px;height:30px;font-size:12px;" })
+            &nbsp;所属产品: @Html.DropDownList("searchProd", ViewData["categories_prod"] as SelectList, "请选择项目", new { @style = "width:150px;height:30px;font-size:12px;", @id = "searchProj" })
+            &nbsp;<input type="submit" value="查询" class="btn btn-default" />
+        </p>
+    }
+
+</span>
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.code)
+            @Html.ActionLink("任务编号", "Index", new { sortOrder = ViewBag.CodeSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.desc_text)
+            项目名称
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.productid_fx)
+            所属产品
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.responserid_fx)
+            项目负责人
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.startdate)
+            开始日期
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.deadline)
+            截止日期
         </th>
         @*<th>
         @Html.DisplayNameFor(model => model.request_text)
@@ -49,13 +67,13 @@
     </th>*@
         
         <th>
-            @Html.DisplayNameFor(model => model.remark)
+            备注
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.whocreateid_fx)
+            创建者
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.createdate)
+            @Html.ActionLink("创建日期", "Index", new { sortOrder = ViewBag.CreatedateSortParm })
         </th>
         <th></th>
     </tr>

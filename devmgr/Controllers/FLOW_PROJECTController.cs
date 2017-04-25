@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using devmgr.Models;
+using PagedList;
 
 namespace devmgr.Controllers
 {
@@ -15,9 +16,47 @@ namespace devmgr.Controllers
         private Model1 db = new Model1();
 
         // GET: FLOW_PROJECT
-        public ActionResult Index()
+        public ActionResult Index(int? pageNum,string searchName, int? searchProd,string sortOrder)
         {
-            return View(db.FLOW_PROJECT.ToList());
+            List<FLOW_PRODUCT> categories_prod = FLOW_PRODUCT.GETALL();
+            ViewData["categories_prod"] = new SelectList(categories_prod, "id", "name");
+
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.CodeSortParm = sortOrder == "Code_asc" ? "Code_desc" : "Code_asc";
+            ViewBag.CreatedateSortParm = sortOrder == "date_asc" ? "date_desc" : "date_asc";
+
+            var projects = from s in db.FLOW_PROJECT
+                           select s;
+
+            if (searchProd != null)
+            {//项目筛选
+                projects = projects.Where(s => s.productid_fx == searchProd);
+            }
+            if (!String.IsNullOrEmpty(searchName))
+            {//搜索名称
+                projects = projects.Where(s => s.desc_text.Contains(searchName));
+            }
+
+            switch (sortOrder)
+            {
+                case "Code_desc":
+                    projects = projects.OrderByDescending(s => s.code);
+                    break;
+                case "Code_asc":
+                    projects = projects.OrderBy(s => s.code);
+                    break;
+                case "date_asc":
+                    projects = projects.OrderBy(s => s.createdate);
+                    break;
+                case "date_desc":
+                    projects = projects.OrderByDescending(s => s.createdate);
+                    break;
+                default:
+                    projects = projects.OrderBy(s => s.createdate);
+                    break;
+            }
+
+            return View(projects.ToPagedList(pageNum ?? 1, 10));
         }
 
         // GET: FLOW_PROJECT/Details/5

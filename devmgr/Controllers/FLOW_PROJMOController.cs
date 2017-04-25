@@ -7,7 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using devmgr.Models;
-
+using PagedList;
 namespace devmgr.Controllers
 {
     public class FLOW_PROJMOController : Controller
@@ -15,9 +15,47 @@ namespace devmgr.Controllers
         private Model1 db = new Model1();
 
         // GET: FLOW_PROJMO
-        public ActionResult Index()
+        public ActionResult Index(string searchName, int? searchProj,string sortOrder,int? pageNum)
         {
-            return View(db.FLOW_PROJMO.ToList());
+            List<FLOW_PROJECT> categories_proj = FLOW_PROJECT.GETALL();
+            ViewData["categories_proj"] = new SelectList(categories_proj, "id", "desc_text");
+
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.CodeSortParm = sortOrder == "Code_asc" ? "Code_desc" : "Code_asc";
+            ViewBag.CreatedateSortParm = sortOrder == "date_asc" ? "date_desc" : "date_asc";
+
+            var projmos = from s in db.FLOW_PROJMO
+                           select s;
+
+            if (searchProj != null)
+            {//项目筛选
+                projmos = projmos.Where(s => s.projectid_fx == searchProj);
+            }
+            if (!String.IsNullOrEmpty(searchName))
+            {//搜索名称
+                projmos = projmos.Where(s => s.name.Contains(searchName));
+            }
+
+            switch (sortOrder)
+            {
+                case "Code_desc":
+                    projmos = projmos.OrderByDescending(s => s.code);
+                    break;
+                case "Code_asc":
+                    projmos = projmos.OrderBy(s => s.code);
+                    break;
+                case "date_asc":
+                    projmos = projmos.OrderBy(s => s.createdate);
+                    break;
+                case "date_desc":
+                    projmos = projmos.OrderByDescending(s => s.createdate);
+                    break;
+                default:
+                    projmos = projmos.OrderBy(s => s.createdate);
+                    break;
+            }
+
+            return View(projmos.ToPagedList(pageNum ?? 1, 10));
         }
 
         // GET: FLOW_PROJMO/Details/5
