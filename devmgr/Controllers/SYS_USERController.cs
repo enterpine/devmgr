@@ -50,7 +50,7 @@ namespace devmgr.Controllers
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,code,cname,account_id,pwd,birthdate,tel,email,departid_fx,usertypeid_fx,desc_text,remark,whocreateid_fx,createdate")] SYS_USER sYS_USER)
+        public ActionResult Create([Bind(Include = "id,code,cname,account_id,birthdate,tel,email,departid_fx,usertypeid_fx,desc_text,remark,whocreateid_fx,createdate")] SYS_USER sYS_USER)
         {
             Model1 ef = new Model1();
             String username = Request.Cookies["username"].Value.ToString();
@@ -68,6 +68,7 @@ namespace devmgr.Controllers
                 nowcode = 1;
             }
 
+            sYS_USER.pwd = "123456";
             sYS_USER.whocreateid_fx = int.Parse(cuuserid);
             sYS_USER.createdate = DateTime.Now;
             sYS_USER.code = "USR" + nowcode.ToString().PadLeft(5,'0');
