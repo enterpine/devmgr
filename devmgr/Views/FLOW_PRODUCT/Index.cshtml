@@ -164,3 +164,5 @@
         }
 
     </table>
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, pageNum => Url.Action("Index", new { pageNum, sortOrder = ViewBag.CurrentSort }))

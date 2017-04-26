@@ -1,4 +1,7 @@
-﻿@model IEnumerable<devmgr.Models.SYS_USER>
+﻿@*@model IEnumerable<devmgr.Models.SYS_USER>*@
+@model PagedList.IPagedList<devmgr.Models.SYS_USER>
+@using PagedList.Mvc;
+
 @using System.Linq;
 @using devmgr.Models;
 @{Model1 ef = new Model1(); }
@@ -21,16 +24,31 @@
     <p>
         @Html.ActionLink("添 加", "Create")
     </p>
+
+    <span style="background-color: rgb(255, 255, 102);">
+        @using (Html.BeginForm("Index", "SYS_USER", FormMethod.Get, new { @class = "form-inline" }))
+        {
+            <p>
+                名称: @Html.TextBox("searchName", null, new { @class = "form-control", @placeholder = "请输入关键字", @style = "width:150px;height:30px;font-size:12px;" })
+                &nbsp;部门: @Html.DropDownList("searchDep", ViewData["categories_Dep"] as SelectList, "请选择项目", new { @style = "width:150px;height:30px;font-size:12px;", @id = "searchDep" })
+                用户组: @Html.DropDownList("searchUtype", ViewData["categories_Utype"] as SelectList, "请选择模块", new { @style = "width:150px;height:30px;font-size:12px;", @id = "searchUtype" })
+                &nbsp;<input type="submit" value="查询" class="btn btn-default" />
+            </p>
+        }
+
+    </span>
+
+
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.code)
+                编号
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.cname)
+                姓名
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.account_id)
+               账户名
             </th>
             @*<th>
                 @Html.DisplayNameFor(model => model.pwd)
@@ -45,10 +63,10 @@
                 @Html.DisplayNameFor(model => model.email)
             </th>*@
             <th>
-                @Html.DisplayNameFor(model => model.departid_fx)
+                部门名称
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.usertypeid_fx)
+                用户组
             </th>
             @*<th>
                 @Html.DisplayNameFor(model => model.desc_text)
@@ -57,10 +75,10 @@
                 @Html.DisplayNameFor(model => model.remark)
             </th>*@
             <th>
-                @Html.DisplayNameFor(model => model.whocreateid_fx)
+                创建者
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.createdate)
+                创建日期
             </th>
             <th></th>
         </tr>
@@ -144,3 +162,5 @@
         }
 
     </table>
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, pageNum => Url.Action("Index", new { pageNum, categories_Dep = ViewData["categories_Dep"], categories_Utype = ViewData["categories_Utype"], sortOrder = ViewBag.CurrentSort }))

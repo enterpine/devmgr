@@ -1,4 +1,8 @@
-﻿@model IEnumerable<devmgr.Models.FLOW_CLIENT>
+﻿@*@model IEnumerable<devmgr.Models.FLOW_CLIENT>*@
+
+@model PagedList.IPagedList<devmgr.Models.FLOW_CLIENT>
+@using PagedList.Mvc;
+
 @using System.Linq;
 @using devmgr.Models;
 @{Model1 ef = new Model1(); }
@@ -21,31 +25,31 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.code)
+            编号
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.company_name)
+            公司名称
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.uname)
+            联系人
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.tel)
+            电话
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.email)
+            邮箱
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.desc_text)
+            描述
         </th>
         @*<th>
             @Html.DisplayNameFor(model => model.remark)
         </th>*@
         <th>
-            @Html.DisplayNameFor(model => model.whocreateid_fx)
+            创建者
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.createdate)
+            创建日期
         </th>
         <th></th>
     </tr>
@@ -96,3 +100,5 @@
 }
 
 </table>
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, pageNum => Url.Action("Index", new { pageNum, sortOrder = ViewBag.CurrentSort }))

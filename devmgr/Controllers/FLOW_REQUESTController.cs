@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using devmgr.Models;
+using PagedList;
 
 namespace devmgr.Controllers
 {
@@ -15,9 +16,42 @@ namespace devmgr.Controllers
         private Model1 db = new Model1();
 
         // GET: FLOW_REQUEST
-        public ActionResult Index()
+        public ActionResult Index(int? pageNum, int? searchProd, string sortOrder)
         {
-            return View(db.FLOW_REQUEST.ToList());
+            var requests = from s in db.FLOW_REQUEST
+                           select s;
+
+            List<FLOW_PRODUCT> categories_prod = FLOW_PRODUCT.GETALL();
+            ViewData["categories_prod"] = new SelectList(categories_prod, "id", "name");
+
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.CodeSortParm = sortOrder == "Code_asc" ? "Code_desc" : "Code_asc";
+            ViewBag.CreatedateSortParm = sortOrder == "date_asc" ? "date_desc" : "date_asc";
+
+            if (searchProd != null)
+            {//项目筛选
+                requests = requests.Where(s => s.productid_fx == searchProd);
+            }
+            switch (sortOrder)
+            {
+                case "Code_desc":
+                    requests = requests.OrderByDescending(s => s.code);
+                    break;
+                case "Code_asc":
+                    requests = requests.OrderBy(s => s.code);
+                    break;
+                case "date_asc":
+                    requests = requests.OrderBy(s => s.createdate);
+                    break;
+                case "date_desc":
+                    requests = requests.OrderByDescending(s => s.createdate);
+                    break;
+                default:
+                    requests = requests.OrderBy(s => s.createdate);
+                    break;
+            }
+
+            return View(requests.ToPagedList(pageNum ?? 1, 10));
         }
 
         // GET: FLOW_REQUEST/Details/5

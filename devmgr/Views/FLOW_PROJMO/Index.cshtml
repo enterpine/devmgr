@@ -1,5 +1,4 @@
 ﻿@*@model IEnumerable<devmgr.Models.FLOW_PROJMO>*@
-
 @model PagedList.IPagedList<devmgr.Models.FLOW_PROJMO>
 @using PagedList.Mvc;
 
@@ -125,5 +124,6 @@
         </td>
     </tr>
 }
-
 </table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, pageNum => Url.Action("Index", new { pageNum, categories_proj = ViewData["categories_proj"], sortOrder = ViewBag.CurrentSort }))

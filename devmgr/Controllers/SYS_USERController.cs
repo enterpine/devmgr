@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using devmgr.Models;
+using PagedList;
 
 namespace devmgr.Controllers
 {
@@ -15,9 +16,30 @@ namespace devmgr.Controllers
         private Model1 db = new Model1();
 
         // GET: SYS_USER
-        public ActionResult Index()
+        public ActionResult Index(string searchName, int? searchDep, int? searchUtype, int? pageNum)
         {
-            return View(db.SYS_USER.ToList());
+            var users = from s in db.SYS_USER
+                           select s;
+
+            List<SYS_DEPART> categories_Dep = SYS_DEPART.GETALL();
+            ViewData["categories_Dep"] = new SelectList(categories_Dep, "id", "name");
+            List<SYS_USERTYPE> categories_Utype = SYS_USERTYPE.GETALL();
+            ViewData["categories_Utype"] = new SelectList(categories_Utype, "id", "typename");
+
+            if (searchDep != null)
+            {//部门筛选
+                users = users.Where(s => s.departid_fx == searchDep);
+            }
+            if (searchUtype != null)
+            {//用户组筛选
+                users = users.Where(s => s.usertypeid_fx == searchUtype);
+            }
+            if (!String.IsNullOrEmpty(searchName))
+            {//搜索名称
+                users = users.Where(s => s.cname.Contains(searchName));
+            }
+            users = users.OrderBy(s => s.departid_fx);
+            return View(users.ToPagedList(pageNum ?? 1, 10));
         }
 
         // GET: SYS_USER/Details/5

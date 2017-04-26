@@ -1,4 +1,8 @@
-﻿@model IEnumerable<devmgr.Models.FLOW_REQUEST>
+﻿@*@model IEnumerable<devmgr.Models.FLOW_REQUEST>*@
+
+@model PagedList.IPagedList<devmgr.Models.FLOW_REQUEST>
+@using PagedList.Mvc;
+
 @using System.Linq;
 @using devmgr.Models;
 @{Model1 ef = new Model1(); }
@@ -18,19 +22,31 @@
 <p>
     @Html.ActionLink("添 加", "Create")
 </p>
+
+<span style="background-color: rgb(255, 255, 102);">
+    @using (Html.BeginForm("Index", "FLOW_REQUEST", FormMethod.Get, new { @class = "form-inline" }))
+    {
+        <p>
+            所属产品: @Html.DropDownList("searchProd", ViewData["categories_prod"] as SelectList, "请选择项目", new { @style = "width:150px;height:30px;font-size:12px;", @id = "searchProj" })
+            &nbsp;<input type="submit" value="查询" class="btn btn-default" />
+        </p>
+    }
+
+</span>
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.code)
+            @Html.ActionLink("编号", "Index", new { sortOrder = ViewBag.CodeSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.productid_fx)
+            产品名称
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.startdate)
+            开始日期
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.deadline)
+            截止日期
         </th>
         @*<th>
             @Html.DisplayNameFor(model => model.request_text)
@@ -42,13 +58,13 @@
             @Html.DisplayNameFor(model => model.desc_text)
         </th>*@
         <th>
-            @Html.DisplayNameFor(model => model.remark)
+            备注
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.whocreateid_fx)
+            创建者
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.createdate)
+            @Html.ActionLink("创建日期", "Index", new { sortOrder = ViewBag.CreatedateSortParm })
         </th>
         <th></th>
     </tr>
@@ -116,3 +132,5 @@
 }
 
 </table>
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, pageNum => Url.Action("Index", new { pageNum, categories_prod = ViewData["categories_prod"], sortOrder = ViewBag.CurrentSort }))

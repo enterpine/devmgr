@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using devmgr.Models;
+using PagedList;
 
 namespace devmgr.Controllers
 {
@@ -15,9 +16,12 @@ namespace devmgr.Controllers
         private Model1 db = new Model1();
 
         // GET: FLOW_CLIENT
-        public ActionResult Index()
+        public ActionResult Index(int? pageNum)
         {
-            return View(db.FLOW_CLIENT.ToList());
+            var clients = from s in db.FLOW_CLIENT
+                           select s;
+            clients = clients.OrderBy(s => s.createdate);
+            return View(clients.ToPagedList(pageNum ?? 1, 10));
         }
 
         // GET: FLOW_CLIENT/Details/5

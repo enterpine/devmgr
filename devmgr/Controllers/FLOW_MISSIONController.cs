@@ -48,7 +48,7 @@ namespace devmgr.Controllers
             {//搜索类型
                missions = missions.Where(s => s.missiontype.Contains(searchType));
             }
-                if (mistatus == 1) {
+            if (mistatus == 1) {
                 missions = missions.Where(s => s.iscomplete==1);
             }
             if (mistatus == 0)
