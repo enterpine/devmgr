@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using devmgr.Models;
+@using System.Linq;
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -33,11 +35,56 @@
                     <li>@Html.ActionLink("关于", "About", "Home")</li>
                     <li>@Html.ActionLink("联系方式", "Contact", "Home")</li>!-->
 
-                    <li>@Html.ActionLink("产品管理", "Index", "FLOW_PRODUCT")</li>
-                    <li>@Html.ActionLink("项目管理", "Index", "FLOW_PROJECT")</li>
-                    <li>@Html.ActionLink("项目模块管理", "Index", "FLOW_PROJMO")</li>
-                    <li>@Html.ActionLink("任务管理", "Index", "FLOW_MISSION")</li>
-                    <li>@Html.ActionLink("系统管理", "Index", "SYS_USER")</li>
+                    @{Model1 ef = new Model1(); }
+                    @if (Request.Cookies["islogin"] != null && Request.Cookies["islogin"].Value.ToString() == "true")
+                    {
+                        @*用户aid*@
+                        String caid = Request.Cookies["username"].Value.ToString();
+                        @*用户组*@
+                        int? ugid =int.Parse( ef.SYS_USER.Where(item => item.account_id == caid).First<SYS_USER>().usertypeid_fx.ToString());
+                        int mod1id = ef.SYS_MODULE.Where(item => item.code == "MOD00001").First<SYS_MODULE>().id;
+                        int mod2id = ef.SYS_MODULE.Where(item => item.code == "MOD00002").First<SYS_MODULE>().id;
+                        int mod3id = ef.SYS_MODULE.Where(item => item.code == "MOD00003").First<SYS_MODULE>().id;
+                        int mod4id = ef.SYS_MODULE.Where(item => item.code == "MOD00004").First<SYS_MODULE>().id;
+                        int mod5id = ef.SYS_MODULE.Where(item => item.code == "MOD00005").First<SYS_MODULE>().id;
+
+                        var obj1 = ef.SYS_UTYPE_MODULE.Where(item => item.usertypeid_fx == ugid && item.moduleid_fx == mod1id);
+                        var obj2 = ef.SYS_UTYPE_MODULE.Where(item => item.usertypeid_fx == ugid && item.moduleid_fx == mod2id);
+                        var obj3 = ef.SYS_UTYPE_MODULE.Where(item => item.usertypeid_fx == ugid && item.moduleid_fx == mod3id);
+                        var obj4 = ef.SYS_UTYPE_MODULE.Where(item => item.usertypeid_fx == ugid && item.moduleid_fx == mod4id);
+                        var obj5 = ef.SYS_UTYPE_MODULE.Where(item => item.usertypeid_fx == ugid && item.moduleid_fx == mod5id);
+
+
+                        if (obj1.Count<SYS_UTYPE_MODULE>() > 0 && (obj1.First<SYS_UTYPE_MODULE>().isread == 1 || obj1.First<SYS_UTYPE_MODULE>().iswrite == 1) && obj1.First<SYS_UTYPE_MODULE>().isenable == 1)
+                        {
+                            <li>@Html.ActionLink("产品管理", "Index", "FLOW_PRODUCT")</li>
+                        }
+                        if (obj2.Count<SYS_UTYPE_MODULE>() > 0 && (obj2.First<SYS_UTYPE_MODULE>().isread == 1 || obj2.First<SYS_UTYPE_MODULE>().iswrite == 1) && obj2.First<SYS_UTYPE_MODULE>().isenable == 1)
+                        {
+                            <li>@Html.ActionLink("项目管理", "Index", "FLOW_PROJECT")</li>
+                        }
+                        if (obj3.Count<SYS_UTYPE_MODULE>() > 0 && (obj3.First<SYS_UTYPE_MODULE>().isread == 1 || obj3.First<SYS_UTYPE_MODULE>().iswrite == 1) && obj3.First<SYS_UTYPE_MODULE>().isenable == 1)
+                        {
+                            <li>@Html.ActionLink("项目模块管理", "Index", "FLOW_PROJMO")</li>
+                        }
+                        if (obj4.Count<SYS_UTYPE_MODULE>() > 0 && (obj4.First<SYS_UTYPE_MODULE>().isread == 1 || obj4.First<SYS_UTYPE_MODULE>().iswrite == 1) && obj4.First<SYS_UTYPE_MODULE>().isenable == 1)
+                        {
+                            <li>@Html.ActionLink("任务管理", "Index", "FLOW_MISSION")</li>
+                        }
+                        if (obj5.Count<SYS_UTYPE_MODULE>() > 0 && (obj5.First<SYS_UTYPE_MODULE>().isread == 1 || obj5.First<SYS_UTYPE_MODULE>().iswrite == 1) && obj5.First<SYS_UTYPE_MODULE>().isenable == 1)
+                        {
+                            <li>@Html.ActionLink("系统管理", "Index", "SYS_USER")</li>
+                        }
+                    }
+                    else
+                    {
+                        if (ViewContext.RouteData.Values["controller"].ToString() == "Account" && ViewContext.RouteData.Values["action"].ToString() == "Login")
+                        { }
+                        else
+                        {
+                            Response.Redirect("/Account/Login");
+                        }
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

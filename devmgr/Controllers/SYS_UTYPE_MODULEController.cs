@@ -15,9 +15,27 @@ namespace devmgr.Controllers
         private Model1 db = new Model1();
 
         // GET: SYS_UTYPE_MODULE
-        public ActionResult Index()
+        public ActionResult Index(int? searchUtype,int? searchModule)
         {
-            return View(db.SYS_UTYPE_MODULE.ToList());
+            var utms = from s in db.SYS_UTYPE_MODULE
+                        select s;
+
+            List<SYS_USERTYPE> categories_Utype = SYS_USERTYPE.GETALL();
+            ViewData["categories_Utype"] = new SelectList(categories_Utype, "id", "typename");
+
+            List<SYS_MODULE> categories_Mod = SYS_MODULE.GETALL();
+            ViewData["categories_Mod"] = new SelectList(categories_Mod, "id", "name");
+
+            if (searchUtype != null)
+            {//用户组筛选
+                utms = utms.Where(s => s.usertypeid_fx == searchUtype);
+            }
+            if (searchModule != null)
+            {//模块筛选
+                utms = utms.Where(s => s.moduleid_fx == searchModule);
+            }
+
+            return View(utms.ToList());
         }
 
         // GET: SYS_UTYPE_MODULE/Details/5

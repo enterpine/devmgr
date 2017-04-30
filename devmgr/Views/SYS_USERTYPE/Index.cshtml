@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<devmgr.Models.SYS_USERTYPE>
-
+@using System.Linq;
+@using devmgr.Models;
+@{Model1 ef = new Model1(); }
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,7 +10,7 @@
     <ul class="nav navbar-nav">
         <li>@Html.ActionLink("用户管理", "Index", "SYS_USER")</li>
         <li>@Html.ActionLink("部门管理", "Index", "SYS_DEPART")</li>
-        <li>@Html.ActionLink("模块管理", "Index", "SYS_MODULE")</li>
+         
         <li>@Html.ActionLink("用户组管理", "Index", "SYS_USERTYPE")</li>
         <li>@Html.ActionLink("权限管理", "Index", "SYS_UTYPE_MODULE")</li>
     </ul>
@@ -29,9 +31,9 @@
         <th>
             @Html.DisplayNameFor(model => model.desc_text)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.remark)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.whocreateid_fx)
         </th>
@@ -52,11 +54,19 @@
         <td>
             @Html.DisplayFor(modelItem => item.desc_text)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.remark)
-        </td>
+        </td>*@
         <td>
-            @Html.DisplayFor(modelItem => item.whocreateid_fx)
+            @*@Html.DisplayFor(modelItem => item.whocreateid_fx)*@
+            @{ var obj3 = ef.SYS_USER.Where(item1 => item1.id == item.whocreateid_fx); }
+            @if (obj3.Count<SYS_USER>() > 0)
+            {
+                @Html.Label(obj3.First<SYS_USER>().cname.ToString())
+            }
+            else
+            {
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.createdate, "shortdatetime")

@@ -10,7 +10,7 @@
     <ul class="nav navbar-nav">
         <li>@Html.ActionLink("用户管理", "Index", "SYS_USER")</li>
         <li>@Html.ActionLink("部门管理", "Index", "SYS_DEPART")</li>
-        <li>@Html.ActionLink("模块管理", "Index", "SYS_MODULE")</li>
+         
         <li>@Html.ActionLink("用户组管理", "Index", "SYS_USERTYPE")</li>
         <li>@Html.ActionLink("权限管理", "Index", "SYS_UTYPE_MODULE")</li>
     </ul>
@@ -18,8 +18,22 @@
 <h2>权限管理</h2>
 
 <p>
-    @Html.ActionLink("添 加", "Create")
+    @Html.ActionLink("添 加", "SYS_UTYPE_MODULE")
 </p>
+<span style="background-color: rgb(255, 255, 102);">
+    @using (Html.BeginForm("Index", "SYS_UTYPE_MODULE", FormMethod.Get, new { @class = "form-inline" }))
+    {
+        <p>
+            用户组: @Html.DropDownList("searchUtype", ViewData["categories_Utype"] as SelectList, "--选择用户组--", new { @style = "width:150px;height:30px;font-size:12px;", @id = "searchUtype" })
+            系统模块: @Html.DropDownList("searchModule", ViewData["categories_Mod"] as SelectList, "--选择模块--", new { @style = "width:150px;height:30px;font-size:12px;", @id = "searchUtype" })
+
+
+            &nbsp;<input type="submit" value="查询" class="btn btn-default" />
+        </p>
+    }
+
+</span>
+
 <table class="table">
     <tr>
         <th>
@@ -43,12 +57,12 @@
         <th>
             @Html.DisplayNameFor(model => model.iswrite)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.desc_text)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.remark)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.whocreateid_fx)
         </th>
@@ -115,12 +129,12 @@
                 @Html.Label("否")
             }
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.desc_text)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.remark)
-        </td>
+        </td>*@
         <td>
             @{ var obj3 = ef.SYS_USER.Where(item1 => item1.id == item.whocreateid_fx); }
             @if (obj3.Count<SYS_USER>() > 0)
