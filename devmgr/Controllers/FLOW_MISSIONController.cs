@@ -145,7 +145,7 @@ namespace devmgr.Controllers
             fLOW_MISSION.createdate = DateTime.Now;
             fLOW_MISSION.whocreateid_fx = int.Parse(cuuserid);
             fLOW_MISSION.fromwhoid_fx = int.Parse(cuuserid);
-            fLOW_MISSION.iscomplete = 0;
+            fLOW_MISSION.iscomplete = int.Parse("0");
             if (ModelState.IsValid)
             {
                 db.FLOW_MISSION.Add(fLOW_MISSION);

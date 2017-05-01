@@ -23,7 +23,7 @@
         public int? projmotid_fx { get; set; }
 
         [Display(Name = "谁指派的")]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "不能为空")]
+        //[Required(AllowEmptyStrings = false, ErrorMessage = "不能为空")]
         public int? fromwhoid_fx { get; set; }
 
         [Display(Name = "指派给谁")]
