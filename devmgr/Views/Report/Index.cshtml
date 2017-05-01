@@ -30,51 +30,6 @@
         var datauser3 = datauser2.replace(reg2,'\'')
         var datahc = JSON.parse(datauser3);
 
-        //alert(datahc);
-        //$('#Container').highcharts({
-        //    chart: {
-        //        type: 'pie',
-        //        plotBackgroundColor: null,
-        //        plotBorderWidth: null,
-        //        plotShadow: false
-        //    },
-        //    credits: {       //去掉官网链接
-        //        text: ""
-        //    },
-        //    title: {
-        //        text: '<span style="color:#000;font-weight:bold;">项目-按招标单位统计</span>'
-        //    },
-        //    plotOptions: {
-        //        pie: {
-        //            allowPointSelect: true,
-        //            cursor: 'pointer',
-        //            dataLabels: {
-        //                enabled: true,
-        //                color: '#000000',
-        //                connectorColor: '#000000',
-        //                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
-        //            }
-        //        }
-        //    },
-        //    /* xAxis: {
-        //         categories: categories
-        //     },
-        //     yAxis: {
-        //         min: 0,
-        //         title: {
-        //             text: '项目数（个）'
-        //         }
-        //     },*/
-        //    tooltip: {
-        //        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        //    },
-        //    series: [{
-        //        name: name,
-        //        data: datahc,
-        //        color: 'blue'
-        //    }]
-        //});
-        alert(datahc);
         Highcharts.chart('container', {
             chart: {
                 plotBackgroundColor: null,
@@ -104,7 +59,7 @@
             series: [{
                 name: '占比',
                 colorByPoint: true,
-                data: datahc
+                data: eval(datahc)
                 //data: [{
                 //    name: 'Microsoft Internet Explorer',
                 //    y: 56.33
