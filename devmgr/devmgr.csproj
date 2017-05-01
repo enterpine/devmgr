@@ -229,6 +229,7 @@
     <Compile Include="Scripts\ueditor-utf8\net\App_Code\NotSupportedHandler.cs" />
     <Compile Include="Scripts\ueditor-utf8\net\App_Code\PathFormater.cs" />
     <Compile Include="Scripts\ueditor-utf8\net\App_Code\UploadHandler.cs" />
+    <Compile Include="SqlHelper.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

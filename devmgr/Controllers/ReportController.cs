@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data;
+using System.Text;
+using Newtonsoft.Json;
 
 namespace devmgr.Controllers
 {
@@ -11,13 +14,21 @@ namespace devmgr.Controllers
         // GET: Report
         public ActionResult Index()
         {
-            string strCategories;
-            string strDataCol;
+            string strCategories="";
+            string strDataCol="";
 
-            string strSql = "select zhaoBiaoUnit as countItem,COUNT(0) as countVal from sys_user group by missiontype";
+            string strSql = "select b.cvalue as countItem,a.cnt as countVal from (select missiontype,count(id) cnt from FLOW_MISSION group by missiontype) a join dd_missiontype b on a.missiontype=b.code";
+            DataSet ds = SqlHelper.ExecuteDataset(strSql);
+            ChartsBind(ds, "countItem", "countVal",ref strCategories, ref strDataCol);
+            strDataCol = ColumnDataToPieData(strCategories, strDataCol);
+            ViewData["hcdata"] = ObjectToJson(strDataCol);
 
 
             return View();
+        }
+        public static string ObjectToJson(object obj)
+        {
+            return JsonConvert.SerializeObject(obj);
         }
         static public string ColumnDataToPieData(string strCategories, string strDataCol)
         {
@@ -52,6 +63,31 @@ namespace devmgr.Controllers
                 }
             }
             return -1;
+        }
+        public static string ChartsBind(DataSet ds, string countItem, string countVal, ref string strCategories, ref string strDataCol)
+        {
+            DataTable dt = ds.Tables[0];
+            string strData = "[";
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                var iRows = dt.Rows;
+                strData += string.Format("['{0}',{1}],", iRows[i][countItem], iRows[i][countVal]);
+            }
+            strData = strData.TrimEnd(',') + "]";
+
+            //柱状图 数据
+            strCategories = "[";
+            strDataCol = "[";
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                var iRows = dt.Rows;
+                strCategories += "'" + iRows[i][countItem] + "',";
+                strDataCol += "{y: " + iRows[i][countVal] + " },";
+            }
+            strCategories = strCategories.TrimEnd(',') + "]";
+            strDataCol = strDataCol.TrimEnd(',') + "]";
+
+            return strData;
         }
     }
 }
