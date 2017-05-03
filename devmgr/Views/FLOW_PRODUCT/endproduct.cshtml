@@ -1,0 +1,189 @@
+﻿@model devmgr.Models.FLOW_PRODUCT
+@using System.Linq;
+@using devmgr.Models;
+@{Model1 ef = new Model1(); }
+
+
+@{
+    ViewBag.Title = "结束产品";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("产品管理", "Index", "FLOW_PRODUCT")</li>
+        <li>@Html.ActionLink("需求管理", "Index", "FLOW_REQUEST")</li>
+        <li>@Html.ActionLink("客户管理", "Index", "FLOW_CLIENT")</li>
+    </ul>
+</div>
+
+
+<h3>确定要完成研发这项产品吗？</h3>
+<div>
+    <h4>产品管理-完成</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.code)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.code)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Responserid_fx)
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.Responserid_fx)*@
+            @{
+                var obj = ef.SYS_USER.Where(item1 => item1.id == Model.Responserid_fx);
+            }
+            @if (obj.Count<SYS_USER>() > 0)
+            {
+                @Html.Label(obj.First<SYS_USER>().cname.ToString())
+            }
+            else
+            {
+
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.clientid_fx)
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.clientid_fx)*@
+            @{
+                var obj3 = ef.FLOW_CLIENT.Where(item1 => item1.id == Model.clientid_fx);
+            }
+            @if (obj3.Count<FLOW_CLIENT>() > 0)
+            {
+                @Html.Label(obj3.First<FLOW_CLIENT>().company_name.ToString())
+            }
+            else
+            {
+
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.stratdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.stratdate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.deadlinedate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.deadlinedate)
+        </dd>
+
+        @*<dt>
+                @Html.DisplayNameFor(model => model.request_text)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.request_text)
+            </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.request_file)
+        </dt>
+
+        <dd>
+            @Html.EditorFor(model => model.request_file)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.statuss)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.statuss)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.desc_text)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.desc_text)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.remark)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.remark)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.whocreateid_fx)
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.whocreateid_fx)*@
+            @{
+                var obj2 = ef.SYS_USER.Where(item1 => item1.id == Model.whocreateid_fx);
+            }
+            @if (obj2.Count<SYS_USER>() > 0)
+            {
+                @Html.Label(obj2.First<SYS_USER>().cname.ToString())
+            }
+            else
+            {
+
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.createdate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.createdate)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="结束产品" class="btn btn-default" /> |
+            @Html.ActionLink("返回列表", "Index")
+        </div>
+    }
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval", "~/Scripts/ueditor-utf8/ueditor.config.js", "~/Scripts/ueditor-utf8/ueditor.all.js")
+    <script type="text/javascript">
+        var editor = new baidu.editor.ui.Editor({
+        UEDITOR_HOME_URL: '/Scripts/ueditor-utf8/',//配置编辑器路径   也可以在ueditor.config.js文件中配置。
+        iframeCssUrl: '/Scripts/ueditor-utf8/themes/iframe.css',//样式路径
+        // initialContent:'欢迎使用ueditor',//初始化编辑器内容
+        autoHeightEnabled:true,//高度自动增长
+        initialFrameHeight: 400,  //配置编辑器的初始高度为400px。
+        toolbars: [[]],
+        readonly: true
+        });
+        editor.render('request_file');   //将编辑器装入 ID=Content 的文本域中。
+    </script>
+
+}

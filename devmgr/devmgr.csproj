@@ -760,6 +760,7 @@
     <Content Include="Views\MyManager\Edit.cshtml" />
     <Content Include="Views\MyManager\changepasswd.cshtml" />
     <Content Include="Views\Report\Index.cshtml" />
+    <Content Include="Views\FLOW_PRODUCT\endproduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

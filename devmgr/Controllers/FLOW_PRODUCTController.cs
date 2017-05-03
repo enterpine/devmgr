@@ -105,6 +105,7 @@ namespace devmgr.Controllers
             fLOW_PRODUCT.code = "PRD" + nowcode.ToString().PadLeft(5, '0');
             fLOW_PRODUCT.createdate = DateTime.Now;
             fLOW_PRODUCT.whocreateid_fx = int.Parse(cuuserid);
+            fLOW_PRODUCT.statuss = "进行中";
             if (ModelState.IsValid)
             {
                 db.FLOW_PRODUCT.Add(fLOW_PRODUCT);
@@ -184,6 +185,29 @@ namespace devmgr.Controllers
             FLOW_PRODUCT fLOW_PRODUCT = db.FLOW_PRODUCT.Find(id);
             db.FLOW_PRODUCT.Remove(fLOW_PRODUCT);
             db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        public ActionResult endproduct(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            FLOW_PRODUCT fLOW_PRODUCT = db.FLOW_PRODUCT.Find(id);
+            if (fLOW_PRODUCT == null)
+            {
+                return HttpNotFound();
+            }
+            return View(fLOW_PRODUCT);
+        }
+
+        // POST: FLOW_PRODUCT/Delete/5
+        [HttpPost, ActionName("endproduct")]
+        [ValidateAntiForgeryToken]
+        public ActionResult endproduct(int id)
+        {
+            string strSql = "update FLOW_PRODUCT set statuss = '已完成' where id = "+id;
+            SqlHelper.ExecuteNonQuery(strSql);
             return RedirectToAction("Index");
         }
 

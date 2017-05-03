@@ -15,11 +15,16 @@
         <li>@Html.ActionLink("客户管理", "Index", "FLOW_CLIENT")</li>
     </ul>
 </div>
+
     <h2>查看</h2>
 
     <div>
         <h4>产品管理-查看</h4>
         <hr />
+        @if (Model.statuss != "已完成")
+        {
+            @Html.ActionLink("结束研发", "endproduct", "FLOW_PRODUCT", new { id = Model.id }, new { })
+        }
         <dl class="dl-horizontal">
             <dt>
                 @Html.DisplayNameFor(model => model.code)
