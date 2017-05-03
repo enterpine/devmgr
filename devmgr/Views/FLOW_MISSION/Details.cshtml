@@ -36,6 +36,25 @@
         <dd>
             @Html.DisplayFor(model => model.request_file)
         </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.productid_fx)
+        </dt>
+
+        <dd>
+            @{
+                var obj6 = ef.FLOW_PRODUCT.Where(item1 => item1.id == Model.productid_fx);
+            }
+            @if (obj6.Count<FLOW_PRODUCT>() > 0)
+            {
+                @Html.Label(obj6.First<FLOW_PRODUCT>().name.ToString())
+            }
+            else
+            {
+
+            }
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.projectid_fx)
         </dt>
@@ -112,11 +131,11 @@
 
         <dd>
             @{
-                var obj6 = ef.SYS_USER.Where(item1 => item1.id == Model.towhoid_fx);
+                var obj7 = ef.SYS_USER.Where(item1 => item1.id == Model.towhoid_fx);
             }
-            @if (obj6.Count<SYS_USER>() > 0)
+            @if (obj7.Count<SYS_USER>() > 0)
             {
-                @Html.Label(obj6.First<SYS_USER>().cname.ToString())
+                @Html.Label(obj7.First<SYS_USER>().cname.ToString())
             }
             else
             {

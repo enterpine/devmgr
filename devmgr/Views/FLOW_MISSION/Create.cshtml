@@ -9,12 +9,39 @@
     //多级下拉框js
     $(document).ready(function () {
         $("#projmotid_fx").empty();
+        $("#projectid_fx").empty();
+        GetProj();
         GetProjmo();
+        $("#productid_fx").change(function () {
+            GetProj();
+        });
         $("#projectid_fx").change(function () {
             GetProjmo();
         });
     });
+    function GetProj() {
+
+        $("#projectid_fx").empty();
+        $.getJSON("/FLOW_MISSION/getproj",
+                    { productid_fx: $("#productid_fx").val() },
+                    function (data) {
+
+                        var tempOption = document.createElement("option");
+                        tempOption.value = "-1";
+                        tempOption.innerHTML = "--请选择--";
+                        $("#projectid_fx").append(tempOption);
+
+                        $.each(data, function (i, item) {
+                            var tempOption = document.createElement("option");
+                            tempOption.value = item.Value;
+                            tempOption.innerHTML = item.Text;
+                            $("#projectid_fx").append(tempOption);
+                        }
+                    )
+                    });
+    }
     function GetProjmo() {
+
         $("#projmotid_fx").empty();
         $.getJSON( "/FLOW_MISSION/getprojmo",
                     { projectid_fx: $("#projectid_fx").val() },
@@ -49,6 +76,18 @@
                 @Html.ValidationMessageFor(model => model.request_file, "", new { @class = "text-danger" })
             </div>
         </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.productid_fx, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.projectid_fx, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.projectid_fx, "", new { @class = "text-danger" })*@
+                @{SelectList categoryprod = (SelectList)ViewData["categories_prod"];}
+                @Html.DropDownListFor(model => model.productid_fx, categoryprod, "--请选择--", new { htmlAttributes = new { } })
+                @Html.ValidationMessageFor(model => model.productid_fx, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
 
         <div class="form-group">
             @Html.LabelFor(model => model.projectid_fx, htmlAttributes: new { @class = "control-label col-md-2" })

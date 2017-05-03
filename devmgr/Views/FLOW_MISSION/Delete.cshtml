@@ -32,7 +32,23 @@
         <dt>
             @Html.DisplayNameFor(model => model.projectid_fx)
         </dt>
+        <dt>
+            @Html.DisplayNameFor(model => model.productid_fx)
+        </dt>
 
+        <dd>
+            @{
+                var obj6 = ef.FLOW_PRODUCT.Where(item1 => item1.id == Model.productid_fx);
+            }
+            @if (obj6.Count<FLOW_PRODUCT>() > 0)
+            {
+                @Html.Label(obj6.First<FLOW_PRODUCT>().name.ToString())
+            }
+            else
+            {
+
+            }
+        </dd>
         <dd>
             @{
                 var obj2 = ef.FLOW_PROJECT.Where(item1 => item1.id == Model.projectid_fx);

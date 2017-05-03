@@ -14,6 +14,10 @@
         [Display(Name = "任务编码")]
         public string code { get; set; }
 
+        [Display(Name = "所属产品")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "所属项目不能为空")]
+        public int? productid_fx { get; set; }
+
         [Display(Name = "所属项目")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "所属项目不能为空")]
         public int? projectid_fx { get; set; }

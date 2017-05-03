@@ -17,6 +17,8 @@ namespace devmgr.Controllers
 
         public ActionResult Index(string searchName, int? searchProj,int? searchProjmo,string searchType, string sortOrder,int? mistatus,int? pageNum)
         {
+            List<FLOW_PRODUCT> categories_prod = FLOW_PRODUCT.GETALL();
+            ViewData["categories_prod"] = new SelectList(categories_prod, "id", "name");
             List<FLOW_PROJECT> categories_proj = FLOW_PROJECT.GETALL();
             ViewData["categories_proj"] = new SelectList(categories_proj, "id", "desc_text");
             List<FLOW_PROJMO> categories_projmo = FLOW_PROJMO.GETALL();
@@ -103,6 +105,9 @@ namespace devmgr.Controllers
         // GET: FLOW_MISSION/Create
         public ActionResult Create()
         {
+            List<FLOW_PRODUCT> categories_prod = FLOW_PRODUCT.GETALL();
+            ViewData["categories_prod"] = new SelectList(categories_prod, "id", "name");
+
             List<FLOW_PROJECT> categories_proj = FLOW_PROJECT.GETALL();
             ViewData["categories_proj"] = new SelectList(categories_proj, "id", "desc_text");
 
@@ -124,7 +129,7 @@ namespace devmgr.Controllers
         [HttpPost]
         [ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "missiontype,projmotid_fx,id,code,projectid_fx,fromwhoid_fx,towhoid_fx,fromdate,todate,dad_mission,dad_level,isbottom,request_text,request_file,iscomplete,desc_text,remark,whocreateid_fx,createdate")] FLOW_MISSION fLOW_MISSION)
+        public ActionResult Create([Bind(Include = "productid_fx,missiontype,projmotid_fx,id,code,projectid_fx,fromwhoid_fx,towhoid_fx,fromdate,todate,dad_mission,dad_level,isbottom,request_text,request_file,iscomplete,desc_text,remark,whocreateid_fx,createdate")] FLOW_MISSION fLOW_MISSION)
         {
             Model1 ef = new Model1();
             String username = Request.Cookies["username"].Value.ToString();
@@ -152,6 +157,9 @@ namespace devmgr.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            List<FLOW_PRODUCT> categories_prod = FLOW_PRODUCT.GETALL();
+            ViewData["categories_prod"] = new SelectList(categories_prod, "id", "name");
+
             List<FLOW_PROJECT> categories_proj = FLOW_PROJECT.GETALL();
             ViewData["categories_proj"] = new SelectList(categories_proj, "id", "desc_text");
 
@@ -170,6 +178,9 @@ namespace devmgr.Controllers
         // GET: FLOW_MISSION/Edit/5
         public ActionResult Edit(int? id)
         {
+            List<FLOW_PRODUCT> categories_prod = FLOW_PRODUCT.GETALL();
+            ViewData["categories_prod"] = new SelectList(categories_prod, "id", "name");
+
             List<FLOW_PROJECT> categories_proj = FLOW_PROJECT.GETALL();
             ViewData["categories_proj"] = new SelectList(categories_proj, "id", "desc_text");
 
@@ -209,6 +220,9 @@ namespace devmgr.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            List<FLOW_PRODUCT> categories_prod = FLOW_PRODUCT.GETALL();
+            ViewData["categories_prod"] = new SelectList(categories_prod, "id", "name");
+
             List<FLOW_PROJECT> categories_proj = FLOW_PROJECT.GETALL();
             ViewData["categories_proj"] = new SelectList(categories_proj, "id", "desc_text");
 
@@ -260,17 +274,22 @@ namespace devmgr.Controllers
         }
 
         /// <summary>
-        /// 获取省份
+        /// 获取项目
         /// </summary>
-        public JsonResult getproj()
+        public JsonResult getproj(int productid_fx)
         {
-            List < FLOW_PROJECT > categories_proj = FLOW_PROJECT.GETALL();
-            var list = new SelectList(categories_proj, "id", "desc_text");
-            return Json(list, JsonRequestBehavior.AllowGet);
+            List<FLOW_PROJECT> categories_project = FLOW_PROJECT.GETALL();
+            var proj = categories_project.Where(m => m.productid_fx == productid_fx).ToList();
+            List<SelectListItem> item = new List<SelectListItem>();
+            foreach (var i in proj)
+            {
+                item.Add(new SelectListItem { Text = i.desc_text, Value = i.id.ToString() });
+            }
+            return Json(item, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>
-        /// 获取城市
+        /// 获取模块
         /// </summary>
         /// <param name="pid"></param>
         /// <returns></returns>
@@ -327,25 +346,5 @@ namespace devmgr.Controllers
             }
             return View(fLOW_MISSION);
         }
-
-        //public ActionResult Index(string sortOrder)
-        //{
-        //    ViewBag.ReleaseDateSortParm = sortOrder == "date" ? "date_desc" : "date";
-
-        //    var missions = from s in db.FLOW_MISSION
-        //                   select s;
-        //    switch (sortOrder)
-        //    {
-
-        //        case "date":
-        //            missions = missions.OrderBy(s => s.createdate);
-        //            break;
-        //        default:
-        //            missions = missions.OrderBy(s => s.createdate);
-        //            break;
-        //    }
-        //    return View(missions.ToList());
-        //}
-        
     }
 }

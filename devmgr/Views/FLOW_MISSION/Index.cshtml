@@ -10,281 +10,287 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<script src="~/Scripts/jquery-1.10.2.js"></script>
-<script>
-    //多级下拉框js
-    $(document).ready(function () {
-        $("#searchProjmo").empty();
-        GetProjmo();
-        $("#searchProj").change(function () {
+<div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+        <li>@Html.ActionLink("任务管理", "Index", "FLOW_MISSION")</li>
+        <li>@Html.ActionLink("任务统计", "Index", "Report")</li>
+    </ul>
+</div>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script>
+        //多级下拉框js
+        $(document).ready(function () {
+            $("#searchProjmo").empty();
             GetProjmo();
+            $("#searchProj").change(function () {
+                GetProjmo();
+            });
         });
-    });
-    function GetProjmo() {
-        $("#searchProjmo").empty();
-        $.getJSON( "/FLOW_MISSION/getprojmo",
-                    { projectid_fx: $("#searchProj").val() },
-                    function (data) {
-                        $.each(data, function (i, item)
-                        {
-                            var tempOption = document.createElement("option");
-                            tempOption.value = item.Value;
-                            tempOption.innerHTML = item.Text;
-                            $("#searchProjmo").append(tempOption);
+        function GetProjmo() {
+            $("#searchProjmo").empty();
+            $.getJSON("/FLOW_MISSION/getprojmo",
+                        { projectid_fx: $("#searchProj").val() },
+                        function (data) {
+                            $.each(data, function (i, item) {
+                                var tempOption = document.createElement("option");
+                                tempOption.value = item.Value;
+                                tempOption.innerHTML = item.Text;
+                                $("#searchProjmo").append(tempOption);
+                            }
+                        )
+                        });
+        }
+    </script>
+    <h2>任务管理</h2>
+
+    <p>
+        @Html.ActionLink("添 加", "Create")
+    </p>
+    <span style="background-color: rgb(255, 255, 102);">
+        @using (Html.BeginForm("Index", "FLOW_MISSION", FormMethod.Get, new { @class = "form-inline" }))
+        {
+            <p>
+                任务名称: @Html.TextBox("searchName", null, new { @class = "form-control", @placeholder = "请输入关键字", @style = "width:150px;height:30px;font-size:12px;" })
+                &nbsp;所在产品: @Html.DropDownList("searchProd", ViewData["categories_prod"] as SelectList, "请选择项目", new { @style = "width:150px;height:30px;font-size:12px;", @id = "searchProj" })
+                &nbsp;所在项目: @Html.DropDownList("searchProj", ViewData["categories_proj"] as SelectList, "请选择项目", new { @style = "width:150px;height:30px;font-size:12px;", @id = "searchProj" })
+                所属模块: @Html.DropDownList("searchProjmo", ViewData["categories_projmo"] as SelectList, "请选择模块", new { @style = "width:150px;height:30px;font-size:12px;", @id = "searchProjmo" })
+                任务类型：@Html.DropDownList("searchType", ViewData["missiontype"] as SelectList, "请选择任务类型", new { @style = "width:80px;height:30px;font-size:12px;" })
+                &nbsp; 任务状态: @Html.RadioButton("mistatus", 1)已完成 @Html.RadioButton("mistatus", 0) 待处理 @Html.RadioButton("mistatus", 2, true) 全部
+                &nbsp;<input type="submit" value="查询" class="btn btn-default" />
+            </p>
+        }
+
+    </span>
+
+    <table class="table">
+        <tr>
+            <th>
+                @*@Html.DisplayNameFor(model => model.code)*@
+                @Html.ActionLink("任务编号", "Index", new { sortOrder = ViewBag.CodeSortParm })
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.request_file)*@
+                @Html.ActionLink("名称", "Index", new { sortOrder = ViewBag.NameSortParm })
+            </th>
+            <th>
+                项目
+            </th>
+            <th>
+                模块
+            </th>
+            <th>
+                谁指派的
+            </th>
+            <th>
+                指派给谁
+            </th>
+            <th>
+                开始日期
+            </th>
+            <th>
+                截止日期
+            </th>
+            <th>
+                任务类型
+            </th>
+            <th>
+                是否完成
+            </th>
+
+            <th>
+                @Html.ActionLink("创建日期", "Index", new { sortOrder = ViewBag.CreatedateSortParm })
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            if (item.iscomplete == 0)
+            {//未完成部分
+                <tr style="background-color:antiquewhite">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.code)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.request_file)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.projectid_fx)
+                        </td>*@
+                    <td>
+                        @{ var obj = ef.FLOW_PROJECT.Where(item1 => item1.id == item.projectid_fx); }
+                        @if (obj.Count<FLOW_PROJECT>() > 0)
+                    {
+                            @Html.Label(obj.First<FLOW_PROJECT>().desc_text.ToString())
                         }
-                    )
-        });
-    }
-</script>
-<h2>任务管理</h2>
+                        else
+                        {
 
-<p>
-    @Html.ActionLink("添 加", "Create")
-</p>
-<span style="background-color: rgb(255, 255, 102);">
-    @using (Html.BeginForm("Index", "FLOW_MISSION", FormMethod.Get, new { @class = "form-inline" }))
-    {
-        <p>
-            任务名称: @Html.TextBox("searchName", null, new { @class = "form-control", @placeholder = "请输入关键字", @style = "width:150px;height:30px;font-size:12px;" })
-            &nbsp;所在项目: @Html.DropDownList("searchProj", ViewData["categories_proj"] as SelectList, "请选择项目", new { @style="width:150px;height:30px;font-size:12px;",@id= "searchProj" })
-            所属模块: @Html.DropDownList("searchProjmo", ViewData["categories_projmo"] as SelectList, "请选择模块", new { @style = "width:150px;height:30px;font-size:12px;",@id = "searchProjmo" })
-            任务类型：@Html.DropDownList("searchType", ViewData["missiontype"] as SelectList, "请选择任务类型", new { @style = "width:80px;height:30px;font-size:12px;"})
-            &nbsp; 任务状态: @Html.RadioButton("mistatus", 1)已完成 @Html.RadioButton("mistatus", 0) 待处理 @Html.RadioButton("mistatus", 2,true) 全部
-            &nbsp;<input type="submit" value="查询" class="btn btn-default" />
-        </p>
-    }
-       
-</span>
- 
-<table class="table">
-    <tr>
-        <th>
-            @*@Html.DisplayNameFor(model => model.code)*@
-            @Html.ActionLink("任务编号", "Index", new { sortOrder = ViewBag.CodeSortParm })
-        </th>
-        <th>
-            @*@Html.DisplayNameFor(model => model.request_file)*@
-            @Html.ActionLink("名称", "Index", new { sortOrder = ViewBag.NameSortParm })
-        </th>
-        <th>
-            项目
-        </th>
-        <th>
-            模块
-        </th>
-        <th>
-            谁指派的
-        </th>
-        <th>
-            指派给谁
-        </th>
-        <th>
-            开始日期
-        </th>
-        <th>
-            截止日期
-        </th>
-        <th>
-            任务类型
-        </th>
-        <th>
-            是否完成
-        </th>
+                        }
+                    </td>
 
-        <th>
-            @Html.ActionLink("创建日期", "Index", new { sortOrder = ViewBag.CreatedateSortParm })
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        if (item.iscomplete == 0)
-        {//未完成部分
-            <tr style="background-color:antiquewhite">
-                <td>
-                    @Html.DisplayFor(modelItem => item.code)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.request_file)
-                </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.projectid_fx)
-                    </td>*@
-                <td>
-                    @{ var obj = ef.FLOW_PROJECT.Where(item1 => item1.id == item.projectid_fx); }
-                    @if (obj.Count<FLOW_PROJECT>() > 0)
+                    <td>
+                        @{ var obj3 = ef.FLOW_PROJMO.Where(item1 => item1.id == item.projmotid_fx); }
+                        @if (obj3.Count<FLOW_PROJMO>() > 0)
                     {
-                        @Html.Label(obj.First<FLOW_PROJECT>().desc_text.ToString())
-                    }
-                    else
+                            @Html.Label(obj3.First<FLOW_PROJMO>().name.ToString())
+                        }
+                        else
+                        {
+
+                        }
+                    </td>
+
+                    <td>
+                        @{ var obj2 = ef.SYS_USER.Where(item1 => item1.id == item.fromwhoid_fx); }
+                        @if (obj2.Count<SYS_USER>() > 0)
                     {
+                            @Html.Label(obj2.First<SYS_USER>().cname.ToString())
+                        }
+                        else
+                        {
 
-                    }
-                </td>
+                        }
+                    </td>
 
-                <td>
-                    @{ var obj3 = ef.FLOW_PROJMO.Where(item1 => item1.id == item.projmotid_fx); }
-                    @if (obj3.Count<FLOW_PROJMO>() > 0)
+
+
+                    <td>
+                        @{ var obj4 = ef.SYS_USER.Where(item1 => item1.id == item.towhoid_fx); }
+                        @if (obj4.Count<SYS_USER>() > 0)
                     {
-                        @Html.Label(obj3.First<FLOW_PROJMO>().name.ToString())
-                    }
-                    else
-                    {
+                            @Html.Label(obj4.First<SYS_USER>().cname.ToString())
+                        }
+                        else
+                        {
 
-                    }
-                </td>
+                        }
+                    </td>
 
-                <td>
-                    @{ var obj2 = ef.SYS_USER.Where(item1 => item1.id == item.fromwhoid_fx); }
-                    @if (obj2.Count<SYS_USER>() > 0)
-                    {
-                        @Html.Label(obj2.First<SYS_USER>().cname.ToString())
-                    }
-                    else
-                    {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fromdate, "shortdatetime")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.todate, "shortdatetime")
+                    </td>
 
-                    }
-                </td>
-
-
-
-                <td>
-                    @{ var obj4 = ef.SYS_USER.Where(item1 => item1.id == item.towhoid_fx); }
-                    @if (obj4.Count<SYS_USER>() > 0)
-                    {
-                        @Html.Label(obj4.First<SYS_USER>().cname.ToString())
-                    }
-                    else
-                    {
-
-                    }
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.fromdate, "shortdatetime")
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.todate, "shortdatetime")
-                </td>
-
-                <td>
-                    @{
+                    <td>
+                        @{
                             var obj5 = ef2.DD_MISSIONTYPE.Where(item1 => item1.code == item.missiontype);
                         }
                         @if (obj5.Count<DD_MISSIONTYPE>() > 0)
                     {
                             @Html.Label(obj5.First<DD_MISSIONTYPE>().cvalue.ToString())
-                    }
-                    else
-                    {
+                        }
+                        else
+                        {
 
                         }
-                </td>
+                    </td>
 
 
-                <td>
-                    @if (item.iscomplete == 1)
+                    <td>
+                        @if (item.iscomplete == 1)
                     {
                             @Html.Label("已完成");
                         }
-                    else
-                    {
+                        else
+                        {
                             @Html.Label("待处理");
                         }
-                </td>
+                    </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.createdate, "shortdatetime")
-                </td>
-                <td>
-                    @Html.ActionLink("编辑", "Edit", new { id = item.id }) |
-                    @Html.ActionLink("查看", "Details", new { id = item.id }) |
-                    @Html.ActionLink("删除", "Delete", new { id = item.id })
-                </td>
-            </tr>
-        }
-                    else
-                    {//完成部分
-            <tr style="background-color:lightcyan">
-                <td>
-                    @Html.DisplayFor(modelItem => item.code)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.request_file)
-                </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.projectid_fx)
-                    </td>*@
-                <td>
-                    @{ var obj = ef.FLOW_PROJECT.Where(item1 => item1.id == item.projectid_fx); }
-                    @if (obj.Count<FLOW_PROJECT>() > 0)
-    {
-                        @Html.Label(obj.First<FLOW_PROJECT>().desc_text.ToString())
-                    }
-                    else
-                    {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.createdate, "shortdatetime")
+                    </td>
+                    <td>
+                        @Html.ActionLink("编辑", "Edit", new { id = item.id }) |
+                        @Html.ActionLink("查看", "Details", new { id = item.id }) |
+                        @Html.ActionLink("删除", "Delete", new { id = item.id })
+                    </td>
+                </tr>
+                            }
+                            else
+                            {//完成部分
+                                <tr style="background-color:lightcyan">
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.code)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.request_file)
+                                    </td>
+                                    @*<td>
+                                            @Html.DisplayFor(modelItem => item.projectid_fx)
+                                        </td>*@
+                                    <td>
+                                        @{ var obj = ef.FLOW_PROJECT.Where(item1 => item1.id == item.projectid_fx); }
+                                        @if (obj.Count<FLOW_PROJECT>() > 0)
+                                        {
+                                            @Html.Label(obj.First<FLOW_PROJECT>().desc_text.ToString())
+                                        }
+                                        else
+                                        {
 
-                    }
-                </td>
-
-
-                <td>
-                    @{ var obj2 = ef.SYS_USER.Where(item1 => item1.id == item.fromwhoid_fx); }
-                    @if (obj2.Count<SYS_USER>() > 0)
-    {
-                        @Html.Label(obj2.First<SYS_USER>().cname.ToString())
-                    }
-                    else
-                    {
-
-                    }
-                </td>
+                                        }
+                                    </td>
 
 
+                                    <td>
+                                        @{ var obj2 = ef.SYS_USER.Where(item1 => item1.id == item.fromwhoid_fx); }
+                                        @if (obj2.Count<SYS_USER>() > 0)
+                                        {
+                                            @Html.Label(obj2.First<SYS_USER>().cname.ToString())
+                                        }
+                                        else
+                                        {
 
-                <td>
-                    @{ var obj3 = ef.SYS_USER.Where(item1 => item1.id == item.towhoid_fx); }
-                    @if (obj3.Count<SYS_USER>() > 0)
-    {
-                        @Html.Label(obj3.First<SYS_USER>().cname.ToString())
-                    }
-                    else
-                    {
+                                        }
+                                    </td>
 
-                    }
-                </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.fromdate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.todate, "shortdatetime")
-                </td>
 
-                <td>
-                    @if (item.iscomplete == 1)
-    {
-                        @Html.Label("已完成");
-    }
-    else
-    {
-                        @Html.Label("待处理");
-    }
-                </td>
+                                    <td>
+                                        @{ var obj3 = ef.SYS_USER.Where(item1 => item1.id == item.towhoid_fx); }
+                                        @if (obj3.Count<SYS_USER>() > 0)
+                                        {
+                                            @Html.Label(obj3.First<SYS_USER>().cname.ToString())
+                                        }
+                                        else
+                                        {
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.createdate, "shortdatetime")
-                </td>
-                <td>
-                    @Html.ActionLink("编辑", "Edit", new { id = item.id }) |
-                    @Html.ActionLink("查看", "Details", new { id = item.id }) |
-                    @Html.ActionLink("删除", "Delete", new { id = item.id })
-                </td>
-            </tr>
-        }      
-    }
-    
-</table>
+                                        }
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.fromdate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.todate, "shortdatetime")
+                                    </td>
+
+                                    <td>
+                                        @if (item.iscomplete == 1)
+                                        {
+                                            @Html.Label("已完成");
+                                        }
+                                        else
+                                        {
+                                            @Html.Label("待处理");
+                                        }
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.createdate, "shortdatetime")
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("编辑", "Edit", new { id = item.id }) |
+                                        @Html.ActionLink("查看", "Details", new { id = item.id }) |
+                                        @Html.ActionLink("删除", "Delete", new { id = item.id })
+                                    </td>
+                                </tr>
+                                                }
+                                            }
+
+    </table>
     Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
     @Html.PagedListPager(Model, pageNum => Url.Action("Index", new { pageNum, categories_proj = ViewData["categories_proj"], categories_projmo = ViewData["categories_projmo"], sortOrder = ViewBag.CurrentSort }))
