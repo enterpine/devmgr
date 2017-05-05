@@ -16,20 +16,42 @@ namespace devmgr.Controllers
         private Model1 db = new Model1();
 
         // GET: FLOW_PRODUCT
-        public ActionResult Index(string searchName, string sortOrder,int? pageNum)
+        public ActionResult Index(string searchName, string sortOrder,int? pageNum,int? mistatus)
         {
             var products = from s in db.FLOW_PRODUCT
                            select s;
-
-            ViewBag.CurrentSort = sortOrder;
-            ViewBag.CodeSortParm = sortOrder == "Code_asc" ? "Code_desc" : "Code_asc";
-            ViewBag.CreatedateSortParm = sortOrder == "date_asc" ? "date_desc" : "date_asc";
+            //#########################################################
+            if (Request.Cookies["islogin"] == null)
+            {
+                Response.Redirect("/Account/Login");
+            }
+            Model1 ef = new Model1();
+            string caid = Request.Cookies["username"].Value.ToString();
+            int cuid = ef.SYS_USER.Where(item => item.account_id == caid).First<SYS_USER>().id;
+            int? ugid = int.Parse(ef.SYS_USER.Where(item => item.account_id == caid).First<SYS_USER>().usertypeid_fx.ToString());
+            int mod1id = ef.SYS_MODULE.Where(item => item.code == "MOD00001").First<SYS_MODULE>().id;
+            var obj = ef.SYS_UTYPE_MODULE.Where(item => item.usertypeid_fx == ugid && item.moduleid_fx == mod1id);
+            if (obj.First<SYS_UTYPE_MODULE>().isenable == 0) {
+                products = products.Where(s => s.whocreateid_fx==ugid || s.Responserid_fx == ugid);
+            }
+              
+            if (mistatus == 1)
+            {//我创建的
+                products = products.Where(s => s.whocreateid_fx == cuid);
+            }
+            if (mistatus == 0)
+            {//我负责的
+                products = products.Where(s => s.Responserid_fx == cuid);
+            }
+            //###########################################################
 
             if (!String.IsNullOrEmpty(searchName))
             {//搜索名称
                 products = products.Where(s => s.name.Contains(searchName));
             }
-
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.CodeSortParm = sortOrder == "Code_asc" ? "Code_desc" : "Code_asc";
+            ViewBag.CreatedateSortParm = sortOrder == "date_asc" ? "date_desc" : "date_asc";
             switch (sortOrder)
             {
                 case "Code_desc":

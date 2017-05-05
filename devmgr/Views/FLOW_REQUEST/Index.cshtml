@@ -124,9 +124,34 @@
             @Html.DisplayFor(modelItem => item.createdate, "shortdatetime")
         </td>
         <td>
-            @Html.ActionLink("编辑", "Edit", new { id=item.id }) |
-            @Html.ActionLink("查看", "Details", new { id=item.id }) |
-            @Html.ActionLink("删除", "Delete", new { id=item.id })
+           @{
+               if (Request.Cookies["islogin"] == null)
+               {
+                   if (ViewContext.RouteData.Values["controller"].ToString() == "Account" && ViewContext.RouteData.Values["action"].ToString() == "Login")
+                   {
+                   }
+                   else
+                   {
+                       Response.Redirect("/Account/Login");
+                   }
+               }
+               String caid = Request.Cookies["username"].Value.ToString();
+               int cuid = ef.SYS_USER.Where(s => s.account_id == caid).First<SYS_USER>().id;
+               int? ugid = int.Parse(ef.SYS_USER.Where(s => s.account_id == caid).First<SYS_USER>().usertypeid_fx.ToString());
+               int mod1id = ef.SYS_MODULE.Where(s => s.code == "MOD00001").First<SYS_MODULE>().id;
+               var objs = ef.SYS_UTYPE_MODULE.Where(s => s.usertypeid_fx == ugid && s.moduleid_fx == mod1id);
+        }
+        @if (objs.First<SYS_UTYPE_MODULE>().iswrite == 1)
+        {
+            @Html.ActionLink("编辑 |", "Edit", new { id = item.id });
+        }
+
+        @Html.ActionLink("查看", "Details", new { id = item.id })
+
+        @if (objs.First<SYS_UTYPE_MODULE>().iswrite == 1)
+        {
+            @Html.ActionLink("| 删除", "Delete", new { id = item.id })
+        }
         </td>
     </tr>
 }

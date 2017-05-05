@@ -21,7 +21,7 @@
         [Display(Name = "默认启用")]
         public int? isdefault { get; set; }
 
-        [Display(Name = "是否启用")]
+        [Display(Name = "是否能全部查看")]
         public int? isenable { get; set; }
         [Display(Name = "读权限")]
         public int? isread { get; set; }
