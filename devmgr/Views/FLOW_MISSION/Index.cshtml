@@ -54,7 +54,8 @@
                 &nbsp;所在产品: @Html.DropDownList("searchProd", ViewData["categories_prod"] as SelectList, "请选择项目", new { @style = "width:150px;height:30px;font-size:12px;", @id = "searchProj" })
                 &nbsp;所在项目: @Html.DropDownList("searchProj", ViewData["categories_proj"] as SelectList, "请选择项目", new { @style = "width:150px;height:30px;font-size:12px;", @id = "searchProj" })
                 所属模块: @Html.DropDownList("searchProjmo", ViewData["categories_projmo"] as SelectList, "请选择模块", new { @style = "width:150px;height:30px;font-size:12px;", @id = "searchProjmo" })
-                任务类型：@Html.DropDownList("searchType", ViewData["missiontype"] as SelectList, "请选择任务类型", new { @style = "width:80px;height:30px;font-size:12px;" })
+                任务类型：@Html.DropDownList("searchType", ViewData["missiontype"] as SelectList, "全部", new { @style = "width:80px;height:30px;font-size:12px;" })<br/>
+                &nbsp; @Html.RadioButton("mistatuss", 1) 由我创建 @Html.RadioButton("mistatuss", 0) 由我负责 @Html.RadioButton("mistatuss", 2, true) 全部&nbsp; |
                 &nbsp; 任务状态: @Html.RadioButton("mistatus", 1)已完成 @Html.RadioButton("mistatus", 0) 待处理 @Html.RadioButton("mistatus", 2, true) 全部
                 &nbsp;<input type="submit" value="查询" class="btn btn-default" />
             </p>
@@ -283,9 +284,39 @@
                                         @Html.DisplayFor(modelItem => item.createdate, "shortdatetime")
                                     </td>
                                     <td>
-                                        @Html.ActionLink("编辑", "Edit", new { id = item.id }) |
-                                        @Html.ActionLink("查看", "Details", new { id = item.id }) |
-                                        @Html.ActionLink("删除", "Delete", new { id = item.id })
+                                        @{
+                                            if (Request.Cookies["islogin"] == null)
+                                            {
+                                                if (ViewContext.RouteData.Values["controller"].ToString() == "Account" && ViewContext.RouteData.Values["action"].ToString() == "Login")
+                                                {
+                                                }
+                                                else
+                                                {
+                                                    Response.Redirect("/Account/Login");
+                                                }
+                                            }
+                                            String caid = Request.Cookies["username"].Value.ToString();
+                                            int cuid = ef.SYS_USER.Where(s => s.account_id == caid).First<SYS_USER>().id;
+                                            int? ugid = int.Parse(ef.SYS_USER.Where(s => s.account_id == caid).First<SYS_USER>().usertypeid_fx.ToString());
+                                            int mod1id = ef.SYS_MODULE.Where(s => s.code == "MOD00004").First<SYS_MODULE>().id;
+                                            var objs = ef.SYS_UTYPE_MODULE.Where(s => s.usertypeid_fx == ugid && s.moduleid_fx == mod1id);
+                                        }
+                                        @if (objs.Count() != 0)
+                                        {
+                                            if (objs.First<SYS_UTYPE_MODULE>().iswrite == 1)
+                                            {
+                                                @Html.ActionLink("编辑 |", "Edit", new { id = item.id })
+                                            }
+                                        }
+                                        @Html.ActionLink("查看", "Details", new { id = item.id })
+
+                                        @if (objs.Count() != 0)
+                                        {
+                                            if (objs.First<SYS_UTYPE_MODULE>().iswrite == 1)
+                                            {
+                                                @Html.ActionLink("| 删除", "Delete", new { id = item.id })
+                                            }
+                                        }
                                     </td>
                                 </tr>
                                                 }

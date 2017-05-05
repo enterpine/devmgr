@@ -22,7 +22,7 @@
                 String cuuserid = db.SYS_USER.Where(item => item.account_id == username).First<SYS_USER>().id.ToString();
                 int cuid = int.Parse(cuuserid);
             }
-            @Html.Partial("~/Views/Shared/indexinfo/mymission.cshtml", db.FLOW_MISSION.Where(item => item.towhoid_fx == cuid).ToList());
+            @Html.Partial("~/Views/Shared/indexinfo/mymission.cshtml", db.FLOW_MISSION.Where(item => item.towhoid_fx == cuid&&item.iscomplete==0).ToList())
         </div>
 
         <div class="col-md-6" style="background-color:antiquewhite">
@@ -32,7 +32,7 @@
                 String cuuserid = db.SYS_USER.Where(item => item.account_id == username).First<SYS_USER>().id.ToString();
                 int cuid = int.Parse(cuuserid);
             }*@
-            @Html.Partial("~/Views/Shared/indexinfo/mymission.cshtml", db.FLOW_MISSION.Where(item => item.towhoid_fx == cuid).ToList());
+            @Html.Partial("~/Views/Shared/indexinfo/myissmission.cshtml", db.FLOW_MISSION.Where(item => item.fromwhoid_fx == cuid && item.iscomplete == 0).ToList())
         </div>
     </div>
                 }

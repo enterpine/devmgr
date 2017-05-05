@@ -30,6 +30,9 @@ namespace devmgr.Controllers
             {//用户组筛选
                 utms = utms.Where(s => s.usertypeid_fx == searchUtype);
             }
+            else {
+                utms = utms.Where(s => s.usertypeid_fx == 7);
+            }
             if (searchModule != null)
             {//模块筛选
                 utms = utms.Where(s => s.moduleid_fx == searchModule);

@@ -22,13 +22,13 @@
         @*<th>
             @Html.DisplayNameFor(model => model.towhoid_fx)
         </th>*@
-        @*<th>
+        <th>
             @Html.DisplayNameFor(model => model.fromdate)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.todate)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.iscomplete)
         </th>
         <th>
@@ -87,16 +87,16 @@
                 {
 
                 }
-            </td>
+            </td>*@
 
             <td>
-                @Html.DisplayFor(modelItem => item.fromdate)
+                @Html.DisplayFor(modelItem => item.fromdate, "shortdatetime")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.todate)
+                @Html.DisplayFor(modelItem => item.todate, "shortdatetime")
             </td>
 
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.iscomplete)
             </td>
             <td>
@@ -122,9 +122,7 @@
                 @Html.DisplayFor(modelItem => item.createdate, "shortdatetime")
             </td>
             <td>
-                @Html.ActionLink("编辑","Edit","FLOW_MISSION",new { id=item.id},new { }) |
-                @Html.ActionLink("查看", "Details","FLOW_MISSION",new { id = item.id }, new { }) |
-                @Html.ActionLink("删除", "Delete","FLOW_MISSION",new { id = item.id }, new { }) |
+                @Html.ActionLink("查看", "Details","FLOW_MISSION",new { id = item.id }, new { })
             </td>
         </tr>
     }

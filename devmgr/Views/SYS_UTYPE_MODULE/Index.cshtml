@@ -18,14 +18,14 @@
 <h2>权限管理</h2>
 
 <p>
-    @Html.ActionLink("添 加", "SYS_UTYPE_MODULE")
+    @Html.ActionLink("添 加", "Create")
 </p>
 <span style="background-color: rgb(255, 255, 102);">
     @using (Html.BeginForm("Index", "SYS_UTYPE_MODULE", FormMethod.Get, new { @class = "form-inline" }))
     {
         <p>
-            用户组: @Html.DropDownList("searchUtype", ViewData["categories_Utype"] as SelectList, "--选择用户组--", new { @style = "width:150px;height:30px;font-size:12px;", @id = "searchUtype" })
-            系统模块: @Html.DropDownList("searchModule", ViewData["categories_Mod"] as SelectList, "--选择模块--", new { @style = "width:150px;height:30px;font-size:12px;", @id = "searchUtype" })
+            用户组: @Html.DropDownList("searchUtype", ViewData["categories_Utype"] as SelectList, new { @style = "width:150px;height:30px;font-size:12px;", @id = "searchUtype" })
+            系统模块: @Html.DropDownList("searchModule", ViewData["categories_Mod"] as SelectList, "全部", new { @style = "width:150px;height:30px;font-size:12px;", @id = "searchUtype" })
 
 
             &nbsp;<input type="submit" value="查询" class="btn btn-default" />
@@ -36,9 +36,9 @@
 
 <table class="table">
     <tr>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.code)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.usertypeid_fx)
         </th>
@@ -74,9 +74,9 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.code)
-        </td>
+        </td>*@
         <td>
             @{ var obj = ef.SYS_USERTYPE.Where(item1 => item1.id == item.usertypeid_fx); }
             @if (obj.Count<SYS_USERTYPE>() > 0)
@@ -163,19 +163,25 @@
                 String caid = Request.Cookies["username"].Value.ToString();
                 int cuid = ef.SYS_USER.Where(s => s.account_id == caid).First<SYS_USER>().id;
                 int? ugid = int.Parse(ef.SYS_USER.Where(s => s.account_id == caid).First<SYS_USER>().usertypeid_fx.ToString());
-                int mod1id = ef.SYS_MODULE.Where(s => s.code == "MOD00001").First<SYS_MODULE>().id;
+                int mod1id = ef.SYS_MODULE.Where(s => s.code == "MOD00010").First<SYS_MODULE>().id;
                 var objs = ef.SYS_UTYPE_MODULE.Where(s => s.usertypeid_fx == ugid && s.moduleid_fx == mod1id);
             }
-            @if (objs.First<SYS_UTYPE_MODULE>().iswrite == 1)
+            @if (objs.Count()!=0)
             {
+                if (objs.First<SYS_UTYPE_MODULE>().iswrite == 1)
+                {
                 @Html.ActionLink("编辑 |", "Edit", new { id = item.id });
+                }
             }
 
             @Html.ActionLink("查看", "Details", new { id = item.id })
 
-            @if (objs.First<SYS_UTYPE_MODULE>().iswrite == 1)
+            @if (objs.Count() != 0)
             {
+                if (objs.First<SYS_UTYPE_MODULE>().iswrite == 1)
+                {
                 @Html.ActionLink("| 删除", "Delete", new { id = item.id })
+                }   
             }
         </td>
     </tr>

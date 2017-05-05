@@ -150,7 +150,7 @@
                 </td>
                 <td>
                     @{
-                        if(Request.Cookies["islogin"] == null)
+                        if (Request.Cookies["islogin"] == null)
                         {
                             if (ViewContext.RouteData.Values["controller"].ToString() == "Account" && ViewContext.RouteData.Values["action"].ToString() == "Login")
                             {
@@ -166,16 +166,21 @@
                         int mod1id = ef.SYS_MODULE.Where(s => s.code == "MOD00001").First<SYS_MODULE>().id;
                         var objs = ef.SYS_UTYPE_MODULE.Where(s => s.usertypeid_fx == ugid && s.moduleid_fx == mod1id);
                     }
-                    @if (objs.First<SYS_UTYPE_MODULE>().iswrite == 1)
+                    @if (objs.Count() != 0)
                     {
-                        @Html.ActionLink("编辑 |", "Edit", new { id = item.id });
+                        if (objs.First<SYS_UTYPE_MODULE>().iswrite == 1)
+                        {
+                            @Html.ActionLink("编辑 |", "Edit", new { id = item.id })
+                        }
                     }
-                        
-                        @Html.ActionLink("查看", "Details", new { id = item.id }) 
+                    @Html.ActionLink("查看", "Details", new { id = item.id })
 
-                    @if (objs.First<SYS_UTYPE_MODULE>().iswrite == 1)
+                    @if (objs.Count() != 0)
                     {
-                        @Html.ActionLink("| 删除", "Delete", new { id = item.id })
+                        if (objs.First<SYS_UTYPE_MODULE>().iswrite == 1)
+                        {
+                            @Html.ActionLink("| 删除", "Delete", new { id = item.id })
+                        }
                     }
             </td>
             </tr>

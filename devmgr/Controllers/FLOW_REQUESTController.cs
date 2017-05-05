@@ -16,7 +16,7 @@ namespace devmgr.Controllers
         private Model1 db = new Model1();
 
         // GET: FLOW_REQUEST
-        public ActionResult Index(int? pageNum, int? searchProd, string sortOrder)
+        public ActionResult Index(int? pageNum, int? searchProd, string sortOrder,int? mistatus)
         {
             var requests = from s in db.FLOW_REQUEST
                            select s;
@@ -27,6 +27,40 @@ namespace devmgr.Controllers
             ViewBag.CurrentSort = sortOrder;
             ViewBag.CodeSortParm = sortOrder == "Code_asc" ? "Code_desc" : "Code_asc";
             ViewBag.CreatedateSortParm = sortOrder == "date_asc" ? "date_desc" : "date_asc";
+
+            //#########################################################
+            if (Request.Cookies["islogin"] == null)
+            {
+                Response.Redirect("/Account/Login");
+            }
+            Model1 ef = new Model1();
+            string caid = Request.Cookies["username"].Value.ToString();
+            int cuid = ef.SYS_USER.Where(item => item.account_id == caid).First<SYS_USER>().id;
+            int? ugid = int.Parse(ef.SYS_USER.Where(item => item.account_id == caid).First<SYS_USER>().usertypeid_fx.ToString());
+            int mod1id = ef.SYS_MODULE.Where(item => item.code == "MOD00011").First<SYS_MODULE>().id;
+            var obj = ef.SYS_UTYPE_MODULE.Where(item => item.usertypeid_fx == ugid && item.moduleid_fx == mod1id);
+            if (obj.First<SYS_UTYPE_MODULE>().isenable == 0)
+            {
+                //START:与我相关的项目
+                var products = from s in db.FLOW_PRODUCT
+                               select s;
+                products = products.Where(s => s.whocreateid_fx == cuid || s.Responserid_fx == cuid);
+                //END:与我相关的项目
+                var productids = from s in products
+                                 select s.id;
+
+                int[] pdids = productids.ToArray();
+                requests = from s in requests
+                           where s.whocreateid_fx == ugid || productids.Contains((int)s.productid_fx)
+                           select s;
+            }
+
+            if (mistatus == 1)
+            {//我创建的
+                requests = requests.Where(s => s.whocreateid_fx == cuid);
+            }
+
+            //###########################################################
 
             if (searchProd != null)
             {//项目筛选

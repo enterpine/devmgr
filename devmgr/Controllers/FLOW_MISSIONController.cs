@@ -15,7 +15,7 @@ namespace devmgr.Controllers
     {
         private Model1 db = new Model1();
 
-        public ActionResult Index(string searchName, int? searchProj,int? searchProjmo,string searchType, string sortOrder,int? mistatus,int? pageNum)
+        public ActionResult Index(string searchName, int? searchProj,int? searchProjmo,string searchType, string sortOrder,int? mistatus,int? pageNum, int? mistatuss)
         {
             List<FLOW_PRODUCT> categories_prod = FLOW_PRODUCT.GETALL();
             ViewData["categories_prod"] = new SelectList(categories_prod, "id", "name");
@@ -34,6 +34,43 @@ namespace devmgr.Controllers
 
             var missions = from s in db.FLOW_MISSION
                            select s;
+            //#########################################################
+            if (Request.Cookies["islogin"] == null)
+            {
+                Response.Redirect("/Account/Login");
+            }
+            Model1 ef = new Model1();
+            string caid = Request.Cookies["username"].Value.ToString();
+            int cuid = ef.SYS_USER.Where(item => item.account_id == caid).First<SYS_USER>().id;
+            int? ugid = int.Parse(ef.SYS_USER.Where(item => item.account_id == caid).First<SYS_USER>().usertypeid_fx.ToString());
+            int mod1id = ef.SYS_MODULE.Where(item => item.code == "MOD00002").First<SYS_MODULE>().id;
+            var obj = ef.SYS_UTYPE_MODULE.Where(item => item.usertypeid_fx == ugid && item.moduleid_fx == mod1id);
+            if (obj.First<SYS_UTYPE_MODULE>().isenable == 0)
+            {
+                //START:与我相关的项目
+                var products = from s in db.FLOW_PRODUCT
+                               select s;
+                products = products.Where(s => s.whocreateid_fx == cuid || s.Responserid_fx == cuid);
+                var productids = from s in products
+                                 select s.id;
+                //END:与我相关的项目
+
+                int[] pdids = productids.ToArray();
+                missions = from s in missions
+                           where s.whocreateid_fx == ugid || s.towhoid_fx == ugid || productids.Contains((int)s.productid_fx)
+                           select s;
+            }
+
+            if (mistatuss == 1)
+            {//我创建的
+                missions = missions.Where(s => s.whocreateid_fx == cuid);
+            }
+            if (mistatuss == 0)
+            {//我负责的
+                missions = missions.Where(s => s.towhoid_fx == cuid);
+            }
+            //###########################################################
+
             if (searchProj != null)
             {//项目筛选
                 missions = missions.Where(s => s.projectid_fx == searchProj);

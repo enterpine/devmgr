@@ -15,7 +15,7 @@ namespace devmgr.Controllers
         private Model1 db = new Model1();
 
         // GET: FLOW_PROJMO
-        public ActionResult Index(string searchName, int? searchProj,string sortOrder,int? pageNum)
+        public ActionResult Index(string searchName, int? searchProj,string sortOrder,int? pageNum, int? mistatus)
         {
             List<FLOW_PROJECT> categories_proj = FLOW_PROJECT.GETALL();
             ViewData["categories_proj"] = new SelectList(categories_proj, "id", "desc_text");
@@ -26,7 +26,49 @@ namespace devmgr.Controllers
 
             var projmos = from s in db.FLOW_PROJMO
                            select s;
+            //#########################################################
+            if (Request.Cookies["islogin"] == null)
+            {
+                Response.Redirect("/Account/Login");
+            }
+            Model1 ef = new Model1();
+            string caid = Request.Cookies["username"].Value.ToString();
+            int cuid = ef.SYS_USER.Where(item => item.account_id == caid).First<SYS_USER>().id;
+            int? ugid = int.Parse(ef.SYS_USER.Where(item => item.account_id == caid).First<SYS_USER>().usertypeid_fx.ToString());
+            int mod1id = ef.SYS_MODULE.Where(item => item.code == "MOD00003").First<SYS_MODULE>().id;
+            var obj = ef.SYS_UTYPE_MODULE.Where(item => item.usertypeid_fx == ugid && item.moduleid_fx == mod1id);
+            if (obj.First<SYS_UTYPE_MODULE>().isenable == 0)
+            {
+                //START:与我相关的产品
+                var products = from s in db.FLOW_PRODUCT
+                               select s;
+                products = products.Where(s => s.whocreateid_fx == cuid || s.Responserid_fx == cuid);
+                var productids = from s in products
+                                 select s.id;
+                //END:与我相关的产品
+                //START:与我相关的项目
+                var projects = from s in db.FLOW_PROJECT
+                               select s;
+                projects = projects.Where(s => s.whocreateid_fx == cuid || s.responserid_fx == cuid || productids.Contains((int)s.productid_fx));
+                var projectsids = from s in projects
+                               select s.id;
+                //END:与我相关的项目
 
+                int[] pdids = productids.ToArray();
+                projmos = from s in projmos
+                          where s.whocreateid == ugid || s.responserid_fx == ugid || projectsids.Contains((int)s.projectid_fx)
+                           select s;
+            }
+
+            if (mistatus == 1)
+            {//我创建的
+                projmos = projmos.Where(s => s.whocreateid == cuid);
+            }
+            if (mistatus == 0)
+            {//我负责的
+                projmos = projmos.Where(s => s.responserid_fx == cuid);
+            }
+            //###########################################################
             if (searchProj != null)
             {//项目筛选
                 projmos = projmos.Where(s => s.projectid_fx == searchProj);

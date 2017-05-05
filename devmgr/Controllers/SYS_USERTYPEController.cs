@@ -71,6 +71,31 @@ namespace devmgr.Controllers
 
                 db.SYS_USERTYPE.Add(sYS_USERTYPE);
                 db.SaveChanges();
+
+                //START:添加默认权限
+                for (int i = 1; i <= 12; i++)
+                {
+                    if (i != 6)
+                    {
+                        var obj2 = ef.SYS_UTYPE_MODULE.Where(item => item.id > 0);
+                        int nowcode2 = 0, maxid2 = 0;
+                        if (obj2.Count<SYS_UTYPE_MODULE>() > 0)
+                        {
+                            maxid2 = obj2.Max(item => item.id);
+                            nowcode2 = maxid2 + 1;
+                        }
+                        else
+                        {
+                            nowcode2 = 1;
+                        }
+
+                        int cutid = sYS_USERTYPE.id;
+                        string code = "UTM" + nowcode2.ToString().PadLeft(5, '0');
+                        string strSql = "insert into sys_utype_module(code,usertypeid_fx,moduleid_fx,isenable,isread,iswrite,whocreateid_fx,createdate) values('" + code + "'," + cutid.ToString() + "," + i.ToString() + ",0,0,0,1,'"+DateTime.Now.ToString()+"')";
+                        DataSet ds = SqlHelper.ExecuteDataset(strSql);
+                    }
+                }
+                //END:添加默认权限
                 return RedirectToAction("Index");
             }
 
@@ -131,6 +156,8 @@ namespace devmgr.Controllers
             SYS_USERTYPE sYS_USERTYPE = db.SYS_USERTYPE.Find(id);
             db.SYS_USERTYPE.Remove(sYS_USERTYPE);
             db.SaveChanges();
+            string strSql = "delete from sys_utype_module where usertypeid_fx = "+id.ToString();
+            DataSet ds = SqlHelper.ExecuteDataset(strSql);
             return RedirectToAction("Index");
         }
 

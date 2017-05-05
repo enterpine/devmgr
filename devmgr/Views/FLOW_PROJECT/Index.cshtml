@@ -24,6 +24,7 @@
         <p>
             项目名称: @Html.TextBox("searchName", null, new { @class = "form-control", @placeholder = "请输入关键字", @style = "width:150px;height:30px;font-size:12px;" })
             &nbsp;所属产品: @Html.DropDownList("searchProd", ViewData["categories_prod"] as SelectList, "请选择项目", new { @style = "width:150px;height:30px;font-size:12px;", @id = "searchProj" })
+            &nbsp; &nbsp;  @Html.RadioButton("mistatus", 1) 由我创建 @Html.RadioButton("mistatus", 0) 由我负责 @Html.RadioButton("mistatus", 2, true) 全部
             &nbsp;<input type="submit" value="查询" class="btn btn-default" />
         </p>
     }
@@ -173,19 +174,24 @@
                String caid = Request.Cookies["username"].Value.ToString();
                int cuid = ef.SYS_USER.Where(s => s.account_id == caid).First<SYS_USER>().id;
                int? ugid = int.Parse(ef.SYS_USER.Where(s => s.account_id == caid).First<SYS_USER>().usertypeid_fx.ToString());
-               int mod1id = ef.SYS_MODULE.Where(s => s.code == "MOD00001").First<SYS_MODULE>().id;
+               int mod1id = ef.SYS_MODULE.Where(s => s.code == "MOD00002").First<SYS_MODULE>().id;
                var objs = ef.SYS_UTYPE_MODULE.Where(s => s.usertypeid_fx == ugid && s.moduleid_fx == mod1id);
         }
-        @if (objs.First<SYS_UTYPE_MODULE>().iswrite == 1)
+        @if (objs.Count() != 0)
         {
-            @Html.ActionLink("编辑 |", "Edit", new { id = item.id });
+            if (objs.First<SYS_UTYPE_MODULE>().iswrite == 1)
+            {
+                @Html.ActionLink("编辑 |", "Edit", new { id = item.id })
+            }
         }
-
         @Html.ActionLink("查看", "Details", new { id = item.id })
 
-        @if (objs.First<SYS_UTYPE_MODULE>().iswrite == 1)
+        @if (objs.Count() != 0)
         {
-            @Html.ActionLink("| 删除", "Delete", new { id = item.id })
+            if (objs.First<SYS_UTYPE_MODULE>().iswrite == 1)
+            {
+                @Html.ActionLink("| 删除", "Delete", new { id = item.id })
+            }
         }
         </td>
     </tr>

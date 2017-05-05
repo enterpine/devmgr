@@ -1,0 +1,131 @@
+﻿@model IEnumerable<FLOW_MISSION>
+
+@using System.Linq;
+@using devmgr.Models;
+@{
+    Model1 ef = new Model1();
+}
+
+<h4>我发出的任务</h4>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.code)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.projectid_fx)
+            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.fromwhoid_fx)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.towhoid_fx)
+            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.fromdate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.todate)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.iscomplete)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.desc_text)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.remark)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.whocreateid_fx)
+            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.createdate)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.code)
+            </td>
+
+            @*<td>
+                    @{ var obj = ef.FLOW_PROJECT.Where(item1 => item1.id == item.projectid_fx); }
+                    @if (obj.Count<FLOW_PROJECT>() > 0)
+                    {
+                        @Html.Label(obj.First<FLOW_PROJECT>().desc_text.ToString())
+                    }
+                    else
+                    {
+
+                    }
+                </td>*@
+
+            <td>
+                @{ var obj2 = ef.SYS_USER.Where(item1 => item1.id == item.fromwhoid_fx); }
+                @if (obj2.Count<SYS_USER>() > 0)
+                {
+                    @Html.Label(obj2.First<SYS_USER>().cname.ToString())
+                }
+                else
+                {
+
+                }
+            </td>
+
+
+            @*<td>
+                    @{ var obj3 = ef.SYS_USER.Where(item1 => item1.id == item.towhoid_fx); }
+                    @if (obj3.Count<SYS_USER>() > 0)
+                    {
+                        @Html.Label(obj3.First<SYS_USER>().cname.ToString())
+                    }
+                    else
+                    {
+
+                    }
+                </td>*@
+
+            <td>
+                @Html.DisplayFor(modelItem => item.fromdate, "shortdatetime")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.todate, "shortdatetime")
+            </td>
+
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.iscomplete)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.desc_text)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.remark)
+                </td>
+
+                <td>
+                    @{ var obj4 = ef.SYS_USER.Where(item1 => item1.id == item.whocreateid_fx); }
+                    @if (obj4.Count<SYS_USER>() > 0)
+                    {
+                        @Html.Label(obj4.First<SYS_USER>().cname.ToString())
+                    }
+                    else
+                    {
+
+                    }
+                </td>*@
+
+            <td>
+                @Html.DisplayFor(modelItem => item.createdate, "shortdatetime")
+            </td>
+            <td>
+                @Html.ActionLink("编辑", "Edit", "FLOW_MISSION", new { id = item.id }, new { }) |
+                @Html.ActionLink("查看", "Details", "FLOW_MISSION", new { id = item.id }, new { }) |
+                @Html.ActionLink("删除", "Delete", "FLOW_MISSION", new { id = item.id }, new { })
+            </td>
+        </tr>
+                    }
+</table>
