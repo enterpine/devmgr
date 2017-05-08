@@ -101,34 +101,36 @@
         @*<td>
             @Html.DisplayFor(modelItem => item.isdefault)
         </td>*@
-        <td>
-            @if (item.isenable == 1) {
-                @Html.Label("是")
-                    }
-            else {
-               @Html.Label("否")
-            }
-        </td>
-        <td>
-            @if (item.isread == 1)
+        
+            @if (item.isenable == 1)
             {
-                @Html.Label("是")
+                <td style = "background-color:aquamarine"> @Html.Label("是")</td>
             }
             else
             {
-                @Html.Label("否")
+                <td style = "background-color:antiquewhite"> @Html.Label("否")</td>
             }
-        </td>
-        <td>
+                
+        
+    @if (item.isread == 1)
+    {
+    <td style="background-color:aquamarine"> @Html.Label("是")</td>
+    }
+    else
+    {
+        <td style="background-color:antiquewhite"> @Html.Label("否")</td>
+    }
+
+        
             @if (item.iswrite == 1)
             {
-                @Html.Label("是")
+                <td style="background-color:aquamarine"> @Html.Label("是")</td>
             }
             else
             {
-                @Html.Label("否")
+                <td style="background-color:antiquewhite"> @Html.Label("否")</td>
             }
-        </td>
+        
         @*<td>
             @Html.DisplayFor(modelItem => item.desc_text)
         </td>
