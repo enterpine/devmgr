@@ -56,6 +56,49 @@ namespace devmgr.Controllers
 
             return View();
         }
+
+        public ActionResult micnt(int? searchProd, int? searchProj, int? searchProjmo, string searchType)
+        {
+            List<FLOW_PRODUCT> categories_prod = FLOW_PRODUCT.GETALL();
+            ViewData["categories_prod"] = new SelectList(categories_prod, "id", "name");
+            List<FLOW_PROJECT> categories_proj = FLOW_PROJECT.GETALL();
+            ViewData["categories_proj"] = new SelectList(categories_proj, "id", "desc_text");
+            List<FLOW_PROJMO> categories_projmo = FLOW_PROJMO.GETALL();
+            ViewData["categories_projmo"] = new SelectList(categories_projmo, "id", "name");
+            List<DD_MISSIONTYPE> missiontype = DD_MISSIONTYPE.GETALL();
+            ViewData["missiontype"] = new SelectList(missiontype, "code", "cvalue");
+
+            string strCategories = "";
+            string strDataCol = "";
+            string subwhere = " ";
+            if (searchProd != null)
+            {
+                subwhere += " and productid_fx =" + searchProd.ToString();
+            }
+            if (searchProj != null)
+            {
+                subwhere += " and projectid_fx =" + searchProj.ToString();
+            }
+            if (searchProjmo != null)
+            {
+                subwhere += " and projmotid_fx =" + searchProjmo.ToString();
+            }
+            if (!String.IsNullOrEmpty(searchType))
+            {
+                subwhere += " and missiontype =" + searchType.ToString();
+            }
+
+
+            string strSql = "select (select cname from SYS_USER where id = towhoid_fx) countItem,count(id) countVal from FLOW_MISSION where iscomplete=1 "+ subwhere + " group by towhoid_fx";
+            DataSet ds = SqlHelper.ExecuteDataset(strSql);
+            ChartsBind(ds, "countItem", "countVal", ref strCategories, ref strDataCol);
+            strDataCol = ColumnDataToPieData(strCategories, strDataCol);
+            ViewData["hcdata"] = ObjectToJson(strDataCol);
+
+
+            return View();
+        }
+
         public static string ObjectToJson(object obj)
         {
             return JsonConvert.SerializeObject(obj);

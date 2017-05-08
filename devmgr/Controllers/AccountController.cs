@@ -91,13 +91,26 @@ namespace devmgr.Controllers
                 case "success":
                     //记录
                     //设置cookie：
-                    Response.Cookies["islogin"].Value = "true";
-                    Response.Cookies["islogin"].Expires = DateTime.Now.AddDays(7);
+                    if (model.RememberMe == true)
+                    {
+                        Response.Cookies["islogin"].Value = "true";
+                        Response.Cookies["islogin"].Expires = DateTime.Now.AddDays(7);
 
-                    Response.Cookies["username"].Value = model.Email.ToString();
-                    Response.Cookies["username"].Expires = DateTime.Now.AddDays(7);
+                        Response.Cookies["username"].Value = model.Email.ToString();
+                        Response.Cookies["username"].Expires = DateTime.Now.AddDays(7);
 
-                    return RedirectToLocal(returnUrl);
+                        return RedirectToLocal(returnUrl);
+                    }
+                    else
+                    {
+                        Response.Cookies["islogin"].Value = "true";
+                        Response.Cookies["islogin"].Expires = DateTime.Now.AddHours(3);
+
+                        Response.Cookies["username"].Value = model.Email.ToString();
+                        Response.Cookies["username"].Expires = DateTime.Now.AddHours(3);
+
+                        return RedirectToLocal(returnUrl);
+                    }
                 case "falure":
                     ModelState.AddModelError("", Request.Cookies["username"].ToString());
                     return View(model);

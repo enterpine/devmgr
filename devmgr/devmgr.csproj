@@ -762,6 +762,7 @@
     <Content Include="Views\Report\Index.cshtml" />
     <Content Include="Views\FLOW_PRODUCT\endproduct.cshtml" />
     <Content Include="Views\Shared\indexinfo\myissmission.cshtml" />
+    <Content Include="Views\Report\micnt.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

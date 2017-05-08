@@ -34,33 +34,33 @@
         <li>@Html.ActionLink("工作量", "micnt", "Report")</li>
     </ul>
 </div>
-    <h2>任务统计</h2>
+<h2>任务统计</h2>
 
 
-    <span style="background-color: rgb(255, 255, 102);">
-        @using (Html.BeginForm("Index", "Report", FormMethod.Get, new { @class = "form-inline" }))
-        {
-            <p>
-                所在产品: @Html.DropDownList("searchProd", ViewData["categories_prod"] as SelectList, "请选择项目", new { @style = "width:150px;height:30px;font-size:12px;", @id = "searchProj" })
-                &nbsp;所在项目: @Html.DropDownList("searchProj", ViewData["categories_proj"] as SelectList, "请选择项目", new { @style = "width:150px;height:30px;font-size:12px;", @id = "searchProj" })
-                所属模块: @Html.DropDownList("searchProjmo", ViewData["categories_projmo"] as SelectList, "请选择模块", new { @style = "width:150px;height:30px;font-size:12px;", @id = "searchProjmo" })
-                &nbsp; 任务状态: @Html.RadioButton("mistatus", 1)已完成 @Html.RadioButton("mistatus", 0) 待处理 @Html.RadioButton("mistatus", 2, true) 全部
-                &nbsp;<input type="submit" value="查询" class="btn btn-default" />
-            </p>
-        }
-    </span>
+<span style="background-color: rgb(255, 255, 102);">
+    @using (Html.BeginForm("Index", "Report", FormMethod.Get, new { @class = "form-inline" }))
+    {
+        <p>
+            所在产品: @Html.DropDownList("searchProd", ViewData["categories_prod"] as SelectList, "请选择项目", new { @style = "width:150px;height:30px;font-size:12px;", @id = "searchProj" })
+            &nbsp;所在项目: @Html.DropDownList("searchProj", ViewData["categories_proj"] as SelectList, "请选择项目", new { @style = "width:150px;height:30px;font-size:12px;", @id = "searchProj" })
+            所属模块: @Html.DropDownList("searchProjmo", ViewData["categories_projmo"] as SelectList, "请选择模块", new { @style = "width:150px;height:30px;font-size:12px;", @id = "searchProjmo" })
+            &nbsp; 任务状态: @Html.RadioButton("mistatus", 1)已完成 @Html.RadioButton("mistatus", 0) 待处理 @Html.RadioButton("mistatus", 2, true) 全部
+            &nbsp;<input type="submit" value="查询" class="btn btn-default" />
+        </p>
+    }
+</span>
 
 
 
-    
 
-    <div id="container" style="min-width: 300px; height: 400px; margin: 0 auto"></div>
 
-    <script type="text/javascript" src="https://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
-    <script src="~/Scripts/Highcharts-5.0.10/code/highcharts.js"></script>
-    <script src="~/Scripts/Highcharts-5.0.10/code/modules/exporting.js"></script>
+<div id="container" style="min-width: 300px; height: 400px; margin: 0 auto"></div>
 
-    <script type="text/javascript">
+<script type="text/javascript" src="https://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
+<script src="~/Scripts/Highcharts-5.0.10/code/highcharts.js"></script>
+<script src="~/Scripts/Highcharts-5.0.10/code/modules/exporting.js"></script>
+
+<script type="text/javascript">
         $(function () {
             setColumnCharts();
         });
@@ -107,4 +107,4 @@
                 }]
             });
         }
-    </script>
+</script>

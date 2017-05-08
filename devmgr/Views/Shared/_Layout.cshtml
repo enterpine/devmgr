@@ -41,22 +41,23 @@
                         @*用户aid*@
                         String caid = Request.Cookies["username"].Value.ToString();
                         @*用户组*@
-                        int? ugid =int.Parse( ef.SYS_USER.Where(item => item.account_id == caid).First<SYS_USER>().usertypeid_fx.ToString());
-                        int mod1id = ef.SYS_MODULE.Where(item => item.code == "MOD00001").First<SYS_MODULE>().id;
-                        int mod2id = ef.SYS_MODULE.Where(item => item.code == "MOD00002").First<SYS_MODULE>().id;
-                        int mod3id = ef.SYS_MODULE.Where(item => item.code == "MOD00003").First<SYS_MODULE>().id;
-                        int mod4id = ef.SYS_MODULE.Where(item => item.code == "MOD00004").First<SYS_MODULE>().id;
-                        int mod5id = ef.SYS_MODULE.Where(item => item.code == "MOD00005").First<SYS_MODULE>().id;
+                    int? ugid =int.Parse( ef.SYS_USER.Where(item => item.account_id == caid).First<SYS_USER>().usertypeid_fx.ToString());
+                    int mod1id = ef.SYS_MODULE.Where(item => item.code == "MOD00001").First<SYS_MODULE>().id;
+                    int mod2id = ef.SYS_MODULE.Where(item => item.code == "MOD00002").First<SYS_MODULE>().id;
+                    int mod3id = ef.SYS_MODULE.Where(item => item.code == "MOD00003").First<SYS_MODULE>().id;
+                    int mod4id = ef.SYS_MODULE.Where(item => item.code == "MOD00004").First<SYS_MODULE>().id;
+                    int mod5id = ef.SYS_MODULE.Where(item => item.code == "MOD00005").First<SYS_MODULE>().id;
+                    int mod6id = ef.SYS_MODULE.Where(item => item.code == "MOD00006").First<SYS_MODULE>().id;
 
-                        var obj1 = ef.SYS_UTYPE_MODULE.Where(item => item.usertypeid_fx == ugid && item.moduleid_fx == mod1id);
-                        var obj2 = ef.SYS_UTYPE_MODULE.Where(item => item.usertypeid_fx == ugid && item.moduleid_fx == mod2id);
-                        var obj3 = ef.SYS_UTYPE_MODULE.Where(item => item.usertypeid_fx == ugid && item.moduleid_fx == mod3id);
-                        var obj4 = ef.SYS_UTYPE_MODULE.Where(item => item.usertypeid_fx == ugid && item.moduleid_fx == mod4id);
-                        var obj5 = ef.SYS_UTYPE_MODULE.Where(item => item.usertypeid_fx == ugid && item.moduleid_fx == mod5id);
+                    var obj1 = ef.SYS_UTYPE_MODULE.Where(item => item.usertypeid_fx == ugid && item.moduleid_fx == mod1id);
+                    var obj2 = ef.SYS_UTYPE_MODULE.Where(item => item.usertypeid_fx == ugid && item.moduleid_fx == mod2id);
+                    var obj3 = ef.SYS_UTYPE_MODULE.Where(item => item.usertypeid_fx == ugid && item.moduleid_fx == mod3id);
+                    var obj4 = ef.SYS_UTYPE_MODULE.Where(item => item.usertypeid_fx == ugid && item.moduleid_fx == mod4id);
+                    var obj5 = ef.SYS_UTYPE_MODULE.Where(item => item.usertypeid_fx == ugid && item.moduleid_fx == mod5id);
+                    var obj6 = ef.SYS_UTYPE_MODULE.Where(item => item.usertypeid_fx == ugid && item.moduleid_fx == mod6id);
 
-
-                        if (obj1.Count<SYS_UTYPE_MODULE>() > 0 && (obj1.First<SYS_UTYPE_MODULE>().isread == 1 || obj1.First<SYS_UTYPE_MODULE>().iswrite == 1))
-                        {
+                    if (obj1.Count<SYS_UTYPE_MODULE>() > 0 && (obj1.First<SYS_UTYPE_MODULE>().isread == 1 || obj1.First<SYS_UTYPE_MODULE>().iswrite == 1))
+                    {
                             <li>@Html.ActionLink("产品管理", "Index", "FLOW_PRODUCT")</li>
                         }
                         if (obj2.Count<SYS_UTYPE_MODULE>() > 0 && (obj2.First<SYS_UTYPE_MODULE>().isread == 1 || obj2.First<SYS_UTYPE_MODULE>().iswrite == 1))
@@ -71,7 +72,11 @@
                         {
                             <li>@Html.ActionLink("任务管理", "Index", "FLOW_MISSION")</li>
                         }
-                        if (obj5.Count<SYS_UTYPE_MODULE>() > 0 && (obj5.First<SYS_UTYPE_MODULE>().isread == 1 || obj5.First<SYS_UTYPE_MODULE>().iswrite == 1) )
+                        if (obj6.Count<SYS_UTYPE_MODULE>() > 0 && (obj6.First<SYS_UTYPE_MODULE>().isread == 1 || obj6.First<SYS_UTYPE_MODULE>().iswrite == 1))
+                        {
+                            <li>@Html.ActionLink("数据统计", "Index", "Report")</li>
+                        }
+                        if (obj5.Count<SYS_UTYPE_MODULE>() > 0 && (obj5.First<SYS_UTYPE_MODULE>().isread == 1 || obj5.First<SYS_UTYPE_MODULE>().iswrite == 1))
                         {
                             <li>@Html.ActionLink("系统管理", "Index", "SYS_USER")</li>
                         }
