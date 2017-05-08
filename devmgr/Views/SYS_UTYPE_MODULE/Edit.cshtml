@@ -1,4 +1,7 @@
 ﻿@model devmgr.Models.SYS_UTYPE_MODULE
+@using System.Linq;
+@using devmgr.Models;
+@{Model1 ef = new Model1(); }
 
 @{
     ViewBag.Title = "Edit";
@@ -36,11 +39,19 @@
         <div class="form-group">
             @Html.LabelFor(model => model.usertypeid_fx, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @*@Html.EditorFor(model => model.usertypeid_fx, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.usertypeid_fx, "", new { @class = "text-danger" })*@
-                @{SelectList category_ug = (SelectList)ViewData["categories_ug"];}
-                @Html.DropDownListFor(model => model.usertypeid_fx, category_ug, "--请选择--", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.usertypeid_fx, new { htmlAttributes = new { @class = "form-control", style = "display:none" } })
+                
+                @{
+                    var obj3 = ef.SYS_USERTYPE.Where(item1 => item1.id == Model.usertypeid_fx);
+                }
+                @if (obj3.Count<SYS_USERTYPE>() > 0)
+                {
+                    @Html.Label(obj3.First<SYS_USERTYPE>().typename.ToString())
+                }
+                else
+                {
 
+                }
 
             </div>
         </div>
@@ -48,10 +59,19 @@
         <div class="form-group">
             @Html.LabelFor(model => model.moduleid_fx, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @*@Html.EditorFor(model => model.moduleid_fx, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.moduleid_fx, "", new { @class = "text-danger" })*@
-                @{SelectList categories_mo = (SelectList)ViewData["categories_mo"];}
-                @Html.DropDownListFor(model => model.moduleid_fx, categories_mo, "--请选择--", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.moduleid_fx, new { htmlAttributes = new { @class = "form-control", style = "display:none" } })
+
+                @{
+                    var obj = ef.SYS_MODULE.Where(item1 => item1.id == Model.moduleid_fx);
+                }
+                @if (obj.Count<SYS_MODULE>() > 0)
+                {
+                    @Html.Label(obj.First<SYS_MODULE>().name.ToString())
+                }
+                else
+                {
+
+                }
             </div>
         </div>
 
