@@ -116,7 +116,7 @@
             @Html.LabelFor(model => model.missiontype, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @{SelectList missiontype = (SelectList)ViewData["missiontype"];}
-                @Html.DropDownListFor(model => model.missiontype, missiontype, "--请选择--", new { htmlAttributes = new { } })
+                @Html.DropDownListFor(model => model.missiontype, missiontype, new { htmlAttributes = new { } })
                 @Html.ValidationMessageFor(model => model.missiontype, "", new { @class = "text-danger" })
             </div>
         </div>

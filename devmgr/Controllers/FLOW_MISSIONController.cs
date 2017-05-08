@@ -358,7 +358,7 @@ namespace devmgr.Controllers
         [HttpPost]
         [ValidateInput(false)]
         [ValidateAntiForgeryToken]
-        public ActionResult submission([Bind(Include = "finish_text,id,code,projectid_fx,fromwhoid_fx,towhoid_fx,fromdate,todate,dad_mission,dad_level,isbottom,request_text,request_file,iscomplete,desc_text,remark,whocreateid_fx,createdate")] FLOW_MISSION fLOW_MISSION)
+        public ActionResult submission([Bind(Include = "finish_text,productid_fx, missiontype, projmotid_fx, id, code, projectid_fx, fromwhoid_fx, towhoid_fx, fromdate, todate, dad_mission, dad_level, isbottom, request_text, request_file, iscomplete, desc_text, remark, whocreateid_fx, createdate")] FLOW_MISSION fLOW_MISSION)
         {
             if (ModelState.IsValid)
             {

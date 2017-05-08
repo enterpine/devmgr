@@ -6,18 +6,48 @@ using System.Web.Mvc;
 using System.Data;
 using System.Text;
 using Newtonsoft.Json;
+using devmgr.Models;
 
 namespace devmgr.Controllers
 {
     public class ReportController : Controller
     {
         // GET: Report
-        public ActionResult Index()
+        public ActionResult Index(int? searchProd, int? searchProj, int? searchProjmo, string searchType, int? mistatus)
         {
-            string strCategories="";
-            string strDataCol="";
+            List<FLOW_PRODUCT> categories_prod = FLOW_PRODUCT.GETALL();
+            ViewData["categories_prod"] = new SelectList(categories_prod, "id", "name");
+            List<FLOW_PROJECT> categories_proj = FLOW_PROJECT.GETALL();
+            ViewData["categories_proj"] = new SelectList(categories_proj, "id", "desc_text");
+            List<FLOW_PROJMO> categories_projmo = FLOW_PROJMO.GETALL();
+            ViewData["categories_projmo"] = new SelectList(categories_projmo, "id", "name");
+            List<DD_MISSIONTYPE> missiontype = DD_MISSIONTYPE.GETALL();
+            ViewData["missiontype"] = new SelectList(missiontype, "code", "cvalue");
 
-            string strSql = "select b.cvalue as countItem,a.cnt as countVal from (select missiontype,count(id) cnt from FLOW_MISSION group by missiontype) a join dd_missiontype b on a.missiontype=b.code";
+            string strCategories = "";
+            string strDataCol = "";
+            string subwhere = " where 1=1";
+            if (searchProd != null) {
+                subwhere += " and productid_fx =" + searchProd.ToString();
+            }
+            if (searchProj != null) {
+                subwhere += " and projectid_fx =" + searchProj.ToString();
+            }
+            if (searchProjmo != null) {
+                subwhere += " and projmotid_fx =" + searchProjmo.ToString();
+            }
+            if (!String.IsNullOrEmpty(searchType)) {
+                subwhere += " and missiontype =" + searchType.ToString();
+            }
+            if (mistatus != null) {
+                if (mistatus == 2) { }
+                else
+                {
+                    subwhere += " and iscomplete =" + mistatus.ToString();
+                }
+            }
+
+            string strSql = "select b.cvalue as countItem,a.cnt as countVal from (select missiontype,count(id) cnt from FLOW_MISSION "+ subwhere + " group by missiontype) a join dd_missiontype b on a.missiontype=b.code";
             DataSet ds = SqlHelper.ExecuteDataset(strSql);
             ChartsBind(ds, "countItem", "countVal",ref strCategories, ref strDataCol);
             strDataCol = ColumnDataToPieData(strCategories, strDataCol);

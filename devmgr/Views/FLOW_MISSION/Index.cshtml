@@ -213,7 +213,7 @@
                             }
                             else
                             {//完成部分
-                                <tr style="background-color:lightcyan">
+                                <tr style="background-color:aquamarine">
                                     <td>
                                         @Html.DisplayFor(modelItem => item.code)
                                     </td>
@@ -226,7 +226,7 @@
                                     <td>
                                         @{ var obj = ef.FLOW_PROJECT.Where(item1 => item1.id == item.projectid_fx); }
                                         @if (obj.Count<FLOW_PROJECT>() > 0)
-                                        {
+                    {
                                             @Html.Label(obj.First<FLOW_PROJECT>().desc_text.ToString())
                                         }
                                         else
@@ -235,11 +235,22 @@
                                         }
                                     </td>
 
+                                    <td>
+                                        @{ var obj3 = ef.FLOW_PROJMO.Where(item1 => item1.id == item.projmotid_fx); }
+                                        @if (obj3.Count<FLOW_PROJMO>() > 0)
+                    {
+                                            @Html.Label(obj3.First<FLOW_PROJMO>().name.ToString())
+                                        }
+                                        else
+                                        {
+
+                                        }
+                                    </td>
 
                                     <td>
                                         @{ var obj2 = ef.SYS_USER.Where(item1 => item1.id == item.fromwhoid_fx); }
                                         @if (obj2.Count<SYS_USER>() > 0)
-                                        {
+                    {
                                             @Html.Label(obj2.First<SYS_USER>().cname.ToString())
                                         }
                                         else
@@ -251,10 +262,10 @@
 
 
                                     <td>
-                                        @{ var obj3 = ef.SYS_USER.Where(item1 => item1.id == item.towhoid_fx); }
-                                        @if (obj3.Count<SYS_USER>() > 0)
-                                        {
-                                            @Html.Label(obj3.First<SYS_USER>().cname.ToString())
+                                        @{ var obj4 = ef.SYS_USER.Where(item1 => item1.id == item.towhoid_fx); }
+                                        @if (obj4.Count<SYS_USER>() > 0)
+                    {
+                                            @Html.Label(obj4.First<SYS_USER>().cname.ToString())
                                         }
                                         else
                                         {
@@ -263,15 +274,30 @@
                                     </td>
 
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.fromdate)
+                                        @Html.DisplayFor(modelItem => item.fromdate, "shortdatetime")
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.todate, "shortdatetime")
                                     </td>
 
                                     <td>
-                                        @if (item.iscomplete == 1)
+                                        @{
+                                            var obj5 = ef2.DD_MISSIONTYPE.Where(item1 => item1.code == item.missiontype);
+                                        }
+                                        @if (obj5.Count<DD_MISSIONTYPE>() > 0)
+                    {
+                                            @Html.Label(obj5.First<DD_MISSIONTYPE>().cvalue.ToString())
+                                        }
+                                        else
                                         {
+
+                                        }
+                                    </td>
+
+
+                                    <td>
+                                        @if (item.iscomplete == 1)
+                    {
                                             @Html.Label("已完成");
                                         }
                                         else
@@ -284,39 +310,9 @@
                                         @Html.DisplayFor(modelItem => item.createdate, "shortdatetime")
                                     </td>
                                     <td>
-                                        @{
-                                            if (Request.Cookies["islogin"] == null)
-                                            {
-                                                if (ViewContext.RouteData.Values["controller"].ToString() == "Account" && ViewContext.RouteData.Values["action"].ToString() == "Login")
-                                                {
-                                                }
-                                                else
-                                                {
-                                                    Response.Redirect("/Account/Login");
-                                                }
-                                            }
-                                            String caid = Request.Cookies["username"].Value.ToString();
-                                            int cuid = ef.SYS_USER.Where(s => s.account_id == caid).First<SYS_USER>().id;
-                                            int? ugid = int.Parse(ef.SYS_USER.Where(s => s.account_id == caid).First<SYS_USER>().usertypeid_fx.ToString());
-                                            int mod1id = ef.SYS_MODULE.Where(s => s.code == "MOD00004").First<SYS_MODULE>().id;
-                                            var objs = ef.SYS_UTYPE_MODULE.Where(s => s.usertypeid_fx == ugid && s.moduleid_fx == mod1id);
-                                        }
-                                        @if (objs.Count() != 0)
-                                        {
-                                            if (objs.First<SYS_UTYPE_MODULE>().iswrite == 1)
-                                            {
-                                                @Html.ActionLink("编辑 |", "Edit", new { id = item.id })
-                                            }
-                                        }
-                                        @Html.ActionLink("查看", "Details", new { id = item.id })
-
-                                        @if (objs.Count() != 0)
-                                        {
-                                            if (objs.First<SYS_UTYPE_MODULE>().iswrite == 1)
-                                            {
-                                                @Html.ActionLink("| 删除", "Delete", new { id = item.id })
-                                            }
-                                        }
+                                        @Html.ActionLink("编辑", "Edit", new { id = item.id }) |
+                                        @Html.ActionLink("查看", "Details", new { id = item.id }) |
+                                        @Html.ActionLink("删除", "Delete", new { id = item.id })
                                     </td>
                                 </tr>
                                                 }

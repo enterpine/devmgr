@@ -16,7 +16,7 @@ namespace devmgr.Controllers
         private Model1 db = new Model1();
 
         // GET: FLOW_PRODUCT
-        public ActionResult Index(string searchName, string sortOrder,int? pageNum,int? mistatus)
+        public ActionResult Index(string searchName, string sortOrder,int? pageNum,int? mistatus,int? sst)
         {
             var products = from s in db.FLOW_PRODUCT
                            select s;
@@ -42,6 +42,13 @@ namespace devmgr.Controllers
             if (mistatus == 0)
             {//我负责的
                 products = products.Where(s => s.Responserid_fx == cuid);
+            }
+            if (sst == 1) {
+                products = products.Where(s => s.statuss == "进行中");
+            }
+            if (sst == 0)
+            {
+                products = products.Where(s => s.statuss == "已完成");
             }
             //###########################################################
 

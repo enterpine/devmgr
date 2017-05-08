@@ -3,6 +3,31 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+        //多级下拉框js
+        $(document).ready(function () {
+            $("#searchProjmo").empty();
+            GetProjmo();
+            $("#searchProj").change(function () {
+                GetProjmo();
+            });
+        });
+        function GetProjmo() {
+            $("#searchProjmo").empty();
+            $.getJSON("/FLOW_MISSION/getprojmo",
+                        { projectid_fx: $("#searchProj").val() },
+                        function (data) {
+                            $.each(data, function (i, item) {
+                                var tempOption = document.createElement("option");
+                                tempOption.value = item.Value;
+                                tempOption.innerHTML = item.Text;
+                                $("#searchProjmo").append(tempOption);
+                            }
+                        )
+                        });
+        }
+</script>
 <div class="navbar-collapse collapse">
     <ul class="nav navbar-nav">
         <li>@Html.ActionLink("任务管理", "Index", "FLOW_MISSION")</li>
@@ -10,6 +35,21 @@
     </ul>
 </div>
     <h2>任务统计</h2>
+
+
+    <span style="background-color: rgb(255, 255, 102);">
+        @using (Html.BeginForm("Index", "Report", FormMethod.Get, new { @class = "form-inline" }))
+        {
+            <p>
+                所在产品: @Html.DropDownList("searchProd", ViewData["categories_prod"] as SelectList, "请选择项目", new { @style = "width:150px;height:30px;font-size:12px;", @id = "searchProj" })
+                &nbsp;所在项目: @Html.DropDownList("searchProj", ViewData["categories_proj"] as SelectList, "请选择项目", new { @style = "width:150px;height:30px;font-size:12px;", @id = "searchProj" })
+                所属模块: @Html.DropDownList("searchProjmo", ViewData["categories_projmo"] as SelectList, "请选择模块", new { @style = "width:150px;height:30px;font-size:12px;", @id = "searchProjmo" })
+                &nbsp; 任务状态: @Html.RadioButton("mistatus", 1)已完成 @Html.RadioButton("mistatus", 0) 待处理 @Html.RadioButton("mistatus", 2, true) 全部
+                &nbsp;<input type="submit" value="查询" class="btn btn-default" />
+            </p>
+        }
+    </span>
+
 
 
     
