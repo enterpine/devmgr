@@ -20,7 +20,7 @@
         public string company_name { get; set; }
 
         [StringLength(30)]
-        [Display(Name = "客服负责人")]
+        [Display(Name = "客户负责人")]
         public string uname { get; set; }
 
         [StringLength(20)]
@@ -28,7 +28,8 @@
         public string tel { get; set; }
 
         [StringLength(20)]
-        [Display(Name = "客服负邮箱")]
+        [Display(Name = "负责人邮箱")]
+        [EmailAddress]
         public string email { get; set; }
 
         [StringLength(100)]

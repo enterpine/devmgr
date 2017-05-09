@@ -21,7 +21,7 @@
         [StringLength(20)]
         [Display(Name = "产品名称")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "名称不能为空")]
-        [Remote("CheckProductName", "Validate")]
+        [Remote("CheckProductName", "Validate",AdditionalFields = "id")]
         public string name { get; set; }
 
 

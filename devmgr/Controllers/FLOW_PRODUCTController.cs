@@ -175,7 +175,8 @@ namespace devmgr.Controllers
         // 详细信息，请参阅 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,code,Responserid_fx,name,clientid_fx,stratdate,deadlinedate,request_text,request_file,statuss,desc_text,remark,whocreateid_fx,createdate")] FLOW_PRODUCT fLOW_PRODUCT)
+        [ValidateInput(false)]
+        public ActionResult Edit([Bind(Include = "id,code,Responserid_fx,name,clientid_fx,stratdate,deadlinedate,request_text,statuss,request_file,statuss,desc_text,remark,whocreateid_fx,createdate")] FLOW_PRODUCT fLOW_PRODUCT)
         {
             if (ModelState.IsValid)
             {

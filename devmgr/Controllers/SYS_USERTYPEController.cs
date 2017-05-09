@@ -73,7 +73,7 @@ namespace devmgr.Controllers
                 db.SaveChanges();
 
                 //START:添加默认权限
-                for (int i = 1; i <= 12; i++)
+                for (int i = 1; i <= 13; i++)
                 {
                     if (i != 6)
                     {

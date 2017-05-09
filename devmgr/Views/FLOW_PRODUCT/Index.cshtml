@@ -27,10 +27,10 @@
     @using (Html.BeginForm("Index", "FLOW_PRODUCT", FormMethod.Get, new { @class = "form-inline" }))
     {
         <p>
-            任务名称: @Html.TextBox("searchName", null, new { @class = "form-control", @placeholder = "请输入关键字", @style = "width:150px;height:30px;font-size:12px;" })
-            &nbsp; &nbsp; | @Html.RadioButton("mistatus", 1) 由我创建 @Html.RadioButton("mistatus", 0) 由我负责 @Html.RadioButton("mistatus", 2, true) 全部|
-            &nbsp; &nbsp; @Html.RadioButton("sst", 1) 进行中 @Html.RadioButton("sst", 0) 已完成 @Html.RadioButton("sst", 2, true) 全部|
-            &nbsp;<input type="submit" value="查询" class="btn btn-default" />
+            产品名称: @Html.TextBox("searchName", null, new { @class = "form-control", @placeholder = "请输入关键字", @style = "width:150px;height:30px;font-size:12px;" })
+            &nbsp; &nbsp; | &nbsp; &nbsp; @Html.RadioButton("mistatus", 1) 由我创建 @Html.RadioButton("mistatus", 0) 由我负责 @Html.RadioButton("mistatus", 2, true) 全部&nbsp; &nbsp; |
+            &nbsp; &nbsp; @Html.RadioButton("sst", 1) 进行中 @Html.RadioButton("sst", 0) 已完成 @Html.RadioButton("sst", 2, true) 全部&nbsp; &nbsp; |
+            &nbsp; &nbsp; <input type="submit" value="查询" class="btn btn-default" />
         </p>
     }
 
@@ -63,7 +63,7 @@
                 @Html.DisplayNameFor(model => model.request_file)
             </th>*@
             <th>
-                任务进度
+                产品状态
             </th>
             <th>
                 创建者
