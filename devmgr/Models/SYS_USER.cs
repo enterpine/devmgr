@@ -25,7 +25,6 @@
 
         [StringLength(20)]
         [DataType(DataType.Password)]
-        [Required(AllowEmptyStrings = false, ErrorMessage = "密码不能为空")]
         [Display(Name = "密 码")]
         public string pwd { get; set; }
 

@@ -112,10 +112,10 @@ namespace devmgr.Controllers
                         return RedirectToLocal(returnUrl);
                     }
                 case "falure":
-                    ModelState.AddModelError("", Request.Cookies["username"].ToString());
+                    ModelState.AddModelError("","登陆失败，请检查用户名或重新输入密码！");
                     return View(model);
                 default:
-                    ModelState.AddModelError("", Request.Cookies["username"].ToString());
+                    ModelState.AddModelError("", "登陆失败，请检查用户名或重新输入密码！");
                     return View(model);
             }
 
