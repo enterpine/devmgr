@@ -79,7 +79,7 @@ namespace devmgr.Controllers
                     break;
             }
 
-            return View(products.ToPagedList(pageNum ?? 1, 10));
+            return View(products.ToPagedList(pageNum ?? 1, 5));
         }
 
         // GET: FLOW_PRODUCT/Details/5

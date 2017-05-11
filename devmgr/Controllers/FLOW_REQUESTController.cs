@@ -85,7 +85,7 @@ namespace devmgr.Controllers
                     break;
             }
 
-            return View(requests.ToPagedList(pageNum ?? 1, 10));
+            return View(requests.ToPagedList(pageNum ?? 1, 5));
         }
 
         // GET: FLOW_REQUEST/Details/5

@@ -21,7 +21,7 @@ namespace devmgr.Controllers
             var clients = from s in db.FLOW_CLIENT
                            select s;
             clients = clients.OrderBy(s => s.createdate);
-            return View(clients.ToPagedList(pageNum ?? 1, 10));
+            return View(clients.ToPagedList(pageNum ?? 1, 5));
         }
 
         // GET: FLOW_CLIENT/Details/5

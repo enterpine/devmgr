@@ -97,7 +97,7 @@ namespace devmgr.Controllers
                     break;
             }
 
-            return View(projmos.ToPagedList(pageNum ?? 1, 10));
+            return View(projmos.ToPagedList(pageNum ?? 1, 5));
         }
 
         // GET: FLOW_PROJMO/Details/5

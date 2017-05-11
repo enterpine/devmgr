@@ -39,7 +39,7 @@ namespace devmgr.Controllers
                 users = users.Where(s => s.cname.Contains(searchName));
             }
             users = users.OrderBy(s => s.departid_fx);
-            return View(users.ToPagedList(pageNum ?? 1, 10));
+            return View(users.ToPagedList(pageNum ?? 1, 5));
         }
 
         // GET: SYS_USER/Details/5

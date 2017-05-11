@@ -92,7 +92,7 @@ namespace devmgr.Controllers
                     break;
             }
 
-            return View(projects.ToPagedList(pageNum ?? 1, 10));
+            return View(projects.ToPagedList(pageNum ?? 1, 5));
         }
 
         // GET: FLOW_PROJECT/Details/5

@@ -57,7 +57,7 @@ namespace devmgr.Controllers
             return View();
         }
 
-        public ActionResult micnt(int? searchProd, int? searchProj, int? searchProjmo, string searchType)
+        public ActionResult micnt(int? searchProd, int? searchProj, int? searchProjmo, string searchType, int? mistatus)
         {
             List<FLOW_PRODUCT> categories_prod = FLOW_PRODUCT.GETALL();
             ViewData["categories_prod"] = new SelectList(categories_prod, "id", "name");
@@ -87,9 +87,16 @@ namespace devmgr.Controllers
             {
                 subwhere += " and missiontype =" + searchType.ToString();
             }
+            if (mistatus != null)
+            {
+                if (mistatus == 2) { }
+                else
+                {
+                    subwhere += " and iscomplete =" + mistatus.ToString();
+                }
+            }
 
-
-            string strSql = "select (select cname from SYS_USER where id = towhoid_fx) countItem,count(id) countVal from FLOW_MISSION where iscomplete=1 "+ subwhere + " group by towhoid_fx";
+            string strSql = "select (select cname from SYS_USER where id = towhoid_fx) countItem,count(id) countVal from FLOW_MISSION where 1=1 "+ subwhere + " group by towhoid_fx";
             DataSet ds = SqlHelper.ExecuteDataset(strSql);
             ChartsBind(ds, "countItem", "countVal", ref strCategories, ref strDataCol);
             strDataCol = ColumnDataToPieData(strCategories, strDataCol);

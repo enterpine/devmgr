@@ -1,0 +1,1 @@
+[{name:'¿ª·¢',y: 1,color: colors[0] },{name:'²âÊÔ',y: 1,color: colors[1] }]

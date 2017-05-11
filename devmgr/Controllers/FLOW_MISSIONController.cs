@@ -120,7 +120,7 @@ namespace devmgr.Controllers
                     break;
             }
             ViewBag.model2 = missions.ToList();
-            return View(missions.ToPagedList(pageNum ?? 1, 10));
+            return View(missions.ToPagedList(pageNum ?? 1, 5));
             //return View(missions.ToList());
         }
 

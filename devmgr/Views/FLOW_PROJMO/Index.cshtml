@@ -113,7 +113,16 @@
             @Html.DisplayFor(modelItem => item.remark)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.whocreateid)
+            @{ var obj3 = ef.SYS_USER.Where(item1 => item1.id == item.whocreateid); }
+            @if (obj3.Count<SYS_USER>() > 0)
+            {
+                @Html.Label(obj3.First<SYS_USER>().cname.ToString())
+            }
+            else
+            {
+
+
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.createdate, "shortdatetime")
