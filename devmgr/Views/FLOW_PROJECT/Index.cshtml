@@ -34,7 +34,7 @@
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("任务编号", "Index", new { sortOrder = ViewBag.CodeSortParm })
+            @Html.ActionLink("项目编号", "Index", new { sortOrder = ViewBag.CodeSortParm })
         </th>
         <th>
             项目名称
@@ -67,9 +67,9 @@
         @Html.DisplayNameFor(model => model.is_bottom)
     </th>*@
         
-        <th>
+        @*<th>
             备注
-        </th>
+        </th>*@
         <th>
             创建者
         </th>
@@ -139,9 +139,9 @@
             @Html.DisplayFor(modelItem => item.is_bottom)
         </td>*@
         
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.remark)
-        </td>
+        </td>*@
         @*<td>
             @Html.DisplayFor(modelItem => item.whocreateid_fx)
         </td>*@
